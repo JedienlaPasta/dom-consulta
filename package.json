@@ -13,7 +13,7 @@
     "server": "nodemon server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "sc",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
