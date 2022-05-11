@@ -40,4 +40,4 @@ mongoose.connect(process.env.CONNECTION_URL || CONNECTION_URL, { useNewUrlParser
 
 // app.get('/', (req, res) => {
 //     res.send('Welcome to Roles API')
-// })
+// }) 
