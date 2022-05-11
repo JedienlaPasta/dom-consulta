@@ -3,13 +3,17 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
-const path = require('path')
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
+import path from 'path'
 
 import rolesRoutes from './routes/roles.js'
 import permisosRoutes from './routes/permisos.js'
 import userRoutes from './routes/user.js'
 
 const app = express()
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 dotenv.config()
 
 app.use(express.json())
