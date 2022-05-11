@@ -62,10 +62,14 @@ export const clearUser = async (req, res) => {
 }
 
 export const isAuth = async (req, res) => {
-    const { id } = req.id
-    const user = await User.findOne({ _id: id })
-    res.header("Access-Control-Allow-Origin", "*")
-    res.status(200).json({ isAuthenticated: true, user: { name: user.name, role: user.role }})
+    try {
+        const { id } = req.id
+        const user = await User.findOne({ _id: id })
+        res.header("Access-Control-Allow-Origin", "*")
+        res.status(200).json({ isAuthenticated: true, user: { name: user.name, role: user.role }})
+    } catch (error) {
+        res.json({ message: error })
+    }
 }
 // 300 => 5 min \\ 3600 => 1h
 const accessToken = (id) => jwt.sign({ id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600})
