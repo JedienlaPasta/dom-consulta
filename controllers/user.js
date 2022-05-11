@@ -65,11 +65,8 @@ export const isAuth = async (req, res) => {
     try {
         const { id } = req.id
         const user = await User.findOne({ _id: id })
-        res.header("Access-Control-Allow-Origin", "true")
-        console.log('header sent')
         res.status(200).json({ isAuthenticated: true, user: { name: user.name, role: user.role }})
     } catch (error) {
-        console.log('couldnt send header')
         res.json({ message: error })
     }
 }
