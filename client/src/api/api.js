@@ -24,11 +24,11 @@ export const fetchRolesByDIR = (dir, quantity) => axios.get('/roles/dir', { para
 
 export const fetchPermisos = (rol) => axios.get('/permisos/rol', { params: rol })
 
-export const fetchPermisosByRUT = (rut) => axios.get('/permisos/rut', { params: rut })
+export const fetchPermisosByApellidoP = (apellido) => axios.get('/permisos/apellido', { params: apellido })
 
 export const fetchPermisosByDIR = (dir, quantity) => axios.get('/permisos/dir', { params: { dir: dir, quantity: quantity } })
 
-export const createPermiso = (permiso) => axios.post('permisos/create', { permiso })
+export const createPermiso = (permiso) => axios.post('/permisos/create', { permiso }) // aqui agregue un / al principio, antes funcionaba bien sin el /
 
 export const updatePermiso = (permiso) => axios.patch('/permisos/update', { permiso })
 

@@ -26,10 +26,10 @@ export default function Navbar() {
             <nav className='nav'>
                 <ul className='nav-links'>
                     <li className='link'>
-                        <Link className='link-item' to='/' onClick={changePage}>ROL_COBRO</Link>
+                        <Link className={`${page === 'rolcobro' ? 'link-item marked-link-item' : 'link-item'}`} to='/' onClick={changePage}><span>ROL_COBRO</span></Link>
                     </li>
                     <li className='link'>
-                        <Link className='link-item' to='/permisos' onClick={changePage}>PERMISOS</Link>
+                        <Link className={`${page === 'rolconsulta' ? 'link-item marked-link-item' : 'link-item'}`} to='/permisos' onClick={changePage}><span>PERMISOS</span></Link>
                     </li>
                     <li className='link'>
                         <Link className='link-item logout' to='/auth' onClick={handleLogout}><RiLogoutBoxRLine/></Link>

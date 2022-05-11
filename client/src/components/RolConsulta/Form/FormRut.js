@@ -1,12 +1,13 @@
 import React, { useContext, useState } from 'react'
-import { getRoles, getRolesByRUT } from '../../../actions/roles'
+import { getPermisosByApellidoP } from '../../../actions/permisos'
 import { isAuthenticated } from '../../../actions/users'
 import { DataContext } from '../../../context/DataContext'
+import Message from './Message/Message'
 
 export default function FormRut() {
-    const [rut, setRut] = useState('')
+    const [apellido, setApellido] = useState('')
 
-    const { dispatch, setUser, setIsAuth } = useContext(DataContext)
+    const { dispatch, setUser, setIsAuth, message, setMessage } = useContext(DataContext)
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -15,7 +16,7 @@ export default function FormRut() {
             setUser(user)
             setIsAuth(isAuthenticated)
             if (isAuthenticated) {
-                getRolesByRUT(rut, dispatch)
+                getPermisosByApellidoP(apellido, dispatch, setMessage)
             }
         })
     }
@@ -24,12 +25,13 @@ export default function FormRut() {
         <form className='form-consulta' onSubmit={handleSubmit}>
             <span className='inputs grid-inputs grid-inputs-full'>
                 <div className="input">
-                    <label className='hint'>RUT</label>
-                    <input type='number' name='rut' required placeholder='Ingresar RUT sin DV...' value={rut} onChange={(e) => setRut(e.target.value)} />
+                    <label className='hint'>Apellido Paterno</label>
+                    <input type='text' name='rut' required placeholder='Ingresar Apellido Paterno...' value={apellido} onChange={(e) => setApellido(e.target.value)} />
                 </div>
             </span>
             <br />
             <button type='submit'>Buscar</button>
+            { message && <Message message={message} /> }
         </form>
     )
 }

@@ -18,7 +18,6 @@ export default function Auth() {
         event.preventDefault()
         login(authUser, setMessage).then(data => {
             const { isAuthenticated, user } = data
-            console.log(data)
             if (isAuthenticated) {
                 setUser(user)
                 setIsAuth(isAuthenticated)

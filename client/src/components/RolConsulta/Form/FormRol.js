@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { getPermisos } from '../../../actions/permisos'
 import { isAuthenticated } from '../../../actions/users'
 import { DataContext } from '../../../context/DataContext'
+import Message from './Message/Message'
 
 export default function FormRol({ crudFilter, setCrudFilter}) {
     const [rol, setRol] = useState({ 
@@ -9,21 +10,22 @@ export default function FormRol({ crudFilter, setCrudFilter}) {
         digito: '' 
     })
 
-    const { dispatch, setUser, setIsAuth } = useContext(DataContext)
+    const { dispatch, setUser, setIsAuth, message, setMessage } = useContext(DataContext)
 
     const handleSubmit = (event) => {
         event.preventDefault()
+        setMessage('')
         isAuthenticated().then(data => {
             const { isAuthenticated, user } = data
             setUser(user)
             setIsAuth(isAuthenticated)
             if (isAuthenticated) {
                 setCrudFilter({...crudFilter, type: 'read'})
-                getPermisos(rol, dispatch)
+                getPermisos(rol, dispatch, setMessage)
             }
         })
     }
-
+    
     return (
         <form className='form-consulta' onSubmit={handleSubmit}>
             <span className='inputs grid-inputs grid-inputs-even'>
@@ -38,6 +40,7 @@ export default function FormRol({ crudFilter, setCrudFilter}) {
             </span>
             <br />
             <button type='submit'>Buscar</button>
+            { message && <Message message={message} /> }
         </form>
     )
 }

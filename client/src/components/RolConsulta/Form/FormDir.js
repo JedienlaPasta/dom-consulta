@@ -2,22 +2,24 @@ import React, { useContext, useState } from 'react'
 import { getPermisosByDIR } from '../../../actions/permisos'
 import { isAuthenticated } from '../../../actions/users'
 import { DataContext } from '../../../context/DataContext'
+import Message from './Message/Message'
 
 export default function FormRut({ crudFilter, setCrudFilter}) {
     const [dir, setDir] = useState('')
     const [quantity, setQuantity] = useState(5)
 
-    const { dispatch, setUser, setIsAuth } = useContext(DataContext)
+    const { dispatch, setUser, setIsAuth, message, setMessage } = useContext(DataContext)
 
     const handleSubmit = (event) => {
         event.preventDefault()
+        setMessage('')
         isAuthenticated().then(data => {
             const { isAuthenticated, user } = data
             setUser(user)
             setIsAuth(isAuthenticated)
             if (isAuthenticated) {
                 setCrudFilter({...crudFilter, type: 'read'})
-                getPermisosByDIR(dir, quantity, dispatch)
+                getPermisosByDIR(dir, quantity, dispatch, setMessage)
             }
         })
     }
@@ -36,6 +38,7 @@ export default function FormRut({ crudFilter, setCrudFilter}) {
             </span>
             <br />
             <button type='submit'>Buscar</button>
+            { message && <Message message={message} /> }
         </form>
     )
 }

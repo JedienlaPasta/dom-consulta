@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ACTIONS, DataContext } from '../../context/DataContext'
 import Filter from './Filter/Filter'
@@ -14,13 +14,13 @@ export default function AppBody() {
     const history = useNavigate()
     const filters = [
         ['ROL', <FormRol key={'rol'} crudFilter={crudFilter} setCrudFilter={setCrudFilter}/>], 
-        ['RUT', <FormRut key={'rut'} crudFilter={crudFilter} setCrudFilter={setCrudFilter}/>], 
+        ['AP', <FormRut key={'ap'} crudFilter={crudFilter} setCrudFilter={setCrudFilter}/>], 
         ['DIR', <FormDir key={'dir'} crudFilter={crudFilter} setCrudFilter={setCrudFilter}/>]
     ]
     
     // Ingresar - Consultar filter buttons
     const displayCrudFilters = crudFilter.filters.map(item => <Filter key={item} val={item} crudFilter={crudFilter} type='crud' setCrudFilter={setCrudFilter} />)
-    // ROL - RUT - DIR filter buttons
+    // ROL - AP - DIR filter buttons
     const displayFilters = filters.map(item => <Filter key={item} val={item[0]} crudFilter={crudFilter} type='filter' setCrudFilter={setCrudFilter} />)
 
     useEffect(() => {
@@ -65,7 +65,7 @@ export default function AppBody() {
                             {displayFilters}
                         </ul>
                         <h4 className='titulo-consulta'>Haga su consulta</h4>
-                        {   // aqui se define que formulario de renderiza, dependiendo de la opcion elegida: ['ROL', 'RUT', 'DIR']
+                        {   // aqui se define que formulario de renderiza, dependiendo de la opcion elegida: ['ROL', 'AP', 'DIR']
                             filters.map(item => item[0] === crudFilter.filter ? item[1] : null)
                         }
                         { roles.length > 0 && <List crudFilter={crudFilter} setCrudFilter={setCrudFilter} setShowPopup={setShowPopup} save={save} deletePermiso={deletePermiso} /> }
