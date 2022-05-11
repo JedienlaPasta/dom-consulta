@@ -1,0 +1,40 @@
+/* header ============================================================== */
+.nav-header {
+    /* background-color: rgb(235, 228, 228); */
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 100px;
+    width: 100%;
+    color: #42454b;
+}
+.nav-links {
+    display: flex;
+}
+.link {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin-left: 25px;
+    font-size: 0.8em;
+    /* font-weight: 600; */
+}
+.link-item {
+    text-decoration: none;
+    color: #133274;
+}
+.logout {
+    text-decoration: none;
+    font-size: 1.2em;
+    background-color: rgba(154, 165, 173, 0.164);
+    display: flex;
+    padding: 10px;
+    border-radius: 8px;
+    color: rgb(112, 112, 112);
+    transition: background-color ease-in 200ms,
+                color ease-in 200ms;
+}
+.logout:hover {
+    background-color: var(--clr-blue);
+    color: white;
+}
