@@ -4,10 +4,9 @@
     align-items: center;
     justify-content: space-between;
     height: 100px;
-    width: 100%;
     color: #42454b;
-    padding: 0 10%;
-    max-width: 1000px;
+    padding: 0 21px;
+    max-width: 600px;
     margin: auto;
 }
 .nav-links {
