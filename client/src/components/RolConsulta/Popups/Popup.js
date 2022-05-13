@@ -50,7 +50,7 @@ export default function Popup({ showPopup, setShowPopup, crudFilter, setCrudFilt
                 setMsg('Guardando...')
                 patchPermiso(newPermiso, setMessage)
             }
-            // Se vacia el formulario una vez ingresado el permiso
+            // Se vacia el formulario una vez ingresado el permiso 
             setNewPermiso(permisoInitialValue) // se reestablece el valor de newPermiso a su estado original (vacio)
         }
         else {
