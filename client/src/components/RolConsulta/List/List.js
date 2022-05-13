@@ -3,6 +3,10 @@ import { ACTIONS, DataContext } from '../../../context/DataContext'
 import { FiChevronsLeft, FiChevronsRight } from 'react-icons/fi'
 import InsertItem from './InsertItem'
 import Item from './Item'
+import { FiDownloadCloud } from 'react-icons/fi'
+
+import axios from 'axios'
+import fileDownload from 'js-file-download';
 
 export default function List({ save, deletePermiso }) {
     const { roles, dispatch, user, rolIndex, setRolIndex, newPermiso, setNewPermiso, crudFilter, setCrudFilter } = useContext(DataContext)
@@ -54,10 +58,22 @@ export default function List({ save, deletePermiso }) {
             setCrudFilter({...crudFilter, crudType: 'Consultar', type: 'read'})
         }
     }
+    // refactor this ==============================================================>
+    const downloadFile = async (event) => {
+        event.preventDefault()
+        await axios({
+            url:'permisos/exportpermisos',
+            method: 'GET',
+            responseType: 'blob'
+        }).then(res => {
+            fileDownload(res.data, 'download.xlsx')
+            return res.date.pipe(res)
+        }).catch(err => console.log(err))
+    }
 
     return (
         <form className='form'>
-            {   user.role === 'admin' && type !== 'insert' && type !== 'update' &&
+            {   user.role === 'admin' && type !== 'insert' && type !== 'update' && crudFilter.crudType !== 'Descargar' &&
                 <div>
                     <p className='warning'>Cuidado, usted tiene permisos para editar y eliminar registros</p>
                     <div className="crud-btns-container">
@@ -89,6 +105,16 @@ export default function List({ save, deletePermiso }) {
                     <button className='crud-btn save' onClick={save}>Guardar</button>
                     <button className='crud-btn cancel' onClick={cancel}>Cancelar</button>
                 </div>
+            }
+            {
+                crudFilter.crudType === 'Descargar' &&
+                <div>
+                    <div className='download-container' onClick={(e) => downloadFile(e)}>
+                        <FiDownloadCloud className='download-img' />
+                        <span className='download-text'>Descargar</span>
+                    </div>
+                </div>
+                
             }
         </form>
     )

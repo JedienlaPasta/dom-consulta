@@ -33,3 +33,7 @@ export const createPermiso = (permiso) => axios.post('/permisos/create', { permi
 export const updatePermiso = (permiso) => axios.patch('/permisos/update', { permiso })
 
 export const deletePermiso = (id) => axios.delete('/permisos/delete', { params: id })
+
+// export permisos
+
+export const getExcelFromDB = () => axios.post('/exportpermisos')

@@ -273,3 +273,24 @@ tr:not(:last-child) {
 .btn-right {
     right: 0;
 }
+
+
+/* donwload ============================================================ */
+
+.download-container {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    padding: 0 10px;
+    cursor: pointer;
+}
+.download-img {
+    font-size: 4em;
+    color: var(--clr-blue);
+}
+.download-text {
+    margin-top: 5px;
+}

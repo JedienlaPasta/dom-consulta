@@ -1,4 +1,7 @@
 import Permiso from "../models/permisosModel.js"
+import XLSX from 'xlsx'
+
+import { filePath } from "../server.js"
 
 export const getPermiso = async (req, res) => {
     const roles = req.query
@@ -92,4 +95,22 @@ export const deletePermiso = async (req, res) => {
         console.log('no se pudo eliminar el permiso')
         res.status(400).json({ message: 'No se pudo eliminar el permiso' })
     }
+}
+
+export const exportPermisos = async (req, res) => {
+    const wb = XLSX.utils.book_new()
+    Permiso.find((err, data) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            let temp = JSON.stringify(data)
+            temp = JSON.parse(temp)
+            const ws = XLSX.utils.json_to_sheet(temp)
+            const down = filePath
+            XLSX.utils.book_append_sheet(wb, ws, 'sheet1')
+            XLSX.writeFile(wb, down)
+            res.sendFile(down)
+        }    
+    })
 }

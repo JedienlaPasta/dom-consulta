@@ -1,4 +1,4 @@
-import { fetchPermisos, fetchPermisosByApellidoP, fetchPermisosByDIR, createPermiso, updatePermiso, deletePermiso } from "../api/api"
+import { fetchPermisos, fetchPermisosByApellidoP, fetchPermisosByDIR, createPermiso, updatePermiso, deletePermiso, getExcelFromDB } from "../api/api"
 import { ACTIONS } from "../context/DataContext"
 
 export const getPermisos = async (rol, dispatch, setMessage) => {
@@ -75,3 +75,14 @@ export const delPermiso = async (id, setMessage) => {
         }
     }
 }
+
+// export const downloadPermisos = async (setMessage) => {
+//     try {
+//         await getExcelFromDB()
+//     } catch (error) {
+//         if (error.message) {
+//             setTimeout(() => setMessage(error.response.data.message), 500)
+//             console.log(error.response.data.message)
+//         }
+//     }
+// }

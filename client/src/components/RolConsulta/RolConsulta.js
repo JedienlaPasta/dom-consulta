@@ -10,7 +10,7 @@ import './style.css'
 import Popup from './Popups/Popup'
 
 export default function AppBody() {
-    const { roles, user, isAuth, dispatch, setPage, showPopup, setShowPopup, crudFilter, setCrudFilter, setNewPermiso, permisoInitialValue } = useContext(DataContext)
+    const { roles, user, isAuth, dispatch, setPage, showPopup, setShowPopup, crudFilter, setCrudFilter, setNewPermiso, permisoInitialValue, setMessage } = useContext(DataContext)
     const history = useNavigate()
     const filters = [
         ['ROL', <FormRol key={'rol'} crudFilter={crudFilter} setCrudFilter={setCrudFilter}/>], 
@@ -47,6 +47,11 @@ export default function AppBody() {
         setCrudFilter({...crudFilter, type: 'delete'})
         setShowPopup(true)
     }
+
+    // const download = (event) => {
+    //     event.preventDefault()
+    //     setShowPopup(true)
+    // }
 
     return (
         <div className='app-container'>
