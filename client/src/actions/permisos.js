@@ -1,4 +1,5 @@
-import { fetchPermisos, fetchPermisosByApellidoP, fetchPermisosByDIR, createPermiso, updatePermiso, deletePermiso, getExcelFromDB } from "../api/api"
+import fileDownload from "js-file-download"
+import { fetchPermisos, fetchPermisosByApellidoP, fetchPermisosByDIR, createPermiso, updatePermiso, deletePermiso, getExcelFile } from "../api/api"
 import { ACTIONS } from "../context/DataContext"
 
 export const getPermisos = async (rol, dispatch, setMessage) => {
@@ -76,13 +77,16 @@ export const delPermiso = async (id, setMessage) => {
     }
 }
 
-// export const downloadPermisos = async (setMessage) => {
-//     try {
-//         await getExcelFromDB()
-//     } catch (error) {
-//         if (error.message) {
-//             setTimeout(() => setMessage(error.response.data.message), 500)
-//             console.log(error.response.data.message)
-//         }
-//     }
-// }
+export const downloadPermisos = async () => {
+    const { data } = await getExcelFile()
+    try {
+        fileDownload(data, 'download.xlsx')
+    } catch (error) {
+        if (error.message) {
+            console.log(error.response.data.message)
+        }
+        else {
+            console.log(error)
+        }
+    }
+}

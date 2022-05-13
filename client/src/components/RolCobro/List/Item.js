@@ -38,7 +38,7 @@ export default function Item({ rol, index, tot }) {
     const dv = getDV() || ''
 
     const currencyFormat = (val) => {
-        return "$" + val?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+        return val?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
     }
     
     return (
@@ -83,15 +83,15 @@ export default function Item({ rol, index, tot }) {
                     </tr>
                     <tr>
                         <th>CONTRIBUCIÓN:</th>
-                        <td>{currencyFormat(rol?.CONTRIBUCION)}</td>
+                        <td>{'$' + currencyFormat(rol?.CONTRIBUCION)}</td>
                     </tr>
                     <tr>
                         <th>AVALÚO TOTAL:</th>
-                        <td>{currencyFormat(rol?.AVALUO_TOTAL)}</td>
+                        <td>{'$' + currencyFormat(rol?.AVALUO_TOTAL)}</td>
                     </tr>
                     <tr>
                         <th>AVALÚO EXENTO:</th>
-                        <td>{currencyFormat(rol?.AVALUO_EXENTO)}</td>
+                        <td>{'$' + currencyFormat(rol?.AVALUO_EXENTO)}</td>
                     </tr>
                     <tr>
                         <th>TER.EXEN:</th>

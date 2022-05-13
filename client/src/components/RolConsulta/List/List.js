@@ -4,9 +4,7 @@ import { FiChevronsLeft, FiChevronsRight } from 'react-icons/fi'
 import InsertItem from './InsertItem'
 import Item from './Item'
 import { FiDownloadCloud } from 'react-icons/fi'
-
-import axios from 'axios'
-import fileDownload from 'js-file-download';
+import { downloadPermisos } from '../../../actions/permisos'
 
 export default function List({ save, deletePermiso }) {
     const { roles, dispatch, user, rolIndex, setRolIndex, newPermiso, setNewPermiso, crudFilter, setCrudFilter } = useContext(DataContext)
@@ -61,14 +59,14 @@ export default function List({ save, deletePermiso }) {
     // refactor this ==============================================================>
     const downloadFile = async (event) => {
         event.preventDefault()
-        await axios({
-            url:'permisos/exportpermisos',
-            method: 'GET',
-            responseType: 'blob'
-        }).then(res => {
-            fileDownload(res.data, 'download.xlsx')
-            return res.date.pipe(res)
-        }).catch(err => console.log(err))
+        downloadPermisos()
+        // await axios({
+        //     url:'permisos/exportpermisos',
+        //     method: 'GET',
+        //     responseType: 'blob'
+        // }).then(res => {
+        //     fileDownload(res.data, 'download.xlsx')
+        // }).catch(err => console.log(err))
     }
 
     return (
@@ -114,7 +112,6 @@ export default function List({ save, deletePermiso }) {
                         <span className='download-text'>Descargar</span>
                     </div>
                 </div>
-                
             }
         </form>
     )

@@ -65,6 +65,10 @@ export default function Popup({ showPopup, setShowPopup, crudFilter, setCrudFilt
         delPermiso({ id: newPermiso._id }, setMessage)
     }
 
+    const downloadFile = () => {
+
+    }
+
     const reset = () => {
         setShowPopup(false)
         setMsg('')
@@ -88,23 +92,31 @@ export default function Popup({ showPopup, setShowPopup, crudFilter, setCrudFilt
         <div className='popup-background'>
             { !message &&
                 <div className="popup-container">
-                    <div className="popup-header">
-                        { crudFilter.type !== 'insert' && crudFilter.type !== 'read' && msg !== 'Guardando...' && msg !== 'Eliminando...' && <h4 className="popup-title"> {/* !message && ... */}
-                            Estas seguro de que quieres continuar?
-                        </h4>}
-                        <button className='popup-close-btn' onClick={close}><CgClose/></button>
-                    </div>
-                    <div className='popup-body-container'>
-                        <p className='popup-body'>{ loading ? 'Loading...' : msg }</p>
-                    </div>
-                    { crudFilter.type !== 'insert' && crudFilter.type !== 'read' && msg !== 'Guardando...' && msg !== 'Eliminando...' && <div className="popup-btns"> {/* !message && ... */}
-                        {   crudFilter.type === 'update' ?
-                            <button className='popup-continue-btn' onClick={savePermiso}>Continuar</button>
-                            :
-                            <button className='popup-continue-btn' onClick={deletePermiso}>Continuar</button>
-                        }
-                        <button className='popup-cancel-btn' onClick={close}>Cancelar</button>
-                    </div>}
+                    {   crudFilter.crudType !== 'Delete' ?
+                        <div className="decision-popup">
+                            <div className="popup-header">
+                                { crudFilter.type !== 'insert' && crudFilter.type !== 'read' && msg !== 'Guardando...' && msg !== 'Eliminando...' && <h4 className="popup-title"> {/* !message && ... */}
+                                    Estas seguro de que quieres continuar?
+                                </h4>}
+                                <button className='popup-close-btn' onClick={close}><CgClose/></button>
+                            </div>
+                            <div className='popup-body-container'>
+                                <p className='popup-body'>{ loading ? 'Loading...' : msg }</p>
+                            </div>
+                            { crudFilter.type !== 'insert' && crudFilter.type !== 'read' && msg !== 'Guardando...' && msg !== 'Eliminando...' && <div className="popup-btns"> {/* !message && ... */}
+                                {   crudFilter.type === 'update' ?
+                                    <button className='popup-continue-btn' onClick={savePermiso}>Continuar</button>
+                                    :
+                                    <button className='popup-continue-btn' onClick={deletePermiso}>Continuar</button>
+                                }
+                                <button className='popup-cancel-btn' onClick={close}>Cancelar</button>
+                            </div>}
+                        </div>
+                    :
+                        <div className='loading-popup'>
+                            {/* my loading item */}
+                        </div>
+                    }
                 </div>
             }
             {   message &&
