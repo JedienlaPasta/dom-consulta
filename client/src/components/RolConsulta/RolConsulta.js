@@ -10,7 +10,7 @@ import './style.css'
 import Popup from './Popups/Popup'
 
 export default function AppBody() {
-    const { roles, user, isAuth, dispatch, setPage, showPopup, setShowPopup, crudFilter, setCrudFilter, setNewPermiso, permisoInitialValue, setMessage } = useContext(DataContext)
+    const { roles, user, isAuth, dispatch, setPage, showPopup, setShowPopup, crudFilter, setCrudFilter, setNewPermiso, permisoInitialValue } = useContext(DataContext)
     const history = useNavigate()
     const filters = [
         ['ROL', <FormRol key={'rol'} crudFilter={crudFilter} setCrudFilter={setCrudFilter}/>], 
@@ -18,10 +18,12 @@ export default function AppBody() {
         ['DIR', <FormDir key={'dir'} crudFilter={crudFilter} setCrudFilter={setCrudFilter}/>]
     ]
     
-    // Ingresar - Consultar filter buttons
+    // Ingresar - Consultar - Descargar filter buttons
     const displayCrudFilters = crudFilter.filters.map(item => <Filter key={item} val={item} crudFilter={crudFilter} type='crud' setCrudFilter={setCrudFilter} />)
     // ROL - AP - DIR filter buttons
     const displayFilters = filters.map(item => <Filter key={item} val={item[0]} crudFilter={crudFilter} type='filter' setCrudFilter={setCrudFilter} />)
+    // Aqui se define que formulario de renderiza, dependiendo de la opcion elegida: ['ROL', 'AP', 'DIR']
+    const displayForm = filters.map(item => item[0] === crudFilter.filter ? item[1] : null)
 
     useEffect(() => {
         dispatch({ type: ACTIONS.FETCH_MATCHES, payload: [] })
@@ -33,9 +35,7 @@ export default function AppBody() {
         setPage('rolconsulta')
     })
 
-    // Funciones de botones de accion ( guardar // cancelar )
-
-    // quizas colocar editPermiso aqui tambien
+    // Estas funciones son para abrir un Popup, el cual verificará que el usuario desee continuar con la operación, o simplemente entregará información adicional
 
     const save = (event) => {
         event.preventDefault()
@@ -48,10 +48,10 @@ export default function AppBody() {
         setShowPopup(true)
     }
 
-    // const download = (event) => {
-    //     event.preventDefault()
-    //     setShowPopup(true)
-    // }
+    const downloadFile = (event) => {
+        event.preventDefault()
+        setShowPopup(true)
+    }
 
     return (
         <div className='app-container'>
@@ -64,21 +64,14 @@ export default function AppBody() {
                 </div>
             }
             <div className='body-container'>
-                {   crudFilter.crudType === 'Consultar' ?
-                    (<>
-                        <ul className='filter-links'>
-                            {displayFilters}
-                        </ul>
+                {   crudFilter.crudType === 'Consultar' 
+                    ? <>
+                        <ul className='filter-links'>{displayFilters}</ul>
                         <h4 className='titulo-consulta'>Haga su consulta</h4>
-                        {   // aqui se define que formulario de renderiza, dependiendo de la opcion elegida: ['ROL', 'AP', 'DIR']
-                            filters.map(item => item[0] === crudFilter.filter ? item[1] : null)
-                        }
+                        {displayForm}
                         { roles.length > 0 && <List crudFilter={crudFilter} setCrudFilter={setCrudFilter} setShowPopup={setShowPopup} save={save} deletePermiso={deletePermiso} /> }
-                    </>)
-                    :
-                    (<>
-                        <List crudFilter={crudFilter} setCrudFilter={setCrudFilter} setShowPopup={setShowPopup} save={save} />
-                    </>)
+                    </>
+                    : <List crudFilter={crudFilter} setCrudFilter={setCrudFilter} setShowPopup={setShowPopup} save={save} downloadFile={downloadFile} />
                 }
             </div>
         </div>

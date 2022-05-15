@@ -8,11 +8,12 @@ export default function FormRut({ crudFilter, setCrudFilter}) {
     const [dir, setDir] = useState('')
     const [quantity, setQuantity] = useState(5)
 
-    const { dispatch, setUser, setIsAuth, message, setMessage } = useContext(DataContext)
+    const { dispatch, setUser, setIsAuth, message, setMessage, setRolIndex } = useContext(DataContext)
 
     const handleSubmit = (event) => {
         event.preventDefault()
         setMessage('')
+        setRolIndex(0)
         isAuthenticated().then(data => {
             const { isAuthenticated, user } = data
             setUser(user)

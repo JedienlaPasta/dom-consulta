@@ -10,7 +10,6 @@ export const getPermisos = async (rol, dispatch, setMessage) => {
         if (error.response) {
             setMessage(error.response.data.message)
             dispatch({ type: ACTIONS.FETCH_MATCHES, payload: [] })
-            console.log(error.response.data.message)
         }
     }
 }
@@ -23,7 +22,6 @@ export const getPermisosByApellidoP = async (apellido, dispatch, setMessage) => 
         if (error.response) {
             setMessage(error.response.data.message)
             dispatch({ type: ACTIONS.FETCH_MATCHES, payload: [] })
-            console.log(error.response.data.message)
         }
     }
 }
@@ -36,11 +34,10 @@ export const getPermisosByDIR = async (dir, quantity, dispatch, setMessage) => {
         if (error.response) {
             setMessage(error.response.data.message)
             dispatch({ type: ACTIONS.FETCH_MATCHES, payload: [] })
-            console.log(error.response.data.message)
         }
     }
 }
-// from here on are the setTimeout() functions correct?
+
 export const postPermiso = async (permiso, setMessage) => {
     try {
         const { data } = await createPermiso(permiso)
@@ -77,10 +74,11 @@ export const delPermiso = async (id, setMessage) => {
     }
 }
 
-export const downloadPermisos = async () => {
+export const downloadPermisos = async (setMessage) => {
     const { data } = await getExcelFile()
     try {
         fileDownload(data, 'download.xlsx')
+        setTimeout(() => setMessage('Descarga finalizada'), 500)
     } catch (error) {
         if (error.message) {
             console.log(error.response.data.message)

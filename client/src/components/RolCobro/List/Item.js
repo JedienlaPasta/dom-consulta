@@ -99,11 +99,11 @@ export default function Item({ rol, index, tot }) {
                     </tr>
                     <tr>
                         <th>DESTINO:</th>
-                        <td>{rol?.UBICACION}</td>
+                        <td>{rol?.DESTINO}</td>
                     </tr>
                     <tr>
                         <th>UBICACIÓN:</th>
-                        <td>{rol?.DESTINO}</td>
+                        <td>{rol?.UBICACION}</td>
                     </tr>
                 </tbody>
             </table>

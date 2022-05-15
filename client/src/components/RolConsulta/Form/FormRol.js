@@ -10,11 +10,12 @@ export default function FormRol({ crudFilter, setCrudFilter}) {
         digito: '' 
     })
 
-    const { dispatch, setUser, setIsAuth, message, setMessage } = useContext(DataContext)
+    const { dispatch, setUser, setIsAuth, message, setMessage, setRolIndex } = useContext(DataContext)
 
     const handleSubmit = (event) => {
         event.preventDefault()
         setMessage('')
+        setRolIndex(0)
         isAuthenticated().then(data => {
             const { isAuthenticated, user } = data
             setUser(user)

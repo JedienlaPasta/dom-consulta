@@ -4,9 +4,8 @@ import { FiChevronsLeft, FiChevronsRight } from 'react-icons/fi'
 import InsertItem from './InsertItem'
 import Item from './Item'
 import { FiDownloadCloud } from 'react-icons/fi'
-import { downloadPermisos } from '../../../actions/permisos'
 
-export default function List({ save, deletePermiso }) {
+export default function List({ save, deletePermiso, downloadFile }) {
     const { roles, dispatch, user, rolIndex, setRolIndex, newPermiso, setNewPermiso, crudFilter, setCrudFilter } = useContext(DataContext)
     const totRoles = roles.length
     const type = crudFilter.type
@@ -16,11 +15,7 @@ export default function List({ save, deletePermiso }) {
     let displayItems
     if (type === 'insert') { displayItems = <InsertItem type={type} newPermiso={newPermiso} setNewPermiso={setNewPermiso} /> }
     else if (type === 'update') { displayItems = roles.map((rol) => <InsertItem type={type} newPermiso={newPermiso} setNewPermiso={setNewPermiso} data={rol} key={rol._id} />) }
-    else {
-        displayItems = roles.map((rol, index) => ( index === rolIndex ?
-            <Item key={rol._id} {...rol} index={index} tot={totRoles} /> : null
-        ))
-    }
+    else { displayItems = roles.map((rol, index) => ( index === rolIndex ? <Item key={rol._id} {...rol} index={index} tot={totRoles} /> : null ))}
 
     // Funciones
 
@@ -50,25 +45,12 @@ export default function List({ save, deletePermiso }) {
 
     const cancel = (event) => {
         event.preventDefault()
-        console.log('cancel')
         dispatch({ type: ACTIONS.FETCH_MATCHES, payload: [] })
         if (crudFilter) {
             setCrudFilter({...crudFilter, crudType: 'Consultar', type: 'read'})
         }
     }
-    // refactor this ==============================================================>
-    const downloadFile = async (event) => {
-        event.preventDefault()
-        downloadPermisos()
-        // await axios({
-        //     url:'permisos/exportpermisos',
-        //     method: 'GET',
-        //     responseType: 'blob'
-        // }).then(res => {
-        //     fileDownload(res.data, 'download.xlsx')
-        // }).catch(err => console.log(err))
-    }
-
+    
     return (
         <form className='form'>
             {   user.role === 'admin' && type !== 'insert' && type !== 'update' && crudFilter.crudType !== 'Descargar' &&
@@ -81,7 +63,7 @@ export default function List({ save, deletePermiso }) {
                 </div>
             }
             <div className="list-items">
-                { crudFilter.filter === 'DIR' && totRoles > 1 && 
+                { totRoles > 1 && 
                     <div className="list-items-btns">
                         <h4 className='titulo-resultado'>Resultado #{rolIndex + 1}</h4>
                         <button className="list-btn btn-left" onClick={goBackwards}><FiChevronsLeft/></button>
@@ -107,7 +89,7 @@ export default function List({ save, deletePermiso }) {
             {
                 crudFilter.crudType === 'Descargar' &&
                 <div>
-                    <div className='download-container' onClick={(e) => downloadFile(e)}>
+                    <div className='download-container' onClick={downloadFile}>
                         <FiDownloadCloud className='download-img' />
                         <span className='download-text'>Descargar</span>
                     </div>
