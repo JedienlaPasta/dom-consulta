@@ -53,7 +53,7 @@ export default function List({ save, deletePermiso, downloadFile }) {
     
     return (
         <form className='form'>
-            {   user.role === 'admin' && type !== 'insert' && type !== 'update' && crudFilter.crudType !== 'Descargar' &&
+            {   user.role === 'dom_admin' && type !== 'insert' && type !== 'update' && crudFilter.crudType !== 'Descargar' &&
                 <div>
                     <p className='warning'>Cuidado, usted tiene permisos para editar y eliminar registros</p>
                     <div className="crud-btns-container">

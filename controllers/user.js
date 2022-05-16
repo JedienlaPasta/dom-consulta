@@ -19,7 +19,7 @@ export const register = async (req, res) => {
         role
     })
 
-    res.status(201).json({message: 'Sser registered successfully!'})
+    res.status(201).json({message: 'User registered successfully!'})
 }
 
 export const userAuth = async (req, res) => {

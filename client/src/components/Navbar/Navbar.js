@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { logout } from '../../actions/users'
 import { ACTIONS, DataContext } from '../../context/DataContext'
@@ -6,9 +6,10 @@ import { RiLogoutBoxRLine } from 'react-icons/ri'
 import './style.css'
 
 export default function Navbar() {
-    const { setUser, setIsAuth, dispatch, page } = useContext(DataContext)
+    const { user, setUser, setIsAuth, dispatch, page, setMessage } = useContext(DataContext)
 
     const handleLogout = () => {
+        setMessage('')
         logout().then(data => {
             setUser(data.user)
             setIsAuth(data.isAuthenticated)
@@ -28,9 +29,11 @@ export default function Navbar() {
                     <li className='link'>
                         <Link className={`${page === 'rolcobro' ? 'link-item marked-link-item' : 'link-item'}`} to='/' onClick={changePage}><span>ROL_COBRO</span></Link>
                     </li>
-                    <li className='link'>
-                        <Link className={`${page === 'rolconsulta' ? 'link-item marked-link-item' : 'link-item'}`} to='/permisos' onClick={changePage}><span>PERMISOS</span></Link>
-                    </li>
+                    {   (user.role === 'dom_admin' || user.role === 'dom_user') &&
+                        <li className='link'>
+                            <Link className={`${page === 'rolconsulta' ? 'link-item marked-link-item' : 'link-item'}`} to='/permisos' onClick={changePage}><span>PERMISOS</span></Link>
+                        </li>
+                    }
                     <li className='link'>
                         <Link className='link-item logout' to='/auth' onClick={handleLogout}><RiLogoutBoxRLine/></Link>
                     </li>

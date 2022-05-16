@@ -4,11 +4,11 @@ import { isAuthenticated } from '../../../actions/users'
 import { DataContext } from '../../../context/DataContext'
 import Message from './Message/Message'
 
-export default function FormRut({ crudFilter, setCrudFilter}) {
+export default function FormRut() {
     const [dir, setDir] = useState('')
     const [quantity, setQuantity] = useState(5)
 
-    const { dispatch, setUser, setIsAuth, message, setMessage, setRolIndex } = useContext(DataContext)
+    const { dispatch, setUser, setIsAuth, message, setMessage, setRolIndex, preventNegative } = useContext(DataContext)
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -19,7 +19,6 @@ export default function FormRut({ crudFilter, setCrudFilter}) {
             setUser(user)
             setIsAuth(isAuthenticated)
             if (isAuthenticated) {
-                setCrudFilter({...crudFilter, type: 'read'})
                 getPermisosByDIR(dir, quantity, dispatch, setMessage)
             }
         })
@@ -33,8 +32,8 @@ export default function FormRut({ crudFilter, setCrudFilter}) {
                     <input type='text' name='dir' required placeholder='Ingresar Dirección...' value={dir} onChange={(e) => setDir(e.target.value)} />
                 </div>
                 <div className="input">
-                    <label className='hint'>Resultados</label>
-                    <input type='number' name='quantity' className='text-center' value={quantity} onChange={(e) => setQuantity(e.target.value)} />
+                    <label className='hint'>Cantidad</label>
+                    <input type='number' name='quantity' className='text-center' value={quantity} onChange={(e) => preventNegative(e, setQuantity)} />
                 </div>
             </span>
             <br />

@@ -33,6 +33,13 @@ export const DataProvider = ({ children }) => {
     : { MATRIZ: '', DIGITO: '', NOMBRE: '', APELLIDO_P: '', APELLIDO_M: '', MZ: '', NSTPC: '', CALLE: '', SECTOR: '', N_VIV: '', M2_C_RECEP: '', M2_C_PERM: '', M2_S_PERM: '', M2_TOTAL: '', ESTADO: '' }
     const [newPermiso, setNewPermiso] = useState(permisoInitialValue)
 
+    const preventNegative = (e, fc, object) => {
+        if (object) {
+            return e.target.value < 0 ? fc(item => ({...item, [e.target.name]: 0 })) : fc(item => ({...item, [e.target.name]: e.target.value }))
+        }
+        e.target.value < 0 ? fc(0) : fc(e.target.value)
+    }
+
     useEffect(() => {
         isAuthenticated().then(data => {
             setUser(data.user)
@@ -50,13 +57,14 @@ export const DataProvider = ({ children }) => {
 
     useEffect(() => {
         setCrudFilter(c => ({...c, crudType: 'Consultar', filter: 'ROL', type: 'read'}))
+        setMessage('')
     }, [page])
 
     return (
         <div>
             {
                 !isLoaded ? <h1>Loading...</h1> :
-                <DataContext.Provider value={{ roles, dispatch, user, setUser, isAuth, setIsAuth, page, setPage, message, setMessage, newPermiso, setNewPermiso, permisoInitialValue, showPopup, setShowPopup, rolIndex, setRolIndex, crudFilter, setCrudFilter }}>
+                <DataContext.Provider value={{ roles, dispatch, user, setUser, isAuth, setIsAuth, page, setPage, message, setMessage, newPermiso, setNewPermiso, permisoInitialValue, showPopup, setShowPopup, rolIndex, setRolIndex, crudFilter, setCrudFilter, preventNegative }}>
                     { children }
                 </DataContext.Provider>
             }

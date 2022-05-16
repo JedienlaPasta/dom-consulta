@@ -25,15 +25,18 @@ export default function AppBody() {
     })
 
     return (
-        <div className='body-container'>
-            <ul className='filter-links'>
-                {displayFilters}
-            </ul>
-            <h4 className='titulo-consulta'>Haga su consulta</h4>
-            {
-                filters.map(item => item[0] === filter ? item[1] : null)
-            }
-            { roles.length > 0 && <List filter={filter} /> }
+        <div className="super-body-container">
+            <div className='body-container'>
+                <ul className='filter-links'>
+                    {displayFilters}
+                </ul>
+                <h4 className='titulo-consulta'>Haga su consulta</h4>
+                {
+                    filters.map(item => item[0] === filter ? item[1] : null)
+                }
+                { roles.length > 0 && <List /> }
+            </div>
         </div>
+        
     )
 }

@@ -5,33 +5,42 @@ import { filePath } from "../server.js"
 
 export const getPermiso = async (req, res) => {
     const roles = req.query
-    const permiso = await Permiso.find({ MATRIZ: roles?.matriz, DIGITO: roles?.digito })
+    let permiso
+    if (roles.matriz && roles.digito) {
+        permiso = await Permiso.find({ MATRIZ: roles?.matriz, DIGITO: roles?.digito }).limit(roles?.quantity)
+    }
+    else {
+        permiso = await Permiso.find({ MATRIZ: roles?.matriz }).limit(roles?.quantity)
+    }
     if (!permiso.length) {
         return res.status(404).json({ message: 'No se encontraron coincidencias' })
     }
     try {
+        console.log(permiso)
         res.status(200).json(permiso)
     } catch (error) {
-        res.status(404).json({ message: 'No se encontro el permiso' }) // creo que mas bien debiese dar un mensaje de error, si no encuentra nada, solo devuelve un objeto vacio {}
+        res.status(404).json({ message: 'Error inesperado' })
     }
 }
 
 export const getPermisoByApellidoP = async (req, res) => {
     const apellido = req.query?.apellido
-    const permiso = await Permiso.find({ APELLIDO_P: apellido })
+    const quantity = req.query?.quantity
+    // const permiso = await Permiso.find({ APELLIDO_P: apellido })
+    const permiso = await Permiso.find({ APELLIDO_P: { $regex: apellido, $options: 'i'} }).limit(quantity)
     if (!permiso.length) {
         return res.status(404).json({ message: 'No se encontraron coincidencias' })
     }
     try {
         res.status(200).json(permiso)
     } catch (error) {
-        res.status(404).json({ message: 'No se encontro el permiso' }) // creo que mas bien debiese dar un mensaje de error, si no encuentra nada, solo devuelve un objeto vacio {}
+        res.status(404).json({ message: 'Error inesperado' })
     }
 }
 
 export const getPermisosByDIR = async (req, res) => {
     const dir = req.query.dir || 'empty'
-    const quantity = req.query.quantity || 1
+    const quantity = req.query.quantity
     const permiso = await Permiso.find({ CALLE: {$regex: dir, $options: 'i'} }).limit(quantity)
     if (!permiso.length) {
         return res.status(404).json({ message: 'No se encontraron coincidencias' })
@@ -39,7 +48,7 @@ export const getPermisosByDIR = async (req, res) => {
     try {
         res.status(200).json(permiso)
     } catch (error) {
-        res.status(404).json({ message: 'No se encontro el permiso' }) // creo que mas bien debiese dar un mensaje de error, si no encuentra nada, solo devuelve un objeto vacio {}
+        res.status(404).json({ message: 'Error inesperado' })
     }
 }
 

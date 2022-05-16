@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { DataContext } from '../../../context/DataContext'
 
-export default function Item({ rol, index, tot }) {
+export default function Item({ rol }) {
     const { roles } = useContext(DataContext)
         
     // Para calcular el digito verificador del RUT
@@ -40,7 +40,7 @@ export default function Item({ rol, index, tot }) {
     const currencyFormat = (val) => {
         return val?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
     }
-    
+
     return (
         <>
             <table className='list-container'>

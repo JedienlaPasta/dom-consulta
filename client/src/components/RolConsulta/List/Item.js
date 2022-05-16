@@ -9,63 +9,63 @@ export default function Item({ MATRIZ, DIGITO, NOMBRE, APELLIDO_P, APELLIDO_M, M
                 <tbody>
                     <tr>
                         <th>MATRIZ:</th>
-                        <td>{MATRIZ}</td>
+                        <td className='result-list-row'>{MATRIZ}</td>
                     </tr>
                     <tr>
                         <th>DIGITO:</th>
-                        <td>{DIGITO}</td>
+                        <td className='result-list-row'>{DIGITO}</td>
                     </tr>
                     <tr>
                         <th>NOMBRE:</th>
-                        <td>{NOMBRE}</td>
+                        <td className='result-list-row'>{NOMBRE}</td>
                     </tr>
                     <tr>
                         <th>APELLIDO_P:</th>
-                        <td>{APELLIDO_P}</td>
+                        <td className='result-list-row'>{APELLIDO_P}</td>
                     </tr>
                     <tr>
                         <th>APELLIDO_M:</th>
-                        <td>{APELLIDO_M}</td>
+                        <td className='result-list-row'>{APELLIDO_M}</td>
                     </tr>
                     <tr>
                         <th>MZ:</th>
-                        <td>{MZ}</td>
+                        <td className='result-list-row'>{MZ}</td>
                     </tr>
                     <tr>
                         <th>NSTPC:</th>
-                        <td>{NSTPC}</td>
+                        <td className='result-list-row'>{NSTPC}</td>
                     </tr>
                     <tr>
                         <th>CALLE:</th>
-                        <td>{CALLE}</td>
+                        <td className='result-list-row'>{CALLE}</td>
                     </tr>
                     <tr>
                         <th>SECTOR:</th>
-                        <td>{SECTOR}</td>
+                        <td className='result-list-row'>{SECTOR}</td>
                     </tr>
                     <tr>
                         <th>N_VIV:</th>
-                        <td>{N_VIV}</td>
+                        <td className='result-list-row'>{N_VIV}</td>
                     </tr>
                     <tr>
                         <th>M2_C_RECEP:</th>
-                        <td>{M2_C_RECEP}</td>
+                        <td className='result-list-row'>{M2_C_RECEP}</td>
                     </tr>
                     <tr>
                         <th>M2_C_PERM:</th>
-                        <td>{M2_C_PERM}</td>
+                        <td className='result-list-row'>{M2_C_PERM}</td>
                     </tr>
                     <tr>
                         <th>M2_S_PERM:</th>
-                        <td>{M2_S_PERM}</td>
+                        <td className='result-list-row'>{M2_S_PERM}</td>
                     </tr>
                     <tr>
                         <th>M2_TOTAL:</th>
-                        <td>{M2_TOTAL}</td>
+                        <td className='result-list-row'>{M2_TOTAL}</td>
                     </tr>
                     <tr>
                         <th>ESTADO:</th>
-                        <td>{ESTADO}</td>
+                        <td className='result-list-row'>{ESTADO}</td>
                     </tr>
                 </tbody>
             </table>

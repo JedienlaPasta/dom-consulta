@@ -4,13 +4,14 @@ import { isAuthenticated } from '../../../actions/users'
 import { DataContext } from '../../../context/DataContext'
 import Message from './Message/Message'
 
-export default function FormRol({ crudFilter, setCrudFilter}) {
+export default function FormRol() {
     const [rol, setRol] = useState({ 
         matriz: '', 
         digito: '' 
     })
+    const [quantity, setQuantity] = useState(1)
 
-    const { dispatch, setUser, setIsAuth, message, setMessage, setRolIndex } = useContext(DataContext)
+    const { dispatch, setUser, setIsAuth, message, setMessage, setRolIndex, preventNegative } = useContext(DataContext)
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -21,8 +22,7 @@ export default function FormRol({ crudFilter, setCrudFilter}) {
             setUser(user)
             setIsAuth(isAuthenticated)
             if (isAuthenticated) {
-                setCrudFilter({...crudFilter, type: 'read'})
-                getPermisos(rol, dispatch, setMessage)
+                getPermisos(rol, quantity, dispatch, setMessage)
             }
         })
     }
@@ -32,11 +32,15 @@ export default function FormRol({ crudFilter, setCrudFilter}) {
             <span className='inputs grid-inputs grid-inputs-even'>
                 <div className="input">
                     <label className='hint'>MZ</label>
-                    <input type='number' name='rol_1' required placeholder='Ingresar MZ...' value={rol.matriz} onChange={(e) => setRol(item => ({...item, matriz: e.target.value}))} />
+                    <input type='number' name='matriz' required placeholder='Ingresar MZ...' value={rol.matriz} onChange={(e) => preventNegative(e, setRol, true)} />
                 </div>
                 <div className="input">
                     <label className='hint'>PD</label>
-                    <input type='number' name='rol_2' required placeholder='Ingresar PD...' value={rol.digito} onChange={(e) => setRol(item => ({...item, digito: e.target.value}))} />
+                    <input type='number' name='digito' placeholder='Ingresar PD...' value={rol.digito} onChange={(e) => preventNegative(e, setRol, true)} />
+                </div>
+                <div className="input">
+                    <label className='hint'>Cantidad</label>
+                    <input type='number' name='quantity' className='text-center' value={quantity} onChange={(e) => preventNegative(e, setQuantity)} />
                 </div>
             </span>
             <br />

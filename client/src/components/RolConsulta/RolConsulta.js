@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { ACTIONS, DataContext } from '../../context/DataContext'
 import Filter from './Filter/Filter'
 import FormRol from './Form/FormRol'
-import FormRut from './Form/FormRut'
+import FormAP from './Form/FormAP'
 import FormDir from './Form/FormDir'
 import List from './List/List'
 import './style.css'
@@ -14,7 +14,7 @@ export default function AppBody() {
     const history = useNavigate()
     const filters = [
         ['ROL', <FormRol key={'rol'} crudFilter={crudFilter} setCrudFilter={setCrudFilter}/>], 
-        ['AP', <FormRut key={'ap'} crudFilter={crudFilter} setCrudFilter={setCrudFilter}/>], 
+        ['AP', <FormAP key={'ap'} crudFilter={crudFilter} setCrudFilter={setCrudFilter}/>], 
         ['DIR', <FormDir key={'dir'} crudFilter={crudFilter} setCrudFilter={setCrudFilter}/>]
     ]
     
@@ -54,9 +54,9 @@ export default function AppBody() {
     }
 
     return (
-        <div className='app-container'>
+        <div className='super-body-container'>
             { showPopup && <Popup showPopup={showPopup} setShowPopup={setShowPopup} crudFilter={crudFilter} setCrudFilter={setCrudFilter} /> }
-            {   user.role === 'admin' &&
+            {   user.role === 'dom_admin' &&
                 <div className="crud-filters">
                     <ul className='crud-filter-links'>
                         {displayCrudFilters}

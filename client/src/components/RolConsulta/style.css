@@ -57,15 +57,12 @@
 }
 
 .body-container {
-    min-width: 500px;
-    width: fit-content;
+    width: 500px;
     max-width: 95%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: auto;
-    margin-bottom: 30px;
-    margin-top: 50px;
+    margin: 50px auto 30px;
     padding: 30px;
     background-color: #ececec;
     box-shadow: var(--shd-v1);
@@ -106,11 +103,11 @@
 }
 .grid-inputs {
     display: grid;
-    grid-template-columns: 0.8fr 0.2fr;
+    grid-template-columns: auto 5em;
     column-gap: 5px;
 }
 .grid-inputs-even {
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto 5em;
 }
 .grid-inputs-full {
     grid-template-columns: 1fr;
@@ -160,16 +157,21 @@ table {
     font-size: 0.8em;
     text-align: center;
     width: 418px;
-    min-width: fit-content;
     max-width: 95%;
-    margin: auto;
-    margin-top: 15px;
+    margin: 20px 10px 0 10px;
     border: 0.1px solid #d3d3d3;
 }
-td, th {
+th {
     white-space: nowrap;
+}
+td, th {
     padding: 10px 10px;
     text-align: left;
+}
+
+tr {
+    display: grid;
+    grid-template-columns: 10.5em auto;
 }
 tr:nth-of-type(even) {
     background-color: #e6e6e6;
@@ -193,9 +195,7 @@ tr:not(:last-child) {
     width: 100%;
 }
 .insert-table-body > tr {
-    display: grid;
     grid-template-columns: 8em auto;
-    align-items: center;
 }
 .text-right {
     text-align: right;

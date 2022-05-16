@@ -15,7 +15,6 @@ export const login = async (user, setMessage) => {
 export const logout = async () => {
     try {
         await clearUser()
-        console.log("cookie cleared")
     } catch (error) {
         console.log("couldn't clear cookie")
     }

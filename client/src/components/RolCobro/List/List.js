@@ -3,14 +3,12 @@ import { DataContext } from '../../../context/DataContext'
 import { FiChevronsLeft, FiChevronsRight } from 'react-icons/fi'
 import Item from './Item'
 
-export default function List({ filter }) {
-    const [rolIndex, setRolIndex] = useState(0)
-
-    const { roles } = useContext(DataContext)
+export default function List() {
+    const { roles, rolIndex, setRolIndex } = useContext(DataContext)
     const totRoles = roles.length
 
     const displayItems = roles.map((rol, index) => ( index === rolIndex ?
-        <Item key={rol._id} rol={rol} index={index} tot={totRoles} /> : null
+        <Item key={rol._id} rol={rol} /> : null
     ))
 
     const goForward = () => {
@@ -29,7 +27,7 @@ export default function List({ filter }) {
 
     return (
         <>
-            { filter === 'DIR' && totRoles > 1 && 
+            { totRoles > 1 && 
                 <div className="list-items-btns">
                     <h4 className='titulo-resultado'>Resultado #{rolIndex + 1}</h4>
                     <button className="list-btn btn-left" onClick={goBackwards}><FiChevronsLeft/></button>
