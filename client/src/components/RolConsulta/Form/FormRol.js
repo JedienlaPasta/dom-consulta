@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { getPermisos } from '../../../actions/permisos'
 import { isAuthenticated } from '../../../actions/users'
-import { DataContext } from '../../../context/DataContext'
+import { ACTIONS, DataContext } from '../../../context/DataContext'
 import Message from './Message/Message'
 
 export default function FormRol() {
@@ -11,12 +11,14 @@ export default function FormRol() {
     })
     const [quantity, setQuantity] = useState(1)
 
-    const { dispatch, setUser, setIsAuth, message, setMessage, setRolIndex, preventNegative } = useContext(DataContext)
+    const { dispatch, setUser, setIsAuth, message, setMessage, setRolIndex, crudFilter, setCrudFilter, preventNegative } = useContext(DataContext)
 
     const handleSubmit = (event) => {
         event.preventDefault()
         setMessage('')
         setRolIndex(0)
+        // dispatch({ type: ACTIONS.FETCH_MATCHES, payload: [] })
+        setCrudFilter({...crudFilter, type: 'read'})
         isAuthenticated().then(data => {
             const { isAuthenticated, user } = data
             setUser(user)
