@@ -98,12 +98,12 @@ export default function Item({ rol }) {
                         <td>{currencyFormat(rol?.TER_EXEN)}</td>
                     </tr>
                     <tr>
-                        <th>DESTINO:</th>
-                        <td>{rol?.DESTINO}</td>
-                    </tr>
-                    <tr>
                         <th>UBICACIÓN:</th>
                         <td>{rol?.UBICACION}</td>
+                    </tr>
+                    <tr>
+                        <th>DESTINO:</th>
+                        <td>{rol?.DESTINO}</td>
                     </tr>
                 </tbody>
             </table>

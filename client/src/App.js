@@ -34,3 +34,5 @@ export default function App() {
 // revizar el tema de los campos obligatorios y no obligatorios
 // vista de tabla para computador de escritorio
 // al presionar rapidamente el boton de editar, despues de presionar buscar, se produce un error. Se podria invalidar el uso de dichos botones hasta que llegue una respuesta por parte del servidor
+// agregar el campo observaciones a los permisos
+// al ingresar un registro nuevo, que se calcule automaticamente el valor de M2_TOTAL
