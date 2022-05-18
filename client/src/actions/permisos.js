@@ -2,10 +2,15 @@ import fileDownload from "js-file-download"
 import { fetchPermisos, fetchPermisosByApellidoP, fetchPermisosByDIR, createPermiso, updatePermiso, deletePermiso, getExcelFile } from "../api/api"
 import { ACTIONS } from "../context/DataContext"
 
-export const getPermisos = async (rol, quantity, dispatch, setMessage) => {
+
+export const getPermisos = async (rol, dispatch, setMessage, setShowPopup, setSearching) => {
     try {
-        const { data } = await fetchPermisos(rol, quantity)
-        dispatch({ type: ACTIONS.FETCH_MATCHES, payload: data })
+        const { data } = await fetchPermisos(rol)
+        setTimeout(() => {
+            setShowPopup(false)
+            setSearching(false)
+            dispatch({ type: ACTIONS.FETCH_MATCHES, payload: data })
+        }, 100)
     } catch (error) {
         if (error.response) {
             setMessage(error.response.data.message)
@@ -14,10 +19,14 @@ export const getPermisos = async (rol, quantity, dispatch, setMessage) => {
     }
 }
 
-export const getPermisosByApellidoP = async (apellido, quantity, dispatch, setMessage) => {
+export const getPermisosByApellidoP = async (apellido, dispatch, setMessage, setShowPopup, setSearching) => {
     try {
-        const { data } = await fetchPermisosByApellidoP(apellido, quantity)
-        dispatch({ type: ACTIONS.FETCH_MATCHES, payload: data })
+        const { data } = await fetchPermisosByApellidoP(apellido)
+        setTimeout(() => {
+            setShowPopup(false)
+            setSearching(false)
+            dispatch({ type: ACTIONS.FETCH_MATCHES, payload: data })
+        }, 100)
     } catch (error) {
         if (error.response) {
             setMessage(error.response.data.message)
@@ -26,10 +35,14 @@ export const getPermisosByApellidoP = async (apellido, quantity, dispatch, setMe
     }
 }
 
-export const getPermisosByDIR = async (dir, quantity, dispatch, setMessage) => {
+export const getPermisosByDIR = async (dir, dispatch, setMessage, setShowPopup, setSearching) => {
     try {
-        const { data } = await fetchPermisosByDIR(dir, quantity)
-        dispatch({ type: ACTIONS.FETCH_MATCHES, payload: data })
+        const { data } = await fetchPermisosByDIR(dir)
+        setTimeout(() => {
+            setShowPopup(false)
+            setSearching(false)
+            dispatch({ type: ACTIONS.FETCH_MATCHES, payload: data })
+        }, 100)
     } catch (error) {
         if (error.response) {
             setMessage(error.response.data.message)

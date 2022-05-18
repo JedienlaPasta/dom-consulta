@@ -1,26 +1,32 @@
 import React, { useContext, useState } from 'react'
 import { getPermisosByDIR } from '../../../actions/permisos'
+import { getRolesByDIR } from '../../../actions/roles'
 import { isAuthenticated } from '../../../actions/users'
 import { DataContext } from '../../../context/DataContext'
 import Message from './Message/Message'
 
-export default function FormRut() {
+export default function FormRut({ search }) {
     const [dir, setDir] = useState('')
-    const [quantity, setQuantity] = useState(5)
 
-    const { dispatch, setUser, setIsAuth, message, setMessage, setRolIndex, crudFilter, setCrudFilter, preventNegative } = useContext(DataContext)
+    const { page, dispatch, setUser, setIsAuth, message, setMessage, setRolIndex, crudFilter, setCrudFilter, setShowPopup, setSearching } = useContext(DataContext)
 
     const handleSubmit = (event) => {
         event.preventDefault()
         setMessage('')
         setRolIndex(0)
+        search()
         isAuthenticated().then(data => {
             setCrudFilter({...crudFilter, type: 'read'})
             const { isAuthenticated, user } = data
             setUser(user)
             setIsAuth(isAuthenticated)
             if (isAuthenticated) {
-                getPermisosByDIR(dir, quantity, dispatch, setMessage)
+                if (page === 'permisos') {
+                    getPermisosByDIR(dir, dispatch, setMessage, setShowPopup, setSearching)
+                }
+                else if (page === 'rolcobro') {
+                    getRolesByDIR(dir, dispatch, setMessage, setShowPopup, setSearching)
+                }
             }
         })
     }
@@ -31,10 +37,6 @@ export default function FormRut() {
                 <div className="input">
                     <label className='hint'>Dirección</label>
                     <input type='text' name='dir' required placeholder='Ingresar Dirección...' value={dir} onChange={(e) => setDir(e.target.value)} />
-                </div>
-                <div className="input">
-                    <label className='hint'>Cantidad</label>
-                    <input type='number' name='quantity' className='text-center' value={quantity} onChange={(e) => preventNegative(e, setQuantity)} />
                 </div>
             </span>
             <br />

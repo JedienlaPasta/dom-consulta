@@ -1,26 +1,28 @@
 import React, { useContext, useState } from 'react'
-import { getPermisosByDIR } from '../../../actions/permisos'
+import { getPermisosByApellidoP } from '../../../actions/permisos'
 import { isAuthenticated } from '../../../actions/users'
 import { DataContext } from '../../../context/DataContext'
 import Message from './Message/Message'
 
-export default function FormRut() {
-    const [dir, setDir] = useState('')
-    const [quantity, setQuantity] = useState(5)
+export default function FormAP({ search }) {
+    const [apellido, setApellido] = useState('')
 
-    const { dispatch, setUser, setIsAuth, message, setMessage, setRolIndex, crudFilter, setCrudFilter, preventNegative } = useContext(DataContext)
+    const { page, dispatch, setUser, setIsAuth, message, setMessage, setRolIndex, crudFilter, setCrudFilter, setShowPopup, setSearching } = useContext(DataContext)
 
     const handleSubmit = (event) => {
         event.preventDefault()
         setMessage('')
         setRolIndex(0)
+        search()
         isAuthenticated().then(data => {
             setCrudFilter({...crudFilter, type: 'read'})
             const { isAuthenticated, user } = data
             setUser(user)
             setIsAuth(isAuthenticated)
             if (isAuthenticated) {
-                getPermisosByDIR(dir, quantity, dispatch, setMessage)
+                if (page === 'permisos') {
+                    getPermisosByApellidoP(apellido, dispatch, setMessage, setShowPopup, setSearching)
+                }
             }
         })
     }
@@ -29,12 +31,8 @@ export default function FormRut() {
         <form className='form-consulta' onSubmit={handleSubmit}>
             <span className='inputs grid-inputs'>
                 <div className="input">
-                    <label className='hint'>Dirección</label>
-                    <input type='text' name='dir' required placeholder='Ingresar Dirección...' value={dir} onChange={(e) => setDir(e.target.value)} />
-                </div>
-                <div className="input">
-                    <label className='hint'>Cantidad</label>
-                    <input type='number' name='quantity' className='text-center' value={quantity} onChange={(e) => preventNegative(e, setQuantity)} />
+                    <label className='hint'>Apellido Paterno</label>
+                    <input type='text' name='apellido-paterno' required autoComplete='true' placeholder='Ingresar Apellido Paterno...' value={apellido} onChange={(e) => setApellido(e.target.value)} />
                 </div>
             </span>
             <br />

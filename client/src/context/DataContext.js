@@ -24,10 +24,11 @@ export const DataProvider = ({ children }) => {
     const [isAuth, setIsAuth] = useState(false) // 'is the user authenticated?'
     const [isLoaded, setIsLoaded] = useState(false)
     const [message, setMessage] = useState('')
-    const [page, setPage] = useState('')
+    const [page, setPage] = useState('rolcobro')
     const [rolIndex, setRolIndex] = useState(0)
     const [showPopup, setShowPopup] = useState(false)
     const [crudFilter, setCrudFilter] = useState({ crudType: 'Consultar', filter: 'ROL', type: 'read', filters: ['Ingresar', 'Consultar', 'Descargar']})
+    const [searching, setSearching] = useState(false)
 
     const permisoInitialValue = crudFilter.type !== 'insert' ? { _id: '', MATRIZ: '', DIGITO: '', NOMBRE: '', APELLIDO_P: '', APELLIDO_M: '', MZ: '', NSTPC: '', CALLE: '', SECTOR: '', N_VIV: '', M2_C_RECEP: '', M2_C_PERM: '', M2_S_PERM: '', M2_TOTAL: '', ESTADO: '' }
     : { MATRIZ: '', DIGITO: '', NOMBRE: '', APELLIDO_P: '', APELLIDO_M: '', MZ: '', NSTPC: '', CALLE: '', SECTOR: '', N_VIV: '', M2_C_RECEP: '', M2_C_PERM: '', M2_S_PERM: '', M2_TOTAL: '', ESTADO: '' }
@@ -56,15 +57,16 @@ export const DataProvider = ({ children }) => {
     }, [roles, rolIndex])
 
     useEffect(() => {
-        setCrudFilter(c => ({...c, crudType: 'Consultar', filter: 'ROL', type: 'read'}))
+        setCrudFilter(prev => ({...prev, crudType: 'Consultar', filter: 'ROL', type: 'read'}))
         setMessage('')
+        console.log(page)
     }, [page])
 
     return (
         <div>
             {
                 !isLoaded ? <h1>Loading...</h1> :
-                <DataContext.Provider value={{ roles, dispatch, user, setUser, isAuth, setIsAuth, page, setPage, message, setMessage, newPermiso, setNewPermiso, permisoInitialValue, showPopup, setShowPopup, rolIndex, setRolIndex, crudFilter, setCrudFilter, preventNegative }}>
+                <DataContext.Provider value={{ roles, dispatch, user, setUser, isAuth, setIsAuth, page, setPage, message, setMessage, newPermiso, setNewPermiso, permisoInitialValue, showPopup, setShowPopup, rolIndex, setRolIndex, crudFilter, setCrudFilter, searching, setSearching, preventNegative }}>
                     { children }
                 </DataContext.Provider>
             }

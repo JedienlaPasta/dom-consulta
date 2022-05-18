@@ -8,13 +8,14 @@ export default function FormAP() {
     const [apellido, setApellido] = useState('')
     const [quantity, setQuantity] = useState(5)
 
-    const { dispatch, setUser, setIsAuth, message, setMessage, setRolIndex, preventNegative } = useContext(DataContext)
+    const { dispatch, setUser, setIsAuth, message, setMessage, setRolIndex, crudFilter, setCrudFilter, preventNegative } = useContext(DataContext)
 
     const handleSubmit = (event) => {
         event.preventDefault()
         setMessage('')
         setRolIndex(0)
         isAuthenticated().then(data => {
+            setCrudFilter({...crudFilter, type: 'read'})
             const { isAuthenticated, user } = data
             setUser(user)
             setIsAuth(isAuthenticated)
@@ -24,6 +25,7 @@ export default function FormAP() {
         })
     }
 
+    // podria hacer un array con los input, correspondiente a cada uno de los form que se va a mostrar, y que se muestre dependiendo de la pagina y el crudFilter.filter
     return (
         <form className='form-consulta' onSubmit={handleSubmit}>
             <span className='inputs grid-inputs'>

@@ -1,0 +1,43 @@
+import React, { useContext, useState } from 'react'
+import { getRolesByRUT } from '../../../actions/roles'
+
+import { isAuthenticated } from '../../../actions/users'
+import { DataContext } from '../../../context/DataContext'
+import Message from './Message/Message'
+
+export default function FormRut({ search }) {
+    const [rut, setRut] = useState('')
+
+    const { page, dispatch, setUser, setIsAuth, message, setMessage, setRolIndex, preventNegative, setShowPopup, setSearching } = useContext(DataContext)
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        setMessage('')
+        setRolIndex(0)
+        search()
+        isAuthenticated().then(data => {
+            const { isAuthenticated, user } = data
+            setUser(user)
+            setIsAuth(isAuthenticated)
+            if (isAuthenticated) {
+                if (page === 'rolcobro') {
+                    getRolesByRUT(rut, dispatch, setMessage, setShowPopup, setSearching)
+                }
+            }
+        })
+    }
+
+    return (
+        <form className='form-consulta' onSubmit={handleSubmit}>
+            <span className='inputs grid-inputs'>
+                <div className="input">
+                    <label className='hint'>RUT</label>
+                    <input type='number' name='rut' required autoComplete='off' placeholder='Ingresar RUT sin DV...' value={rut} onChange={(e) => preventNegative(e, setRut)} />
+                </div>
+            </span>
+            <br />
+            <button type='submit'>Buscar</button>
+            { message && <Message message={message} /> }
+        </form>
+    )
+}

@@ -1,22 +1,23 @@
 import React, { useContext, useState } from 'react'
 import { getPermisos } from '../../../actions/permisos'
+import { getRoles } from '../../../actions/roles'
 import { isAuthenticated } from '../../../actions/users'
-import { ACTIONS, DataContext } from '../../../context/DataContext'
+import { DataContext } from '../../../context/DataContext'
 import Message from './Message/Message'
 
-export default function FormRol() {
+export default function Form({ search }) {
     const [rol, setRol] = useState({ 
-        matriz: '', 
-        digito: '' 
+        mz: '', 
+        pd: '' 
     })
-    const [quantity, setQuantity] = useState(1)
 
-    const { dispatch, setUser, setIsAuth, message, setMessage, setRolIndex, crudFilter, setCrudFilter, preventNegative } = useContext(DataContext)
+    const { page, dispatch, setUser, setIsAuth, message, setMessage, setRolIndex, crudFilter, setCrudFilter, setShowPopup, setSearching, preventNegative } = useContext(DataContext)
 
     const handleSubmit = (event) => {
         event.preventDefault()
         setMessage('')
         setRolIndex(0)
+        search()
         // dispatch({ type: ACTIONS.FETCH_MATCHES, payload: [] })
         isAuthenticated().then(data => {
             setCrudFilter({...crudFilter, type: 'read'})
@@ -24,7 +25,12 @@ export default function FormRol() {
             setUser(user)
             setIsAuth(isAuthenticated)
             if (isAuthenticated) {
-                getPermisos(rol, quantity, dispatch, setMessage)
+                if (page === 'permisos') {
+                    getPermisos(rol, dispatch, setMessage, setShowPopup, setSearching)
+                }
+                else if (page === 'rolcobro') {
+                    getRoles(rol, dispatch, setMessage, setShowPopup, setSearching)
+                }
             }
         })
     }
@@ -34,15 +40,11 @@ export default function FormRol() {
             <span className='inputs grid-inputs grid-inputs-even'>
                 <div className="input">
                     <label className='hint'>MZ</label>
-                    <input type='number' name='matriz' required placeholder='Ingresar MZ...' value={rol.matriz} onChange={(e) => preventNegative(e, setRol, true)} />
+                    <input type='number' name='mz' required placeholder='Ingresar MZ...' value={rol.mz} onChange={(e) => preventNegative(e, setRol, true)} />
                 </div>
                 <div className="input">
                     <label className='hint'>PD</label>
-                    <input type='number' name='digito' placeholder='Ingresar PD...' value={rol.digito} onChange={(e) => preventNegative(e, setRol, true)} />
-                </div>
-                <div className="input">
-                    <label className='hint'>Cantidad</label>
-                    <input type='number' name='quantity' className='text-center' value={quantity} onChange={(e) => preventNegative(e, setQuantity)} />
+                    <input type='number' name='pd' placeholder='Ingresar PD...' value={rol.pd} onChange={(e) => preventNegative(e, setRol, true)} />
                 </div>
             </span>
             <br />

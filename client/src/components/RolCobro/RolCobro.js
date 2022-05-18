@@ -10,7 +10,7 @@ import List from './List/List'
 export default function AppBody() {
     const [filter, setFilter] = useState('ROL')
     const filters = [['ROL', <FormRol key={'rol'}/>], ['RUT', <FormRut key={'rut'}/>], ['DIR', <FormDir key={'dir'}/>]]
-    const { roles, isAuth, dispatch, setPage } = useContext(DataContext)
+    const { roles, isAuth, dispatch } = useContext(DataContext)
     const history = useNavigate()
     
     const displayFilters = filters.map(item => <Filter key={item} val={item[0]} filter={filter} setFilter={setFilter} />)
@@ -20,16 +20,10 @@ export default function AppBody() {
         if (!isAuth) return history('/auth')
     }, [isAuth, dispatch, history])
 
-    useEffect (() => {
-        setPage(() => 'rolcobro')
-    })
-
     return (
         <div className="super-body-container">
             <div className='body-container'>
-                <ul className='filter-links'>
-                    {displayFilters}
-                </ul>
+                <ul className='filter-links'>{displayFilters}</ul>
                 <h4 className='titulo-consulta'>Haga su consulta</h4>
                 {
                     filters.map(item => item[0] === filter ? item[1] : null)

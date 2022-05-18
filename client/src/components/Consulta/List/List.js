@@ -6,10 +6,10 @@ import Item from './Item'
 import { FiDownloadCloud } from 'react-icons/fi'
 
 export default function List({ save, deletePermiso, downloadFile }) {
-    const { roles, dispatch, user, rolIndex, setRolIndex, crudFilter, setCrudFilter } = useContext(DataContext)
+    const { roles, page, dispatch, user, rolIndex, setRolIndex, crudFilter, setCrudFilter } = useContext(DataContext)
     const totRoles = roles.length
     const type = crudFilter.type
-    
+    // quizas cambiar type a 'read' cada vez que se cambia de pagina tambien (no se si esta hecho)
     // Displayed items
 
     let displayItems
@@ -53,7 +53,7 @@ export default function List({ save, deletePermiso, downloadFile }) {
     
     return (
         <form className='form'>
-            {   user.role === 'dom_admin' && type !== 'insert' && type !== 'update' && crudFilter.crudType !== 'Descargar' &&
+            {   page === 'permisos' && user.role === 'dom_admin' && type !== 'insert' && type !== 'update' && crudFilter.crudType !== 'Descargar' &&
                 <div>
                     <p className='warning'>Cuidado, usted tiene permisos para editar y eliminar registros</p>
                     <div className="crud-btns-container">
@@ -62,6 +62,7 @@ export default function List({ save, deletePermiso, downloadFile }) {
                     </div>
                 </div>
             }
+            {/* Esto se ve en ambas paginas */}
             <div className="list-items">
                 { totRoles > 1 && 
                     <div className="list-items-btns">
@@ -72,22 +73,23 @@ export default function List({ save, deletePermiso, downloadFile }) {
                 }
                 {displayItems}
             </div>
+            {/* ============================ */}
             {
-                type === 'insert' &&
+                page === 'permisos' && type === 'insert' &&
                 <div className="crud-btns-container">
                     <button className='crud-btn save' onClick={save}>Guardar</button>
                     <button className='crud-btn cancel' onClick={cancel}>Cancelar</button>
                 </div>
             }
             {
-                type === 'update' &&
+                page === 'permisos' && type === 'update' &&
                 <div className="crud-btns-container">
                     <button className='crud-btn save' onClick={save}>Guardar</button>
                     <button className='crud-btn cancel' onClick={cancel}>Cancelar</button>
                 </div>
             }
             {
-                crudFilter.crudType === 'Descargar' &&
+                page === 'permisos' && crudFilter.crudType === 'Descargar' &&
                 <div>
                     <div className='download-container' onClick={downloadFile}>
                         <FiDownloadCloud className='download-img' />

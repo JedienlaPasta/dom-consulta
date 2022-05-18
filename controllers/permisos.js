@@ -6,17 +6,31 @@ import { filePath } from "../server.js"
 export const getPermiso = async (req, res) => {
     const roles = req.query
     let permiso
-    if (roles.matriz && roles.digito) {
-        permiso = await Permiso.find({ MATRIZ: roles?.matriz, DIGITO: roles?.digito }).limit(roles?.quantity)
+    if (roles.mz && roles.pd) {
+        permiso = await Permiso.find({ MATRIZ: roles?.mz, DIGITO: roles?.pd })
     }
     else {
-        permiso = await Permiso.find({ MATRIZ: roles?.matriz }).limit(roles?.quantity)
+        // permiso = await Permiso.find({ MATRIZ: roles?.matriz })
+        // permiso = await Permiso.find({ MATRIZ: roles?.matriz }).limit(50).sort({ DIGITO: 'ascending' })
+        // perm = await Permiso.find({ MATRIZ: roles?.matriz, to:"int" }).sort({ DIGITO: 'ascending'})
+        // busca los permisos y los ordena de acuerdo a su DIGITO
+        permiso = await Permiso.aggregate([ 
+            { $match: { MATRIZ: roles?.mz } },
+            // aqui quizas tomar los valores que tienen un '-' o '/' y tomar solo su primer numero para ordenarlo
+            { $addFields: { 
+                // "DIGITO": { $arrayElemAt: [{"$split": [ "$DIGITO", ("/")]}, 0] },
+                "DIGITO_length": { $strLenCP: "$DIGITO" }}},
+            { $sort: {"DIGITO_length": 1, "DIGITO": 1}},
+            { $project: {"DIGITO_length": 0}}
+        ])
     }
     if (!permiso.length) {
         return res.status(404).json({ message: 'No se encontraron coincidencias' })
     }
     try {
-        console.log(permiso)
+        permiso.forEach(element => {
+            console.log(element.DIGITO)
+        })
         res.status(200).json(permiso)
     } catch (error) {
         res.status(404).json({ message: 'Error inesperado' })
@@ -25,9 +39,14 @@ export const getPermiso = async (req, res) => {
 
 export const getPermisoByApellidoP = async (req, res) => {
     const apellido = req.query?.apellido
-    const quantity = req.query?.quantity
     // const permiso = await Permiso.find({ APELLIDO_P: apellido })
-    const permiso = await Permiso.find({ APELLIDO_P: { $regex: apellido, $options: 'i'} }).limit(quantity)
+    const permiso = await Permiso.find({ APELLIDO_P: { $regex: apellido, $options: 'i'} })
+    const perm = await Permiso.aggregate([ 
+        { $match: { APELLIDO_P: { $regex: apellido, $options: 'i'} }},
+        { $addFields: { "DIGITO_length": { $strLenCP: "$DIGITO"} }},
+        { $sort: { "DIGITO_length": 1, "DIGITO": 1}},
+        { $project: { "DIGITO_length": 0 }}
+    ])
     if (!permiso.length) {
         return res.status(404).json({ message: 'No se encontraron coincidencias' })
     }
@@ -40,8 +59,7 @@ export const getPermisoByApellidoP = async (req, res) => {
 
 export const getPermisosByDIR = async (req, res) => {
     const dir = req.query.dir || 'empty'
-    const quantity = req.query.quantity
-    const permiso = await Permiso.find({ CALLE: {$regex: dir, $options: 'i'} }).limit(quantity)
+    const permiso = await Permiso.find({ CALLE: {$regex: dir, $options: 'i'} })
     if (!permiso.length) {
         return res.status(404).json({ message: 'No se encontraron coincidencias' })
     }

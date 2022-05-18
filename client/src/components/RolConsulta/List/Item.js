@@ -1,71 +1,70 @@
 import React from 'react'
 
-export default function Item({ MATRIZ, DIGITO, NOMBRE, APELLIDO_P, APELLIDO_M, MZ, NSTPC, CALLE, SECTOR, N_VIV, M2_C_RECEP, M2_C_PERM, M2_S_PERM, M2_TOTAL, ESTADO, index, tot }) {
+export default function Item({ rol }) {
     
     return (
         <>
-            {/* { tot > 1 && <h4 className='titulo-resultado'>Resultado #{index + 1}</h4>} */}
             <table className='list-container'>
                 <tbody>
                     <tr>
                         <th>MATRIZ:</th>
-                        <td className='result-list-row'>{MATRIZ}</td>
+                        <td className='result-list-row'>{rol?.MATRIZ}</td>
                     </tr>
                     <tr>
                         <th>DIGITO:</th>
-                        <td className='result-list-row'>{DIGITO}</td>
+                        <td className='result-list-row'>{rol?.DIGITO}</td>
                     </tr>
                     <tr>
                         <th>NOMBRE:</th>
-                        <td className='result-list-row'>{NOMBRE}</td>
+                        <td className='result-list-row'>{rol?.NOMBRE}</td>
                     </tr>
                     <tr>
                         <th>APELLIDO_P:</th>
-                        <td className='result-list-row'>{APELLIDO_P}</td>
+                        <td className='result-list-row'>{rol?.APELLIDO_P}</td>
                     </tr>
                     <tr>
                         <th>APELLIDO_M:</th>
-                        <td className='result-list-row'>{APELLIDO_M}</td>
+                        <td className='result-list-row'>{rol?.APELLIDO_M}</td>
                     </tr>
                     <tr>
                         <th>MZ:</th>
-                        <td className='result-list-row'>{MZ}</td>
+                        <td className='result-list-row'>{rol?.MZ}</td>
                     </tr>
                     <tr>
                         <th>NSTPC:</th>
-                        <td className='result-list-row'>{NSTPC}</td>
+                        <td className='result-list-row'>{rol?.NSTPC}</td>
                     </tr>
                     <tr>
                         <th>CALLE:</th>
-                        <td className='result-list-row'>{CALLE}</td>
+                        <td className='result-list-row'>{rol?.CALLE}</td>
                     </tr>
                     <tr>
                         <th>SECTOR:</th>
-                        <td className='result-list-row'>{SECTOR}</td>
+                        <td className='result-list-row'>{rol?.SECTOR}</td>
                     </tr>
                     <tr>
                         <th>N_VIV:</th>
-                        <td className='result-list-row'>{N_VIV}</td>
+                        <td className='result-list-row'>{rol?.N_VIV}</td>
                     </tr>
                     <tr>
                         <th>M2_C_RECEP:</th>
-                        <td className='result-list-row'>{M2_C_RECEP}</td>
+                        <td className='result-list-row'>{rol?.M2_C_RECEP}</td>
                     </tr>
                     <tr>
                         <th>M2_C_PERM:</th>
-                        <td className='result-list-row'>{M2_C_PERM}</td>
+                        <td className='result-list-row'>{rol?.M2_C_PERM}</td>
                     </tr>
                     <tr>
                         <th>M2_S_PERM:</th>
-                        <td className='result-list-row'>{M2_S_PERM}</td>
+                        <td className='result-list-row'>{rol?.M2_S_PERM}</td>
                     </tr>
                     <tr>
                         <th>M2_TOTAL:</th>
-                        <td className='result-list-row'>{M2_TOTAL}</td>
+                        <td className='result-list-row'>{rol?.M2_TOTAL}</td>
                     </tr>
                     <tr>
                         <th>ESTADO:</th>
-                        <td className='result-list-row'>{ESTADO}</td>
+                        <td className='result-list-row'>{rol?.ESTADO}</td>
                     </tr>
                 </tbody>
             </table>

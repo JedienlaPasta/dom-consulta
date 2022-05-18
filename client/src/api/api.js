@@ -13,20 +13,20 @@ export const isUserAuth = () => axios.get('/users/auth')
 // const roles_url = 'http://localhost:5000/roles'
 // const url = 'https://rol-cobro.herokuapp.com/roles'
 
-export const fetchRoles = (rol, quantity) => axios.get('/roles/rol', { params: { rol1: rol.rol1, rol2: rol.rol2, quantity: quantity } })
+export const fetchRoles = (rol) => axios.get('/roles/rol', { params: { mz: rol.mz, pd: rol.pd } })
 
-export const fetchRolesByRUT = (rut, quantity) => axios.get('/roles/rut', { params: { rut: rut, quantity: quantity } })
+export const fetchRolesByRUT = (rut) => axios.get('/roles/rut', { params: { rut: rut } })
 
-export const fetchRolesByDIR = (dir, quantity) => axios.get('/roles/dir', { params: { dir: dir, quantity: quantity } })
+export const fetchRolesByDIR = (dir) => axios.get('/roles/dir', { params: { dir: dir } })
 
 // Permisos
 // const permisos_url = 'https://localhost:5000/permisos'
 
-export const fetchPermisos = (rol, quantity) => axios.get('/permisos/rol', { params: { matriz: rol.matriz, digito: rol.digito, quantity: quantity } })
+export const fetchPermisos = (rol) => axios.get('/permisos/rol', { params: { mz: rol.mz, pd: rol.pd } })
 
-export const fetchPermisosByApellidoP = (apellido, quantity) => axios.get('/permisos/apellido', { params: { apellido: apellido, quantity: quantity } })
+export const fetchPermisosByApellidoP = (apellido) => axios.get('/permisos/apellido', { params: { apellido: apellido } })
 
-export const fetchPermisosByDIR = (dir, quantity) => axios.get('/permisos/dir', { params: { dir: dir, quantity: quantity } })
+export const fetchPermisosByDIR = (dir) => axios.get('/permisos/dir', { params: { dir: dir } })
 
 export const createPermiso = (permiso) => axios.post('/permisos/create', { permiso }) // aqui agregue un / al principio, antes funcionaba bien sin el /
 

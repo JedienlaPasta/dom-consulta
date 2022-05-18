@@ -7,9 +7,7 @@ export default function List() {
     const { roles, rolIndex, setRolIndex } = useContext(DataContext)
     const totRoles = roles.length
 
-    const displayItems = roles.map((rol, index) => ( index === rolIndex ?
-        <Item key={rol._id} rol={rol} /> : null
-    ))
+    const displayItems = roles.map((rol, index) => ( index === rolIndex ? <Item key={rol._id} rol={rol} /> : null))
 
     const goForward = () => {
         setRolIndex(prev => {

@@ -43,19 +43,19 @@ const permisoSchema = mongoose.Schema({
     },
     M2_C_RECEP: {
         type: Number,
-        required: true
+        required: false
     },
     M2_C_PERM: {
         type: Number,
-        required: true
+        required: false
     },
     M2_S_PERM: {
         type: Number,
-        required: true
+        required: false
     },
     M2_TOTAL: {
         type: Number,
-        required: true
+        required: false
     },
     ESTADO: {
         type: String,

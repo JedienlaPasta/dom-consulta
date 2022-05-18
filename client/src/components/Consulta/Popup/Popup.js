@@ -7,29 +7,34 @@ import './style.css'
 
 export default function Popup() {
     const [msg, setMsg] = useState('')
-    const { message, setMessage, newPermiso, setNewPermiso, permisoInitialValue, dispatch, crudFilter, setCrudFilter, showPopup, setShowPopup } = useContext(DataContext)
+    const { message, setMessage, newPermiso, setNewPermiso, permisoInitialValue, dispatch, crudFilter, setCrudFilter, showPopup, setShowPopup, searching, setSearching } = useContext(DataContext)
 
     useEffect(() => {
         if (message) {
             setMsg(message)
         }
         else {
-            if (crudFilter.crudType !== 'Descargar') {
-                if (crudFilter.type === 'update' && !message) {
-                    setMsg('Los datos se sobreescribiran, por lo que estos no se podran recuperar')
+            if (!searching) {
+                if (crudFilter.crudType !== 'Descargar') {
+                    if (crudFilter.type === 'update' && !message) {
+                        setMsg('Los datos se sobreescribiran, por lo que estos no se podran recuperar')
+                    }
+                    else if (crudFilter.type === 'insert') {
+                        setMsg('Guardando...')
+                        savePermiso()
+                    }
+                    else if (crudFilter.type === 'delete') {
+                        setMsg('Los datos se eliminaran permanentemente')
+                    }
                 }
-                else if (crudFilter.type === 'insert') {
-                    setMsg('Guardando...')
-                    savePermiso()
-                }
-                else if (crudFilter.type === 'delete') {
-                    setMsg('Los datos se eliminaran permanentemente')
+                else {
+                    setMsg('Generando archivo...')
+                    downloadPermisos(setMessage)
+                    setTimeout(() => setMsg('Si la descarga no comienza automáticamente, intente recargar la página'), 20000)
                 }
             }
             else {
-                setMsg('Generando archivo...')
-                downloadPermisos(setMessage)
-                setTimeout(() => setMsg('Si la descarga no comienza automáticamente, intente recargar la página'), 20000)
+                setMsg('Buscando...')
             }
         }
     }, [showPopup, message])

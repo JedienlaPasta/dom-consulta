@@ -6,7 +6,7 @@ import { RiLogoutBoxRLine } from 'react-icons/ri'
 import './style.css'
 
 export default function Navbar() {
-    const { user, setUser, setIsAuth, dispatch, page, setMessage } = useContext(DataContext)
+    const { user, setUser, setIsAuth, dispatch, page, setPage, setMessage } = useContext(DataContext)
 
     const handleLogout = () => {
         setMessage('')
@@ -17,7 +17,8 @@ export default function Navbar() {
         })
     }
 
-    const changePage = () => {
+    const changePage = (val) => {
+        setPage(val)
         dispatch({ type: ACTIONS.FETCH_MATCHES, payload: [] })
     }
 
@@ -27,11 +28,11 @@ export default function Navbar() {
             <nav className='nav'>
                 <ul className='nav-links'>
                     <li className='link'>
-                        <Link className={`${page === 'rolcobro' ? 'link-item marked-link-item' : 'link-item'}`} to='/' onClick={changePage}><span>ROL_COBRO</span></Link>
+                        <Link className={`${page === 'rolcobro' ? 'link-item marked-link-item' : 'link-item'}`} to='/' onClick={() => changePage('rolcobro')}><span>ROL_COBRO</span></Link>
                     </li>
                     {   (user.role === 'dom_admin' || user.role === 'dom_user') &&
                         <li className='link'>
-                            <Link className={`${page === 'rolconsulta' ? 'link-item marked-link-item' : 'link-item'}`} to='/permisos' onClick={changePage}><span>PERMISOS</span></Link>
+                        <Link className={`${page === 'permisos' ? 'link-item marked-link-item' : 'link-item'}`} to='/permisos' onClick={() => changePage('permisos')}><span>PERMISOS</span></Link>
                         </li>
                     }
                     <li className='link'>
