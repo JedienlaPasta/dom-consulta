@@ -11,8 +11,10 @@ export default function InsertItem({ type }) {
     
     const handleOnChange = (e) => {
         setNewPermiso(prev => ({...prev, [e.target.name]: e.target.value}))
-        if (e.target.name === 'M2_C_RECEP' || e.target.name === 'M2_S_PERM')
-        setNewPermiso(prev => ({...prev, M2_TOTAL: (parseInt(prev.M2_C_RECEP) || 0) + (parseInt(prev.M2_S_PERM) || 0)}))
+        if (e.target.name === 'M2_C_RECEP' || e.target.name === 'M2_S_PERM') {
+            setNewPermiso(prev => ({...prev, M2_TOTAL: (parseInt(prev.M2_C_RECEP) || 0) + (parseInt(prev.M2_S_PERM) || 0)}))
+        }
+        
     }
     
     return (

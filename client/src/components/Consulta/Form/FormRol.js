@@ -3,7 +3,6 @@ import { getPermisos } from '../../../actions/permisos'
 import { getRoles } from '../../../actions/roles'
 import { isAuthenticated } from '../../../actions/users'
 import { DataContext } from '../../../context/DataContext'
-import Message from './Message/Message'
 
 export default function Form({ search }) {
     const [rol, setRol] = useState({ 
@@ -49,7 +48,6 @@ export default function Form({ search }) {
             </span>
             <br />
             <button type='submit'>Buscar</button>
-            { message && <Message message={message} /> }
         </form>
     )
 }

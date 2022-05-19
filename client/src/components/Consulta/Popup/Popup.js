@@ -3,6 +3,7 @@ import { CgClose } from 'react-icons/cg'
 import { delPermiso, downloadPermisos, patchPermiso, postPermiso } from '../../../actions/permisos'
 import { ACTIONS, DataContext } from '../../../context/DataContext'
 import Loading from './Loading'
+import SmallLoading from './SmallLoading'
 import './style.css'
 
 export default function Popup() {
@@ -92,7 +93,8 @@ export default function Popup() {
                     {/* Popup Body */}
                     <div className='popup-body-container'>
                         { crudFilter.crudType === 'Descargar' && <Loading /> }
-                        <p className={`popup-body ${crudFilter.crudType === 'Descargar' && 'text-center'}`}>{ msg ? msg : 'Cargando...' }</p>
+                        { searching && <SmallLoading/>}
+                        <p className={`popup-body ${(crudFilter.crudType === 'Descargar' || msg === 'Buscando...') && 'text-center'}`}>{ msg ? msg : 'Cargando...' }</p>
                     </div>
                     {/* Popup Action Buttons */}
                     {   showHeaderAndButtons && 
@@ -107,7 +109,7 @@ export default function Popup() {
                 </div>
             }
             {   message &&
-                <div className="popup-container">
+                <div className={`popup-container ${msg === 'No se encontraron coincidencias' && 'red-border'}`}>
                     {/* Popup Header */}
                     <div className="popup-header">
                         {   crudFilter.crudType !== 'Descargar' 

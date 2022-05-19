@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react'
 import { getPermisosByApellidoP } from '../../../actions/permisos'
 import { isAuthenticated } from '../../../actions/users'
 import { DataContext } from '../../../context/DataContext'
-import Message from './Message/Message'
 
 export default function FormAP({ search }) {
     const [apellido, setApellido] = useState('')
@@ -37,7 +36,6 @@ export default function FormAP({ search }) {
             </span>
             <br />
             <button type='submit'>Buscar</button>
-            { message && <Message message={message} /> }
         </form>
     )
 }

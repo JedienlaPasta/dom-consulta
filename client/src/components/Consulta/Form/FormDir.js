@@ -3,7 +3,6 @@ import { getPermisosByDIR } from '../../../actions/permisos'
 import { getRolesByDIR } from '../../../actions/roles'
 import { isAuthenticated } from '../../../actions/users'
 import { DataContext } from '../../../context/DataContext'
-import Message from './Message/Message'
 
 export default function FormRut({ search }) {
     const [dir, setDir] = useState('')
@@ -41,7 +40,6 @@ export default function FormRut({ search }) {
             </span>
             <br />
             <button type='submit'>Buscar</button>
-            { message && <Message message={message} /> }
         </form>
     )
 }
