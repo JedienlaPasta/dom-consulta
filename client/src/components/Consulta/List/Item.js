@@ -3,14 +3,14 @@ import { DataContext } from '../../../context/DataContext'
 
 export default function Item({ rol }) {
     const { roles, page } = useContext(DataContext)
-        
+    
     // Para calcular el digito verificador del RUT
     const getDV = () => {
         if (roles?.length) {
             const arr = []
             const mArr = [2, 3, 4, 5, 6, 7]
             if ( rol?.RUT !== 0 && !roles[0]?.MATRIZ && !roles[0]?.DIGITO && !roles[0]?.M2_TOTAL) {
-                console.log(roles[0]?.MATRIZ)
+                // console.log(roles[0]?.MATRIZ)
                 const inverted = rol?.RUT.toString().split("").reverse().join("")
                 for (let i = 0; i < inverted.length; i++) {
                     arr[i] = inverted.charAt(i)

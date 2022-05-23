@@ -51,6 +51,8 @@ export default function App() {
 // (now)
 // vista de tabla para computador de escritorio, campos seteados a ciertos tamaños y al presionarlos, que estos se desplieguen mostrando toda la informacion (util para campos con valores muy extensos)
 // $sort roles, buscar como hacerlo con valores numericos en vez de string
+// ingresar fechas de forma opcional?
+// dropdown
 
 // informe
 

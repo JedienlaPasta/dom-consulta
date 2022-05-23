@@ -33,7 +33,7 @@ export default function Navbar() {
         window.addEventListener("resize", handleResize)
         return () => window.removeEventListener("resize", handleResize)
     })
-    console.log(toggleMenu)
+
     const toggle = () => {
         setToggleMenu(prev => !prev)
     }

@@ -108,6 +108,11 @@ export const gerPermisosBySector = async (req, res) => {
 //             }}
 //         }]
 //     )
+//     try {
+//         res.status(200).json({ message: 'done' })
+//     } catch (error) {
+//         res.status(404).json({ message:error.message })
+//     }
 // }
 
 export const getM2Total = async (req, res) => {

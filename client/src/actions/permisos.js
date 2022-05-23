@@ -6,7 +6,6 @@ import { ACTIONS } from "../context/DataContext"
 export const getPermisos = async (rol, dispatch, setMessage, setShowPopup, setSearching) => {
     try {
         const { data } = await fetchPermisos(rol)
-        console.log(data)
         setTimeout(() => {
             setShowPopup(false)
             setSearching(false)

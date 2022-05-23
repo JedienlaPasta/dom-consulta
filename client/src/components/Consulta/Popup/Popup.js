@@ -46,9 +46,9 @@ export default function Popup() {
         // const permisoToCheck = Object.fromEntries(Object.entries(newPermiso).filter(([key]) => key !== 'MZ'))
         // const permisoToCheck = Object.fromEntries(Object.entries(newPermiso).filter(([key]) => key !== notRequired.forEach(field => field)))
         const permisoToCheck = Object.fromEntries(Object.entries(newPermiso).filter(([key]) => !notRequired?.includes(key) ))
-        console.log(permisoToCheck)
+
         const isValid = Object.values(permisoToCheck).every(val => val !== '')
-        console.log(isValid)
+
         if (isValid) {
             if (crudFilter.type === 'insert') {
                 postPermiso(newPermiso, setMessage, setNewPermiso, permisoInitialValue)
