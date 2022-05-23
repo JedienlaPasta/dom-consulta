@@ -86,7 +86,7 @@ export default function Consulta() {
                         <ul className='filter-links'>
                             {/* {displayF} */}
                         </ul>
-                        <h4 className='titulo-consulta'>Buscar Registros</h4>
+                        { crudFilter.type === 'read' && <h4 className='titulo-consulta'>Buscar Registros</h4> }
                         {displayFor}
                         { roles.length > 0 && ( page === 'permisos' ? <List save={save} deletePermiso={deletePermiso}/> : <List/>) }
                     </>

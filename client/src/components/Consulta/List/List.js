@@ -66,8 +66,8 @@ export default function List({ save, deletePermiso, downloadFile }) {
             <div className="list-items">
                 { totRoles > 1 && 
                     <div className="list-items-btns">
-                        <h4 className='titulo-resultado'>Resultado #{rolIndex + 1}</h4>
                         <button className="list-btn btn-left" onClick={goBackwards}><FiChevronsLeft/></button>
+                        <h4 className='titulo-resultado'>Resultado #{rolIndex + 1}</h4>
                         <button className="list-btn btn-right" onClick={goForward}><FiChevronsRight/></button>
                     </div>
                 }

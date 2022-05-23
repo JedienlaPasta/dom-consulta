@@ -33,7 +33,7 @@ export default function Sidebar() {
             <hr className='sidebar-hr' />
             <h3 className='sidebar-items'>Consultar Registro</h3>
             {displayItems}
-            {   page === 'permisos' &&
+            {   page === 'permisos' && user.role === 'dom_admin' &&
                 <>
                     <hr className='sidebar-hr' />
                     <h3 className='sidebar-items'>Ingresar Registro</h3>

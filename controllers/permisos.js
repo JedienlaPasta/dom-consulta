@@ -167,6 +167,7 @@ export const updatePermiso = async (req, res) => {
     // se cambian los valores del documento guardado en la DB por los nuevos valores enviados en el body
     // Object.keys(toUpdate.toJSON()).forEach((key) => permiso[key] && (toUpdate[key] = permiso[key]))
     // Object.keys(newPermiso).forEach(key => newPermiso[key] = roles[rolIndex]?.[key] || (typeof roles[rolIndex]?.[key] == 'number' ? 0 : ''))
+    // quizas esto no hace falta, pero no estaria de mas dejarlo por si acaso?
     Object.keys(toUpdate.toJSON()).forEach((key) => key !== '__v' && (toUpdate[key] = permiso[key] || (typeof permiso[key] == 'number' ? 0 : '')))
     try {
         await toUpdate.save()

@@ -50,9 +50,12 @@ export default function App() {
 
 // (now)
 // vista de tabla para computador de escritorio, campos seteados a ciertos tamaños y al presionarlos, que estos se desplieguen mostrando toda la informacion (util para campos con valores muy extensos)
+// crear un log que guarde todos los ingresos o cambios hechos de los registros: quien lo hizo, que hizo, cuando lo hizo. Esto iria guardado en una coleccion aparte de los permisos y solo la persona con cuenta de admin podria consultarla
 // $sort roles, buscar como hacerlo con valores numericos en vez de string
 // ingresar fechas de forma opcional?
 // dropdown
+// se debe poder ingresar un nuevo registro con roles repetidos de un registro ingresado anteriormente, el unico valor unico seria el id
+// quitar el scroll behavior
 
 // informe
 
@@ -77,3 +80,6 @@ export default function App() {
 // DERECHOS
 
 // los * son de que aun falta ponerlos como obligatorios
+
+
+// alcaldia
