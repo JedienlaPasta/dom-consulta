@@ -2,14 +2,13 @@ import RolData from "../models/rolesData.js";
 
 export const getRoles = async (req, res) => {
     const roles = req.query
-    console.log('roles')
-    console.log(roles)
     let rolesData
     // esto es en caso de que el rol2 sea ''
     if (roles.mz && roles.pd) {
         rolesData = await RolData.find({ ROL_AVALUO_1: roles?.mz, ROL_AVALUO_2: roles?.pd })
     }
     else {
+        // aqui no puedo $sortear igual que en los permisos, porque rol1 y rol2 son valores numericos
         rolesData = await RolData.find({ ROL_AVALUO_1: roles?.mz })
     }
     // en caso de no encontrar coincidencias

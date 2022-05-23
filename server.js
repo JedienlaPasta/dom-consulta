@@ -26,7 +26,7 @@ app.use(cors())
 app.use(express.static(path.join(__dirname, 'client', 'build')))
 
 app.use('/roles', rolesRoutes)
-app.use('/permisos', permisosRoutes)
+app.use('/perm', permisosRoutes)
 app.use('/users', userRoutes)
 
 app.get('*', (req, res) => {

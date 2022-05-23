@@ -27,26 +27,30 @@ export default function App() {
   )
 }
 
-// TODO list
-// refactorizar codigo
-// validar en el servidor el rol del usuario cada vez que haga algun request
-// revizar el tema de las mayusculas y minusculas
-// revizar el tema de los campos obligatorios y no obligatorios
-// vista de tabla para computador de escritorio
-// al presionar rapidamente el boton de editar, despues de presionar buscar, se produce un error. Se podria invalidar el uso de dichos botones hasta que llegue una respuesta por parte del servidor
-// agregar el campo observaciones a los permisos (depende del excel)
+// DONE (mostly)
 // al ingresar un registro nuevo, que se calcule automaticamente el valor de M2_TOTAL // calcular el valor total de M2_TOTAL (combinando los valores de todos los registros) (hecho, falta probar si funciona bien siempre)
 // agregar popups de carga a las consultas que se realizan, para mejorar la experiencia de usuario al haber tiempos de esperas un tanto largos (mas o menos hecho, falta ver si tiene buen recibimiento)
-// calcular el M2_TOTAL de la coleccion completa
-
-// antes de que se envie el request y se abra el popup, que se verifique primero al usuario
-
 // separar rol de cobro y permisos en elementos distintos para que al recargar se mantenga en la misma pagina
-
 // podria hacer un array con los input, correspondiente a cada uno de los form que se van a mostrar, y que se muestre dependiendo de la pagina y el crudFilter.filter (mas o menos terminado, al menos funciona)
 // que los registros se muestren en orden ascendente de acuerdo al rol (doble siclo for? el primero para rol1 y el segundo para rol2) // reparado temporalmente, no es totalmente funcional
+// al presionar rapidamente el boton de editar, despues de presionar buscar, se produce un error. Se podria invalidar el uso de dichos botones hasta que llegue una respuesta por parte del servidor (solucion temporal: ahora no se puede cerrar el popup de carga)
+// antes de que se envie el request y se abra el popup, que se verifique primero al usuario (ahora no se deberia abrir el popup si se vence el token)
+// calcular el M2_TOTAL de la coleccion completa (hecho)
+// En el FormDir se comparte el state, asi que hay que actualizarlo manualmente cada vez que se cambia de filter
+// revizar el tema de las mayusculas y minusculas (de momento funciona)
+// agregar el campo observaciones a los permisos (hecho)
 
+// revizar el tema de los campos obligatorios y no obligatorios(hecho de momento, pero puede que se deban hacer cambios mas adelante)
+
+// TODO list
+// (later)
+// refactorizar codigo
+// validar en el servidor el rol del usuario cada vez que haga algun request
 // guardar token en db y compararlo en cada request para verificar el rol del usuario
+
+// (now)
+// vista de tabla para computador de escritorio, campos seteados a ciertos tamaños y al presionarlos, que estos se desplieguen mostrando toda la informacion (util para campos con valores muy extensos)
+// $sort roles, buscar como hacerlo con valores numericos en vez de string
 
 // informe
 
@@ -55,3 +59,19 @@ export default function App() {
 
 // cada vez que se haga un cambio en un registro o se ingrese uno nuevo, se guarda una spreadsheet en el google drive con GOOGLE DRIVE API
 // https://www.youtube.com/watch?v=AwTxrCgIBWk&ab_channel=ProgrammingWithPrem \\ to abort or cancel API requests //\\ https://www.npmjs.com/package/react-use-cancel-token
+
+// campos obligatorios (ojala todos estos)
+// MATRIZ
+// DIGITO
+// NOMBRE             *
+// N° VIV
+// M2 C/RECEP
+// M2 C/PERM
+// M2 S/PERM
+// M2 TOTAL
+// U. INGRESO NÚM
+// U. INGRESO AÑO
+// DESDE              * (quizas no debiese ser obligatorio, ya que puede que aun no este aprobado el permiso)
+// DERECHOS
+
+// los * son de que aun falta ponerlos como obligatorios

@@ -10,20 +10,19 @@ export default function Form({ search }) {
         pd: '' 
     })
 
-    const { page, dispatch, setUser, setIsAuth, message, setMessage, setRolIndex, crudFilter, setCrudFilter, setShowPopup, setSearching, preventNegative } = useContext(DataContext)
+    const { page, dispatch, setUser, setIsAuth, setMessage, setRolIndex, crudFilter, setCrudFilter, setShowPopup, setSearching, preventNegative } = useContext(DataContext)
 
     const handleSubmit = (event) => {
         event.preventDefault()
         setMessage('')
         setRolIndex(0)
-        search()
-        // dispatch({ type: ACTIONS.FETCH_MATCHES, payload: [] })
         isAuthenticated().then(data => {
             setCrudFilter({...crudFilter, type: 'read'})
             const { isAuthenticated, user } = data
             setUser(user)
             setIsAuth(isAuthenticated)
             if (isAuthenticated) {
+                search()
                 if (page === 'permisos') {
                     getPermisos(rol, dispatch, setMessage, setShowPopup, setSearching)
                 }
@@ -38,11 +37,11 @@ export default function Form({ search }) {
         <form className='form-consulta' onSubmit={handleSubmit}>
             <span className='inputs grid-inputs grid-inputs-even'>
                 <div className="input">
-                    <label className='hint'>MZ</label>
+                    <label className='hint'>Rol-Matriz</label>
                     <input type='number' name='mz' required placeholder='Ingresar MZ...' value={rol.mz} onChange={(e) => preventNegative(e, setRol, true)} />
                 </div>
                 <div className="input">
-                    <label className='hint'>PD</label>
+                    <label className='hint'>Rol-Dígito</label>
                     <input type='number' name='pd' placeholder='Ingresar PD...' value={rol.pd} onChange={(e) => preventNegative(e, setRol, true)} />
                 </div>
             </span>

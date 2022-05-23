@@ -6,19 +6,19 @@ import { DataContext } from '../../../context/DataContext'
 export default function FormAP({ search }) {
     const [apellido, setApellido] = useState('')
 
-    const { page, dispatch, setUser, setIsAuth, message, setMessage, setRolIndex, crudFilter, setCrudFilter, setShowPopup, setSearching } = useContext(DataContext)
+    const { page, dispatch, setUser, setIsAuth, setMessage, setRolIndex, crudFilter, setCrudFilter, setShowPopup, setSearching } = useContext(DataContext)
 
     const handleSubmit = (event) => {
         event.preventDefault()
         setMessage('')
         setRolIndex(0)
-        search()
         isAuthenticated().then(data => {
             setCrudFilter({...crudFilter, type: 'read'})
             const { isAuthenticated, user } = data
             setUser(user)
             setIsAuth(isAuthenticated)
             if (isAuthenticated) {
+                search()
                 if (page === 'permisos') {
                     getPermisosByApellidoP(apellido, dispatch, setMessage, setShowPopup, setSearching)
                 }

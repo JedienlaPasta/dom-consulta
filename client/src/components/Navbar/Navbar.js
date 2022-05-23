@@ -1,12 +1,16 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { logout } from '../../actions/users'
 import { ACTIONS, DataContext } from '../../context/DataContext'
 import { RiLogoutBoxRLine } from 'react-icons/ri'
+import { CgMenu } from 'react-icons/cg'
 import './style.css'
+import img from '../../images/algarrobo.png'
 
 export default function Navbar() {
-    const { user, setUser, setIsAuth, dispatch, page, setPage, setMessage } = useContext(DataContext)
+    const [showMenu, setShowMenu] = useState(!window.innerWidth > 749)
+    const { user, setUser, setIsAuth, dispatch, page, setPage, setMessage, toggleMenu, setToggleMenu } = useContext(DataContext)
+    const toggleMenuBtnName = toggleMenu ? 'toogle-menu-btn marked' : 'toogle-menu-btn'
 
     const handleLogout = () => {
         setMessage('')
@@ -17,6 +21,23 @@ export default function Navbar() {
         })
     }
 
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth > 749) {
+                setToggleMenu(false)
+                return setShowMenu(false)
+            }
+            return setShowMenu(true)
+        }
+        handleResize()
+        window.addEventListener("resize", handleResize)
+        return () => window.removeEventListener("resize", handleResize)
+    })
+    console.log(toggleMenu)
+    const toggle = () => {
+        setToggleMenu(prev => !prev)
+    }
+
     const changePage = (val) => {
         setPage(val)
         dispatch({ type: ACTIONS.FETCH_MATCHES, payload: [] })
@@ -24,7 +45,10 @@ export default function Navbar() {
 
     return (
         <header className='nav-header'>
-            { page === 'rolcobro' ? <h2>ROL COBRO</h2> : <h2>PERMISOS DOM</h2> }
+            <div className="logo">
+                <img className='logo-img' src={img} alt="0" />
+                <h2 className='logo-title'>DOM Algarrobo</h2>
+            </div>
             <nav className='nav'>
                 <ul className='nav-links'>
                     <li className='link'>
@@ -35,9 +59,14 @@ export default function Navbar() {
                         <Link className={`${page === 'permisos' ? 'link-item marked-link-item' : 'link-item'}`} to='/permisos' onClick={() => changePage('permisos')}><span>PERMISOS</span></Link>
                         </li>
                     }
-                    <li className='link'>
+                    {/* <li className='link'>
                         <Link className='link-item logout' to='/auth' onClick={handleLogout}><RiLogoutBoxRLine/></Link>
-                    </li>
+                    </li> */}
+                    {   showMenu &&
+                        <li className='link'>
+                            <button className={toggleMenuBtnName} to='/auth' onClick={toggle}><CgMenu/></button>
+                        </li>
+                    }
                 </ul>
             </nav>
         </header>

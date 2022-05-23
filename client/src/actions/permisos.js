@@ -1,11 +1,12 @@
 import fileDownload from "js-file-download"
-import { fetchPermisos, fetchPermisosByApellidoP, fetchPermisosByDIR, createPermiso, updatePermiso, deletePermiso, getExcelFile } from "../api/api"
+import { fetchPermisos, fetchPermisosByApellidoP, fetchPermisosByDIR, createPermiso, updatePermiso, deletePermiso, getExcelFile, fetchPermisosBySector, fetchM2Total } from "../api/api"
 import { ACTIONS } from "../context/DataContext"
 
 
 export const getPermisos = async (rol, dispatch, setMessage, setShowPopup, setSearching) => {
     try {
         const { data } = await fetchPermisos(rol)
+        console.log(data)
         setTimeout(() => {
             setShowPopup(false)
             setSearching(false)
@@ -14,6 +15,7 @@ export const getPermisos = async (rol, dispatch, setMessage, setShowPopup, setSe
     } catch (error) {
         if (error.response) {
             setMessage(error.response.data.message)
+            setSearching(false)
             dispatch({ type: ACTIONS.FETCH_MATCHES, payload: [] })
         }
     }
@@ -30,6 +32,7 @@ export const getPermisosByApellidoP = async (apellido, dispatch, setMessage, set
     } catch (error) {
         if (error.response) {
             setMessage(error.response.data.message)
+            setSearching(false)
             dispatch({ type: ACTIONS.FETCH_MATCHES, payload: [] })
         }
     }
@@ -46,15 +49,53 @@ export const getPermisosByDIR = async (dir, dispatch, setMessage, setShowPopup, 
     } catch (error) {
         if (error.response) {
             setMessage(error.response.data.message)
+            setSearching(false)
             dispatch({ type: ACTIONS.FETCH_MATCHES, payload: [] })
         }
     }
 }
-// el setMessage no se debe mostrar en los form si es un status positivo, solo se debe mostrar en los popup
-export const postPermiso = async (permiso, setMessage) => {
+
+export const getPermisosBySector = async (sector, dispatch, setMessage, setShowPopup, setSearching) => {
+    try {
+        const { data } = await fetchPermisosBySector(sector)
+        setTimeout(() => {
+            setShowPopup(false)
+            setSearching(false)
+            dispatch({ type: ACTIONS.FETCH_MATCHES, payload: data })
+        }, 100)
+    } catch (error) {
+        if (error.response) {
+            setMessage(error.response.data.message)
+            setSearching(false)
+            dispatch({ type: ACTIONS.FETCH_MATCHES, payload: [] })
+        }
+    }
+}
+
+export const getM2Total = async (dispatch, setMessage, setShowPopup, setSearching) => {
+    try {
+        const { data } = await fetchM2Total()
+        setTimeout(() => {
+            setShowPopup(false)
+            setSearching(false)
+            dispatch({ type: ACTIONS.FETCH_MATCHES, payload: data })
+        }, 100)
+    } catch (error) {
+        if (error.response) {
+            setMessage(error.response.data.message)
+            setSearching(false)
+            dispatch({ type: ACTIONS.FETCH_MATCHES, payload: [] })
+        }
+    }
+}
+
+export const postPermiso = async (permiso, setMessage, setNewPermiso, permisoInitialValue) => {
     try {
         const { data } = await createPermiso(permiso)
-        setTimeout(() => setMessage(data.message), 500)
+        setTimeout(() => {
+            setMessage(data.message)
+            setNewPermiso(permisoInitialValue) // se reestablecen los valores de newPermiso a su estado original (vacio)
+        }, 500)
     } catch (error) {
         if (error.response) {
             setTimeout(() => setMessage(error.response.data.message), 500)
@@ -62,10 +103,13 @@ export const postPermiso = async (permiso, setMessage) => {
     }
 }
 
-export const patchPermiso = async (permiso, setMessage) => {
+export const patchPermiso = async (permiso, setMessage, setNewPermiso, permisoInitialValue) => {
     try {
         const { data } = await updatePermiso(permiso)
-        setTimeout(() => setMessage(data.message), 500)
+        setTimeout(() => {
+            setMessage(data.message)
+            setNewPermiso(permisoInitialValue) // se reestablecen los valores de newPermiso a su estado original (vacio)
+        }, 500)
     } catch (error) {
         if (error.response) {
             setTimeout(() => setMessage(error.response.data.message), 500)

@@ -5,10 +5,9 @@ import FormRol from './Form/FormRol'
 import FormRut from './Form/FormRut'
 import FormDir from './Form/FormDir'
 import FormAP from './Form/FormAP'
-import Filter from './Filter/FIlter'
 import Popup from './Popup/Popup'
 import List from './List/List'
-import './style.css'
+import './style.css' 
 
 export default function Consulta() {
     const {roles, user, page, isAuth, dispatch, showPopup, setShowPopup, crudFilter, setCrudFilter, setNewPermiso, permisoInitialValue, setSearching } = useContext(DataContext)
@@ -45,28 +44,50 @@ export default function Consulta() {
 
     // Estos son los elementos que se renderizaran
 
-    const filters = [['ROL', <FormRol key={'rol'} search={search}/>], page === 'rolcobro' ? ['RUT', <FormRut key={'rut'} search={search}/>] : ['AP', <FormAP key={'ap'} search={search}/>], ['DIR', <FormDir key={'dir'} search={search}/>]]
+    const permisosFilters = [
+        ['Rol', <FormRol key={'rol'} search={search}/>], 
+        ['Apellido Paterno', <FormAP key={'ap'} search={search}/>], 
+        ['Dirección', <FormDir key={'dir'} search={search}/>], 
+        ['Sector', <FormDir key={'dir'} search={search}/>], 
+        ['N° Viv & m2 Total', <FormDir key={'dir'} search={search}/>]
+    ]
 
-    const displayCrudFilters = crudFilter.filters.map(item => <Filter key={item} val={item} type='crud' />)
-    const displayFilters = filters.map(item => <Filter key={item} val={item[0]} />) // si la pagina de consulta es rol de cobro, no mandar type y si es de permisos, mandar type='crud'
-    const displayForm = filters.map(item => item[0] === crudFilter.filter ? item[1] : null)
+    const rolCobroFilters = [
+        ['Rol', <FormRol key={'rol'} search={search}/>], 
+        ['Rut', <FormRut key={'rut'} search={search}/>], 
+        ['Dirección', <FormDir key={'dir'} search={search}/>]
+    ]
+
+    // const displayFilters = filters.map(item => <Filter key={item} val={item[0]} />) // si la pagina de consulta es rol de cobro, no mandar type y si es de permisos, mandar type='crud'
+    // const displayForm = filters.map(item => item[0] === crudFilter.filter ? item[1] : null)
+
+    // Estos son los filters antiguos
+    // const displayCrudFilters = crudFilter.filters.map(item => <Filter key={item} val={item} type='crud' />)
+
+    // const displayF =
+    //     page === 'rolcobro' ?
+    //         rolCobroFilters.map(item => <Filter key={item} val={item[0]} />)
+    //     :
+    //         permisosFilters.map(item => <Filter key={item} val={item[0]} />)
+
+    const displayFor =
+        page === 'rolcobro' ?
+            rolCobroFilters.map(item => item[0] === crudFilter.filter ? item[1] : null)
+        :
+            permisosFilters.map(item => item[0] === crudFilter.filter ? item[1] : null)
+    
 
     return (
         <div className='super-body-container'>
             { showPopup && <Popup /> }
-            {   page === 'permisos' && user.role === 'dom_admin' &&
-                <div className="crud-filters">
-                    <ul className='crud-filter-links'>
-                        {displayCrudFilters}
-                    </ul>
-                </div>
-            }
             <div className='body-container'>
                 {   crudFilter.crudType === 'Consultar' 
                     ? <>
-                        <ul className='filter-links'>{displayFilters}</ul>
-                        <h4 className='titulo-consulta'>Haga su consulta</h4>
-                        {displayForm}
+                        <ul className='filter-links'>
+                            {/* {displayF} */}
+                        </ul>
+                        <h4 className='titulo-consulta'>Buscar Registros</h4>
+                        {displayFor}
                         { roles.length > 0 && ( page === 'permisos' ? <List save={save} deletePermiso={deletePermiso}/> : <List/>) }
                     </>
                     : <List save={save} downloadFile={downloadFile} />

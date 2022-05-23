@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react'
-import { getPermisosByDIR } from '../../../actions/permisos'
+import React, { useContext, useEffect, useState } from 'react'
+import { getPermisosByDIR, getM2Total, getPermisosBySector } from '../../../actions/permisos'
 import { getRolesByDIR } from '../../../actions/roles'
 import { isAuthenticated } from '../../../actions/users'
 import { DataContext } from '../../../context/DataContext'
@@ -7,21 +7,30 @@ import { DataContext } from '../../../context/DataContext'
 export default function FormRut({ search }) {
     const [dir, setDir] = useState('')
 
-    const { page, dispatch, setUser, setIsAuth, message, setMessage, setRolIndex, crudFilter, setCrudFilter, setShowPopup, setSearching } = useContext(DataContext)
+    const { page, dispatch, setUser, setIsAuth, setMessage, setRolIndex, crudFilter, setCrudFilter, setShowPopup, setSearching } = useContext(DataContext)
+
+    useEffect(() => {
+        setDir('')
+    }, [crudFilter.filter])
 
     const handleSubmit = (event) => {
         event.preventDefault()
         setMessage('')
         setRolIndex(0)
-        search()
         isAuthenticated().then(data => {
             setCrudFilter({...crudFilter, type: 'read'})
             const { isAuthenticated, user } = data
             setUser(user)
             setIsAuth(isAuthenticated)
             if (isAuthenticated) {
+                search()
                 if (page === 'permisos') {
-                    getPermisosByDIR(dir, dispatch, setMessage, setShowPopup, setSearching)
+                    if (crudFilter.filter === 'Dirección')
+                        getPermisosByDIR(dir, dispatch, setMessage, setShowPopup, setSearching)
+                    else if (crudFilter.filter === 'Sector')
+                        getPermisosBySector(dir, dispatch, setMessage, setShowPopup, setSearching)
+                    else if (crudFilter.filter === 'N° Viv & m2 Total')
+                        getM2Total(dispatch, setMessage, setShowPopup, setSearching)
                 }
                 else if (page === 'rolcobro') {
                     getRolesByDIR(dir, dispatch, setMessage, setShowPopup, setSearching)
@@ -32,12 +41,25 @@ export default function FormRut({ search }) {
 
     return (
         <form className='form-consulta' onSubmit={handleSubmit}>
-            <span className='inputs grid-inputs'>
-                <div className="input">
-                    <label className='hint'>Dirección</label>
-                    <input type='text' name='dir' required placeholder='Ingresar Dirección...' value={dir} onChange={(e) => setDir(e.target.value)} />
-                </div>
-            </span>
+                <span className='inputs grid-inputs'>
+                    {   crudFilter.filter === 'Dirección' &&
+                        <div className="input">
+                            <label className='hint'>Dirección</label>
+                            <input type='text' name='dir' required placeholder='Ingresar Dirección...' value={dir} onChange={(e) => setDir(e.target.value)} />
+                        </div>
+                    }
+                    {
+                        crudFilter.filter === 'Sector' &&
+                        <div className="input">
+                            <label className='hint'>Sector</label>
+                            <input type='text' name='sector' required placeholder='Ingresar Sector...' value={dir} onChange={(e) => setDir(e.target.value)} />
+                        </div>
+                    }
+                    {
+                        crudFilter.filter === 'N° Viv & m2 Total' &&
+                        <p className='text-center'>Consultar el número de viviendas y m2 totales</p>
+                    }
+                </span>
             <br />
             <button type='submit'>Buscar</button>
         </form>

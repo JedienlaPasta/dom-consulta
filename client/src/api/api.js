@@ -22,18 +22,22 @@ export const fetchRolesByDIR = (dir) => axios.get('/roles/dir', { params: { dir:
 // Permisos
 // const permisos_url = 'https://localhost:5000/permisos'
 
-export const fetchPermisos = (rol) => axios.get('/permisos/rol', { params: { mz: rol.mz, pd: rol.pd } })
+export const fetchPermisos = (rol) => axios.get('/perm/rol', { params: { mz: rol.mz, pd: rol.pd } })
 
-export const fetchPermisosByApellidoP = (apellido) => axios.get('/permisos/apellido', { params: { apellido: apellido } })
+export const fetchPermisosByApellidoP = (apellido) => axios.get('/perm/apellido', { params: { apellido: apellido } })
 
-export const fetchPermisosByDIR = (dir) => axios.get('/permisos/dir', { params: { dir: dir } })
+export const fetchPermisosByDIR = (dir) => axios.get('/perm/dir', { params: { dir: dir } })
 
-export const createPermiso = (permiso) => axios.post('/permisos/create', { permiso }) // aqui agregue un / al principio, antes funcionaba bien sin el /
+export const fetchPermisosBySector = (sector) => axios.get('/perm/sector', { params: { sector: sector } })
 
-export const updatePermiso = (permiso) => axios.patch('/permisos/update', { permiso })
+export const fetchM2Total = () => axios.get('/perm/m2total')
 
-export const deletePermiso = (id) => axios.delete('/permisos/delete', { params: id })
+export const createPermiso = (permiso) => axios.post('/perm/create', { permiso }) // aqui agregue un / al principio, antes funcionaba bien sin el /
+
+export const updatePermiso = (permiso) => axios.patch('/perm/update', { permiso })
+
+export const deletePermiso = (id) => axios.delete('/perm/delete', { params: id })
 
 // export permisos
 
-export const getExcelFile = () => axios({ url: '/permisos/exportpermisos', method: 'GET', responseType: 'blob' })
+export const getExcelFile = () => axios({ url: '/perm/exportpermisos', method: 'GET', responseType: 'blob' })

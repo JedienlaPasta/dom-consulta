@@ -7,16 +7,12 @@ export const getPermiso = async (req, res) => {
     const roles = req.query
     let permiso
     if (roles.mz && roles.pd) {
+        // aqui se buscan registros con los roles exactos, por lo que no hace falta hacer un $sort
         permiso = await Permiso.find({ MATRIZ: roles?.mz, DIGITO: roles?.pd })
     }
     else {
-        // permiso = await Permiso.find({ MATRIZ: roles?.matriz })
-        // permiso = await Permiso.find({ MATRIZ: roles?.matriz }).limit(50).sort({ DIGITO: 'ascending' })
-        // perm = await Permiso.find({ MATRIZ: roles?.matriz, to:"int" }).sort({ DIGITO: 'ascending'})
-        // busca los permisos y los ordena de acuerdo a su DIGITO
         permiso = await Permiso.aggregate([ 
-            { $match: { MATRIZ: roles?.mz } },
-            // aqui quizas tomar los valores que tienen un '-' o '/' y tomar solo su primer numero para ordenarlo
+            { $match: { MATRIZ: roles?.mz }},
             { $addFields: { 
                 // "DIGITO": { $arrayElemAt: [{"$split": [ "$DIGITO", ("/")]}, 0] },
                 "DIGITO_length": { $strLenCP: "$DIGITO" }}},
@@ -28,9 +24,6 @@ export const getPermiso = async (req, res) => {
         return res.status(404).json({ message: 'No se encontraron coincidencias' })
     }
     try {
-        permiso.forEach(element => {
-            console.log(element.DIGITO)
-        })
         res.status(200).json(permiso)
     } catch (error) {
         res.status(404).json({ message: 'Error inesperado' })
@@ -40,12 +33,31 @@ export const getPermiso = async (req, res) => {
 export const getPermisoByApellidoP = async (req, res) => {
     const apellido = req.query?.apellido
     // const permiso = await Permiso.find({ APELLIDO_P: apellido })
-    const permiso = await Permiso.find({ APELLIDO_P: { $regex: apellido, $options: 'i'} })
+    // const permiso = await Permiso.find({ APELLIDO_P: { $regex: apellido, $options: 'i'} })
     const perm = await Permiso.aggregate([ 
         { $match: { APELLIDO_P: { $regex: apellido, $options: 'i'} }},
-        { $addFields: { "DIGITO_length": { $strLenCP: "$DIGITO"} }},
-        { $sort: { "DIGITO_length": 1, "DIGITO": 1}},
-        { $project: { "DIGITO_length": 0 }}
+        { $addFields: { "MATRIZ_length": { $strLenCP: "$MATRIZ"}, "DIGITO_length": { $strLenCP: "$DIGITO"} }},
+        { $sort: { "MATRIZ_length": 1, "MATRIZ": 1, "DIGITO_length": 1, "DIGITO": 1 }},
+        { $project: { "MATRIZ_length": 0, "DIGITO_length": 0 }}
+    ])
+    if (!perm.length) {
+        return res.status(404).json({ message: 'No se encontraron coincidencias' })
+    }
+    try {
+        res.status(200).json(perm)
+    } catch (error) {
+        res.status(404).json({ message: 'Error inesperado' })
+    }
+}
+
+export const getPermisosByDIR = async (req, res) => {
+    const dir = req.query?.dir
+    // const permiso = await Permiso.find({ CALLE: {$regex: dir, $options: 'i'} })
+    const permiso = await Permiso.aggregate([ 
+        { $match: { CALLE: { $regex: dir, $options: 'i'} }},
+        { $addFields: { "MATRIZ_length": { $strLenCP: "$MATRIZ"}, "DIGITO_length": { $strLenCP: "$DIGITO"} }},
+        { $sort: { "MATRIZ_length": 1, "MATRIZ": 1, "DIGITO_length": 1, "DIGITO": 1 }},
+        { $project: { "MATRIZ_length": 0, "DIGITO_length": 0 }}
     ])
     if (!permiso.length) {
         return res.status(404).json({ message: 'No se encontraron coincidencias' })
@@ -57,9 +69,15 @@ export const getPermisoByApellidoP = async (req, res) => {
     }
 }
 
-export const getPermisosByDIR = async (req, res) => {
-    const dir = req.query.dir || 'empty'
-    const permiso = await Permiso.find({ CALLE: {$regex: dir, $options: 'i'} })
+export const gerPermisosBySector = async (req, res) => {
+    const sector = req.query.sector || 'empty'
+    // const permiso = await Permiso.find({ SECTOR: {$regex: sector, $options: 'i'} })
+    const permiso = await Permiso.aggregate([ 
+        { $match: { SECTOR: { $regex: sector, $options: 'i'} }},
+        { $addFields: { "MATRIZ_length": { $strLenCP: "$MATRIZ"}, "DIGITO_length": { $strLenCP: "$DIGITO"} }},
+        { $sort: { "MATRIZ_length": 1, "MATRIZ": 1, "DIGITO_length": 1, "DIGITO": 1 }},
+        { $project: { "MATRIZ_length": 0, "DIGITO_length": 0 }}
+    ])
     if (!permiso.length) {
         return res.status(404).json({ message: 'No se encontraron coincidencias' })
     }
@@ -67,6 +85,53 @@ export const getPermisosByDIR = async (req, res) => {
         res.status(200).json(permiso)
     } catch (error) {
         res.status(404).json({ message: 'Error inesperado' })
+    }
+}
+
+// Usar en caso de requerir cambiar valores de la DB
+// export const getM2Total = async (req, res) => {
+//     // Devuelve la base de datos completa con los cambios especificados
+//     // const permisos = await Permiso.aggregate([
+//     //     {
+//     //         $addFields: {
+//     //             COMENTARIO: { $replaceAll: { input: "$COMENTARIO", find: "¡", replacement: "," } }
+//     //         }
+//     //     }
+//     // ])
+
+//     // Actualiza la base de datos completa en los campos especificados con los valores definidos
+//     await Permiso.updateMany(
+//         { "COMENTARIO": { $regex: /%/ }},
+//         [{
+//             $set: { "COMENTARIO": {
+//                 $replaceAll: { input: "$COMENTARIO", find: "%", replacement: ";" }
+//             }}
+//         }]
+//     )
+// }
+
+export const getM2Total = async (req, res) => {
+    // const permisos = await Permiso.find()
+    const permisos = await Permiso.aggregate([
+        {
+            $group: {
+                _id: 'M2_TOTALES',
+                N_VIV: { $sum: '$N_VIV' },
+                M2_C_RECEP: { $sum: '$M2_C_RECEP' },
+                M2_C_PERM: { $sum: '$M2_C_PERM' },
+                M2_S_PERM: { $sum: '$M2_S_PERM' },
+                M2_TOTAL: { $sum: '$M2_TOTAL' },
+            }
+        }
+    ])
+    
+    if (!permisos.length) {
+        return res.status(404).json({ message: 'No se encontraron coincidencias' })
+    }
+    try {
+        res.status(200).json(permisos)
+    } catch (error) {
+        res.status(404).json({ message: error.message })
     }
 }
 
@@ -95,8 +160,9 @@ export const updatePermiso = async (req, res) => {
         return res.status(404).json({ message: 'Este permiso no existe' })
     }
     // se cambian los valores del documento guardado en la DB por los nuevos valores enviados en el body
-    Object.keys(toUpdate.toJSON()).forEach((key) => permiso[key] && (toUpdate[key] = permiso[key]))
-    
+    // Object.keys(toUpdate.toJSON()).forEach((key) => permiso[key] && (toUpdate[key] = permiso[key]))
+    // Object.keys(newPermiso).forEach(key => newPermiso[key] = roles[rolIndex]?.[key] || (typeof roles[rolIndex]?.[key] == 'number' ? 0 : ''))
+    Object.keys(toUpdate.toJSON()).forEach((key) => key !== '__v' && (toUpdate[key] = permiso[key] || (typeof permiso[key] == 'number' ? 0 : '')))
     try {
         await toUpdate.save()
         console.log('permiso actualizado exitosamente')

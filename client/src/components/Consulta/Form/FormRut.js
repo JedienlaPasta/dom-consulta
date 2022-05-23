@@ -7,18 +7,18 @@ import { DataContext } from '../../../context/DataContext'
 export default function FormRut({ search }) {
     const [rut, setRut] = useState('')
 
-    const { page, dispatch, setUser, setIsAuth, message, setMessage, setRolIndex, preventNegative, setShowPopup, setSearching } = useContext(DataContext)
+    const { page, dispatch, setUser, setIsAuth, setMessage, setRolIndex, preventNegative, setShowPopup, setSearching } = useContext(DataContext)
 
     const handleSubmit = (event) => {
         event.preventDefault()
         setMessage('')
         setRolIndex(0)
-        search()
         isAuthenticated().then(data => {
             const { isAuthenticated, user } = data
             setUser(user)
             setIsAuth(isAuthenticated)
             if (isAuthenticated) {
+                search()
                 if (page === 'rolcobro') {
                     getRolesByRUT(rut, dispatch, setMessage, setShowPopup, setSearching)
                 }

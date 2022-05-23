@@ -6,7 +6,7 @@ import Item from './Item'
 import { FiDownloadCloud } from 'react-icons/fi'
 
 export default function List({ save, deletePermiso, downloadFile }) {
-    const { roles, page, dispatch, user, rolIndex, setRolIndex, crudFilter, setCrudFilter } = useContext(DataContext)
+    const { roles, page, dispatch, user, rolIndex, setRolIndex, crudFilter, setCrudFilter, crudDisabled, setCrudDisabled } = useContext(DataContext)
     const totRoles = roles.length
     const type = crudFilter.type
     // quizas cambiar type a 'read' cada vez que se cambia de pagina tambien (no se si esta hecho)
@@ -53,12 +53,12 @@ export default function List({ save, deletePermiso, downloadFile }) {
     
     return (
         <form className='form'>
-            {   page === 'permisos' && user.role === 'dom_admin' && type !== 'insert' && type !== 'update' && crudFilter.crudType !== 'Descargar' &&
+            {   page === 'permisos' && user.role === 'dom_admin' && type !== 'insert' && type !== 'update' && crudFilter.crudType !== 'Descargar' && roles[0]._id !== 'M2_TOTALES' &&
                 <div>
                     <p className='warning'>Cuidado, usted tiene permisos para editar y eliminar registros</p>
                     <div className="crud-btns-container">
-                        <button className='crud-btn delete' onClick={deletePermiso}>Eliminar</button>
-                        <button className='crud-btn edit' onClick={editPermiso}>Editar</button>
+                        <button className='crud-btn delete' disabled={crudDisabled} onClick={deletePermiso}>Eliminar</button>
+                        <button className='crud-btn edit' disabled={crudDisabled} onClick={editPermiso}>Editar</button>
                     </div>
                 </div>
             }

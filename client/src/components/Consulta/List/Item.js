@@ -9,7 +9,8 @@ export default function Item({ rol }) {
         if (roles?.length) {
             const arr = []
             const mArr = [2, 3, 4, 5, 6, 7]
-            if ( rol?.RUT !== 0 && !roles[0]?.MATRIZ) {
+            if ( rol?.RUT !== 0 && !roles[0]?.MATRIZ && !roles[0]?.DIGITO && !roles[0]?.M2_TOTAL) {
+                console.log(roles[0]?.MATRIZ)
                 const inverted = rol?.RUT.toString().split("").reverse().join("")
                 for (let i = 0; i < inverted.length; i++) {
                     arr[i] = inverted.charAt(i)
@@ -38,9 +39,42 @@ export default function Item({ rol }) {
     const dv = getDV() || ''
 
     const currencyFormat = (val) => {
-        return val?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+        let newVal = val?.toString().replace(/[.]/g, ',')
+        newVal = newVal?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+        return newVal
+    }
+
+    // En el caso de que el servidor devuelva los M2 Totales, se muestra esto
+    if (roles.length === 1 && roles[0]._id === 'M2_TOTALES') {
+        return (
+            <table className='list-container'>
+                <tbody>
+                    <tr>
+                        <th>N° VIV:</th>
+                        <td className='result-list-row text-center'>{currencyFormat(rol?.N_VIV)}</td>
+                    </tr>
+                    <tr>
+                        <th>M2 C/RECEP:</th>
+                        <td className='result-list-row text-center'>{currencyFormat(rol?.M2_C_RECEP)}</td>
+                    </tr>
+                    <tr>
+                        <th>M2 C/PERM:</th>
+                        <td className='result-list-row text-center'>{currencyFormat(rol?.M2_C_PERM)}</td>
+                    </tr>
+                    <tr>
+                        <th>M2 S/PERM:</th>
+                        <td className='result-list-row text-center'>{currencyFormat(rol?.M2_S_PERM)}</td>
+                    </tr>
+                    <tr>
+                        <th>M2 TOTAL:</th>
+                        <td className='result-list-row text-center'>{currencyFormat(rol?.M2_TOTAL)}</td>
+                    </tr>
+                </tbody>
+            </table>
+        )
     }
     
+    // En el caso de que el servidor devuelva los roles o los permisos, se muestra esto
     return (
         <>
             {   page === 'permisos' ?
@@ -51,7 +85,7 @@ export default function Item({ rol }) {
                             <td className='result-list-row'>{rol?.MATRIZ}</td>
                         </tr>
                         <tr>
-                            <th>DIGITO:</th>
+                            <th>DÍGITO:</th>
                             <td className='result-list-row'>{rol?.DIGITO}</td>
                         </tr>
                         <tr>
@@ -59,19 +93,31 @@ export default function Item({ rol }) {
                             <td className='result-list-row'>{rol?.NOMBRE}</td>
                         </tr>
                         <tr>
-                            <th>APELLIDO_P:</th>
+                            <th>APELLIDO P:</th>
                             <td className='result-list-row'>{rol?.APELLIDO_P}</td>
                         </tr>
                         <tr>
-                            <th>APELLIDO_M:</th>
+                            <th>APELLIDO M:</th>
                             <td className='result-list-row'>{rol?.APELLIDO_M}</td>
+                        </tr>
+                        <tr>
+                            <th>DOMICILIO:</th>
+                            <td className='result-list-row'>{rol?.DOMICILIO}</td>
+                        </tr>
+                        <tr>
+                            <th>COMUNA:</th>
+                            <td className='result-list-row'>{rol?.COMUNA}</td>
+                        </tr>
+                        <tr>
+                            <th>TELÉFONO:</th>
+                            <td className='result-list-row'>{rol?.TELEFONO}</td>
                         </tr>
                         <tr>
                             <th>MZ:</th>
                             <td className='result-list-row'>{rol?.MZ}</td>
                         </tr>
                         <tr>
-                            <th>NSTPC:</th>
+                            <th>Nº/ST/PC:</th>
                             <td className='result-list-row'>{rol?.NSTPC}</td>
                         </tr>
                         <tr>
@@ -83,28 +129,56 @@ export default function Item({ rol }) {
                             <td className='result-list-row'>{rol?.SECTOR}</td>
                         </tr>
                         <tr>
-                            <th>N_VIV:</th>
+                            <th>DESTINO:</th>
+                            <td className='result-list-row'>{rol?.DESTINO}</td>
+                        </tr>
+                        <tr>
+                            <th>N° VIV:</th>
                             <td className='result-list-row'>{rol?.N_VIV}</td>
                         </tr>
                         <tr>
-                            <th>M2_C_RECEP:</th>
-                            <td className='result-list-row'>{rol?.M2_C_RECEP}</td>
+                            <th>M2 C/RECEP:</th>
+                            <td className='result-list-row'>{currencyFormat(rol?.M2_C_RECEP)}</td>
                         </tr>
                         <tr>
-                            <th>M2_C_PERM:</th>
-                            <td className='result-list-row'>{rol?.M2_C_PERM}</td>
+                            <th>M2 C/PERM:</th>
+                            <td className='result-list-row'>{currencyFormat(rol?.M2_C_PERM)}</td>
                         </tr>
                         <tr>
-                            <th>M2_S_PERM:</th>
-                            <td className='result-list-row'>{rol?.M2_S_PERM}</td>
+                            <th>M2 S/PERM:</th>
+                            <td className='result-list-row'>{currencyFormat(rol?.M2_S_PERM)}</td>
                         </tr>
                         <tr>
-                            <th>M2_TOTAL:</th>
-                            <td className='result-list-row'>{rol?.M2_TOTAL}</td>
+                            <th>M2 TOTAL:</th>
+                            <td className='result-list-row'>{currencyFormat(rol?.M2_TOTAL)}</td>
+                        </tr>
+                        <tr>
+                            <th>U. INGRESO NÚM:</th>
+                            <td className='result-list-row'>{rol?.UI_NUM}</td>
+                        </tr>
+                        <tr>
+                            <th>U. INGRESO AÑO:</th>
+                            <td className='result-list-row'>{rol?.UI_ANO}</td>
+                        </tr>
+                        <tr>
+                            <th>TIPO EXPEDIENTE:</th>
+                            <td className='result-list-row'>{rol?.TIPO_EXPEDIENTE}</td>
                         </tr>
                         <tr>
                             <th>ESTADO:</th>
                             <td className='result-list-row'>{rol?.ESTADO}</td>
+                        </tr>
+                        <tr>
+                            <th>DESDE:</th>
+                            <td className='result-list-row'>{rol?.DESDE}</td>
+                        </tr>
+                        <tr>
+                            <th>DERECHOS:</th>
+                            <td className='result-list-row'>{rol?.DERECHOS}</td>
+                        </tr>
+                        <tr>
+                            <th>COMENTARIO:</th>
+                            <td className='result-list-row'>{rol?.COMENTARIO}</td>
                         </tr>
                     </tbody>
                 </table>

@@ -42,18 +42,22 @@ export default function Popup() {
 
     const savePermiso = () => {
         // Se reviza si todos los campos del nuevo objeto son distintos de '' a excepción de MZ
-        const permisoToCheck = Object.fromEntries(Object.entries(newPermiso).filter(([key]) => key !== 'MZ'))
+        const notRequired = ['NOMBRE', 'APELLIDO_P', 'APELLIDO_M', 'DOMICILIO', 'COMUNA', 'TELEFONO', 'MZ', 'NSTPC', 'CALLE', 'SECTOR', 'DESTINO', 'TIPO_EXPEDIENTE', 'ESTADO', 'DESDE', 'COMENTARIO',]
+        // const permisoToCheck = Object.fromEntries(Object.entries(newPermiso).filter(([key]) => key !== 'MZ'))
+        // const permisoToCheck = Object.fromEntries(Object.entries(newPermiso).filter(([key]) => key !== notRequired.forEach(field => field)))
+        const permisoToCheck = Object.fromEntries(Object.entries(newPermiso).filter(([key]) => !notRequired?.includes(key) ))
+        console.log(permisoToCheck)
         const isValid = Object.values(permisoToCheck).every(val => val !== '')
-        // if (isValid) {
-        if (true) {
+        console.log(isValid)
+        if (isValid) {
             if (crudFilter.type === 'insert') {
-                postPermiso(newPermiso, setMessage)
+                postPermiso(newPermiso, setMessage, setNewPermiso, permisoInitialValue)
             }
             else if (crudFilter.type === 'update') {
                 setMsg('Guardando...')
-                patchPermiso(newPermiso, setMessage)
+                console.log(newPermiso)
+                patchPermiso(newPermiso, setMessage, setNewPermiso, permisoInitialValue)
             }
-            setNewPermiso(permisoInitialValue) // se reestablecen los valores de newPermiso a su estado original (vacio)
         }
         else {
             setMessage('Campos incompletos, intente nuevamente')
@@ -88,12 +92,12 @@ export default function Popup() {
                     {/* Popup Header */}
                     <div className="popup-header">
                         { showHeaderAndButtons &&  <h4 className="popup-title">Estas seguro de que quieres continuar?</h4> }
-                        <button className='popup-close-btn' onClick={reset}><CgClose/></button>
+                        { !searching && <button className='popup-close-btn' onClick={reset}><CgClose/></button>}
                     </div>
                     {/* Popup Body */}
                     <div className='popup-body-container'>
                         { crudFilter.crudType === 'Descargar' && <Loading /> }
-                        { searching && <SmallLoading/>}
+                        { crudFilter.crudType !== 'Descargar' && searching && <SmallLoading/>}
                         <p className={`popup-body ${(crudFilter.crudType === 'Descargar' || msg === 'Buscando...') && 'text-center'}`}>{ msg ? msg : 'Cargando...' }</p>
                     </div>
                     {/* Popup Action Buttons */}
