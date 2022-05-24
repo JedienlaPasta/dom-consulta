@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { DataContext } from '../../../context/DataContext'
 
 export default function InsertItem({ type }) {
@@ -12,14 +12,17 @@ export default function InsertItem({ type }) {
     }
 
     const handleOnChangeN = (e) => {
-        e.target.value < 0 ? setNewPermiso(prev => ({...prev, [e.target.name]: 0 })) : setNewPermiso(prev => ({...prev, [e.target.name]: e.target.value }))
+        e.target.value < 0 ? setNewPermiso(prev => ({...prev, [e.target.name]: 0 })) : setNewPermiso(prev => ({...prev, [e.target.name]: parseFloat(e.target.value) }))
         if (e.target.name === 'M2_C_RECEP' || e.target.name === 'M2_S_PERM') {
-            setNewPermiso(prev => ({...prev, M2_TOTAL: (parseInt(prev.M2_C_RECEP) || 0) + (parseInt(prev.M2_S_PERM) || 0)}))
+            setNewPermiso(prev => ({...prev, M2_TOTAL: (parseFloat(prev.M2_C_RECEP) || 0) + (parseFloat(prev.M2_S_PERM) || 0)}))
         }
     }
 
-    const parseValue = (val) => {
-        return parseInt(val) || 0
+    const parseValue = (val, field) => {
+        if (!isNaN(val)) {
+            return parseFloat(val).toString()
+        }
+        return ('').toString()
     }
     
     return (
@@ -84,31 +87,31 @@ export default function InsertItem({ type }) {
                             </tr>
                             <tr>
                                 <th className='text-right'>N° VIV:</th>
-                                <td className='insert-list-input-row input'><input type="number" required name='N_VIV' className='insert-list-input' value={parseValue(newPermiso?.N_VIV)} onChange={handleOnChangeN} /></td>
+                                <td className='insert-list-input-row input'><input type="number" required name='N_VIV' className='insert-list-input' value={parseValue(newPermiso?.N_VIV, 'N_VIV')} onChange={handleOnChangeN} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>M2 C/RECEP:</th>
-                                <td className='insert-list-input-row input'><input type="number" required name='M2_C_RECEP' className='insert-list-input' value={parseValue(newPermiso?.M2_C_RECEP)} onChange={handleOnChangeN} /></td>
+                                <td className='insert-list-input-row input'><input type="number" required name='M2_C_RECEP' className='insert-list-input' value={parseValue(newPermiso?.M2_C_RECEP, 'M2_C_RECEP')} onChange={handleOnChangeN} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>M2 C/PERM:</th>
-                                <td className='insert-list-input-row input'><input type="number" required name='M2_C_PERM' className='insert-list-input' value={parseValue(newPermiso?.M2_C_PERM)} onChange={handleOnChangeN} /></td>
+                                <td className='insert-list-input-row input'><input type="number" required name='M2_C_PERM' className='insert-list-input' value={parseValue(newPermiso?.M2_C_PERM, 'M2_C_PERM')} onChange={handleOnChangeN} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>M2 S/PERM:</th>
-                                <td className='insert-list-input-row input'><input type="number" required name='M2_S_PERM' className='insert-list-input' value={parseValue(newPermiso?.M2_S_PERM)} onChange={handleOnChangeN} /></td>
+                                <td className='insert-list-input-row input'><input type="number" required name='M2_S_PERM' className='insert-list-input' value={parseValue(newPermiso?.M2_S_PERM, 'M2_S_PERM')} onChange={handleOnChangeN} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>M2 TOTAL:</th>
-                                <td className='insert-list-input-row input'><input type="number" required name='M2_TOTAL' className='insert-list-input' value={parseValue(newPermiso?.M2_TOTAL)} readOnly /></td>
+                                <td className='insert-list-input-row input'><input type="number" required name='M2_TOTAL' className='insert-list-input' value={parseValue(newPermiso?.M2_TOTAL, 'M2_TOTAL')} readOnly /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>ULT ING NUM:</th>
-                                <td className='insert-list-input-row input'><input type="number" required name='UI_NUM' className='insert-list-input' value={parseValue(newPermiso?.UI_NUM)} onChange={handleOnChangeN} /></td>
+                                <td className='insert-list-input-row input'><input type="number" required name='UI_NUM' className='insert-list-input' value={parseValue(newPermiso?.UI_NUM, 'UI_NUM')} onChange={handleOnChangeN} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>ULT ING AÑO:</th>
-                                <td className='insert-list-input-row input'><input type="number" required name='UI_ANO' className='insert-list-input' value={parseValue(newPermiso?.UI_ANO)} onChange={handleOnChangeN} /></td>
+                                <td className='insert-list-input-row input'><input type="number" required name='UI_ANO' className='insert-list-input' value={parseValue(newPermiso?.UI_ANO, 'UI_ANO')} onChange={handleOnChangeN} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>TIPO EXPED:</th>
@@ -124,7 +127,7 @@ export default function InsertItem({ type }) {
                             </tr>
                             <tr>
                                 <th className='text-right'>DERECHOS:</th>
-                                <td className='insert-list-input-row input'><input type="number" required name='DERECHOS' className='insert-list-input' value={parseValue(newPermiso?.DERECHOS)} onChange={handleOnChangeN} /></td>
+                                <td className='insert-list-input-row input'><input type="number" required name='DERECHOS' className='insert-list-input' value={parseValue(newPermiso?.DERECHOS, 'DERECHOS')} onChange={handleOnChangeN} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>COMENTARIO:</th>

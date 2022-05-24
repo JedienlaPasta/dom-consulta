@@ -115,8 +115,12 @@ export const gerPermisosBySector = async (req, res) => {
 //     }
 // }
 
+// get timestamps
+// const timeStamp = permisos.map(permiso => permiso._id.getTimestamp())
+// console.log(timeStamp)
+
 export const getM2Total = async (req, res) => {
-    // const permisos = await Permiso.find()
+    // const permisos = await Permiso.find({ MATRIZ: 1, DIGITO: 1 })
     const permisos = await Permiso.aggregate([
         {
             $group: {

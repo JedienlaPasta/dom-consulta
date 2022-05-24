@@ -46,8 +46,14 @@ export default function List({ save, deletePermiso, downloadFile }) {
     const cancel = (event) => {
         event.preventDefault()
         dispatch({ type: ACTIONS.FETCH_MATCHES, payload: [] })
+        
         if (crudFilter) {
-            setCrudFilter({...crudFilter, crudType: 'Consultar', type: 'read'})
+            if (crudFilter.crudType !== 'Consultar') {
+                setCrudFilter({...crudFilter, crudType: 'Consultar', filter: 'Rol', type: 'read'})
+            }
+            else {
+                setCrudFilter({...crudFilter, crudType: 'Consultar', type: 'read'})
+            }
         }
     }
     

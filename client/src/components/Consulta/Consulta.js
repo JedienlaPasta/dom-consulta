@@ -7,10 +7,11 @@ import FormDir from './Form/FormDir'
 import FormAP from './Form/FormAP'
 import Popup from './Popup/Popup'
 import List from './List/List'
-import './style.css' 
+import './Consulta.css'
+// import './style.css'
 
 export default function Consulta() {
-    const {roles, user, page, isAuth, dispatch, showPopup, setShowPopup, crudFilter, setCrudFilter, setNewPermiso, permisoInitialValue, setSearching } = useContext(DataContext)
+    const {roles, user, page, isAuth, dispatch, showPopup, setShowPopup, crudFilter, setCrudFilter, setNewPermiso, permisoInitialValue, setSearching, newPermiso, setIsValid } = useContext(DataContext)
     const history = useNavigate()
     
     useEffect(() => {
@@ -28,6 +29,10 @@ export default function Consulta() {
 
     const save = (event) => {
         event.preventDefault()
+        const notRequired = ['NOMBRE', 'APELLIDO_P', 'APELLIDO_M', 'DOMICILIO', 'COMUNA', 'TELEFONO', 'MZ', 'NSTPC', 'CALLE', 'SECTOR', 'DESTINO', 'TIPO_EXPEDIENTE', 'ESTADO', 'DESDE', 'COMENTARIO', '_id']
+        const permisoToCheck = Object.fromEntries(Object.entries(newPermiso).filter(([key]) => !notRequired?.includes(key)))
+        const checkPermiso = Object.values(permisoToCheck).every(val => val !== '' && !isNaN(val))
+        setIsValid(checkPermiso)
         setShowPopup(true)
     }
 

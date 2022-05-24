@@ -30,6 +30,7 @@ export const DataProvider = ({ children }) => {
     const [crudFilter, setCrudFilter] = useState({ crudType: 'Consultar', filter: 'Rol', type: 'read', filters: ['Ingresar', 'Consultar', 'Descargar']})
     const [searching, setSearching] = useState(false)
     const [toggleMenu, setToggleMenu] = useState(false)
+    const [isValid, setIsValid] = useState(false)
 
     const permisoInitialValue = crudFilter.type !== 'insert' ? { _id: '', MATRIZ: '', DIGITO: '', NOMBRE: '', APELLIDO_P: '', APELLIDO_M: '', DOMICILIO: '', COMUNA: '', TELEFONO: '', MZ: '', NSTPC: '', CALLE: '', SECTOR: '', DESTINO: '', N_VIV: 0, M2_C_RECEP: 0, M2_C_PERM: 0, M2_S_PERM: 0, M2_TOTAL: 0, UI_NUM: 0, UI_ANO: 0, TIPO_EXPEDIENTE: '', ESTADO: '', DESDE: '', DERECHOS: 0, COMENTARIO: '' }
     : { MATRIZ: '', DIGITO: '', NOMBRE: '', APELLIDO_P: '', APELLIDO_M: '', DOMICILIO: '', COMUNA: '', TELEFONO: '', MZ: '', NSTPC: '', CALLE: '', SECTOR: '', DESTINO: '', N_VIV: 0, M2_C_RECEP: 0, M2_C_PERM: 0, M2_S_PERM: 0, M2_TOTAL: 0, UI_NUM: 0, UI_ANO: 0, TIPO_EXPEDIENTE: '', ESTADO: '', DESDE: '', DERECHOS: 0, COMENTARIO: '' }
@@ -55,18 +56,27 @@ export const DataProvider = ({ children }) => {
             // se asignan los valores en roles a newPermiso, cada vez que estos se cambian, en caso de no estar definidos, se asigna un 0 o ''
             Object.keys(newPermiso).forEach(key => newPermiso[key] = roles[rolIndex]?.[key] || (typeof roles[rolIndex]?.[key] == 'number' ? 0 : ''))
         }
+        // console.log('roles: ',roles)
     }, [roles, rolIndex])
+
+    // useEffect(() => {
+    //     console.log('permisos: ',newPermiso)
+    // }, [newPermiso])
 
     useEffect(() => {
         setCrudFilter(prev => ({...prev, crudType: 'Consultar', filter: 'Rol', type: 'read'}))
         setMessage('')
     }, [page])
 
+    // useEffect(() => {
+    //     console.log(isValid)
+    // }, [isValid])
+
     return (
         <div>
             {
                 !isLoaded ? <h1>Loading...</h1> :
-                <DataContext.Provider value={{ roles, dispatch, user, setUser, isAuth, setIsAuth, page, setPage, message, setMessage, newPermiso, setNewPermiso, permisoInitialValue, showPopup, setShowPopup, rolIndex, setRolIndex, crudFilter, setCrudFilter, searching, setSearching, toggleMenu, setToggleMenu, preventNegative }}>
+                <DataContext.Provider value={{ roles, dispatch, user, setUser, isAuth, setIsAuth, page, setPage, message, setMessage, newPermiso, setNewPermiso, permisoInitialValue, showPopup, setShowPopup, rolIndex, setRolIndex, crudFilter, setCrudFilter, searching, setSearching, toggleMenu, setToggleMenu, preventNegative, isValid, setIsValid }}>
                     { children }
                 </DataContext.Provider>
             }
