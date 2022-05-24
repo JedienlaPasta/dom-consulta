@@ -81,11 +81,11 @@ export default function Item({ rol }) {
                 <table className='list-container'>
                     <tbody>
                         <tr>
-                            <th>MATRIZ:</th>
+                            <th>ROL MZ:</th>
                             <td className='result-list-row'>{rol?.MATRIZ}</td>
                         </tr>
                         <tr>
-                            <th>DÍGITO:</th>
+                            <th>ROL PD:</th>
                             <td className='result-list-row'>{rol?.DIGITO}</td>
                         </tr>
                         <tr>

@@ -231,6 +231,9 @@ tr:not(:last-child) {
     background-color: #ee9016;
     color: white;
 }
+.delete {
+    background-color: #ee4f16;
+}
 /* quitar si no se va a usar .disabled-crud-btn ========================================================================================================= */
 .disabled-crud-btn {
     cursor: not-allowed;

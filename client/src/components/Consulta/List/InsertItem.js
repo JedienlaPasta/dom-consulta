@@ -34,11 +34,11 @@ export default function InsertItem({ type }) {
                     <table className='insert-list-container'>
                         <tbody className='insert-table-body'>
                             <tr>
-                                <th className='text-right'>ROL MATRIZ:</th>
+                                <th className='text-right'>ROL MZ:</th>
                                 <td className='insert-list-input-row input'><input type="text" required name='MATRIZ' className={name} value={newPermiso?.MATRIZ} onChange={handleOnChangeT} /*readOnly={type === 'update'}*/ /></td>
                             </tr>
                             <tr>
-                                <th className='text-right'>ROL DÍGITO:</th>
+                                <th className='text-right'>ROL PD:</th>
                                 <td className='insert-list-input-row input'><input type="text" required name='DIGITO' className={name} value={newPermiso?.DIGITO} onChange={handleOnChangeT} /*readOnly={type === 'update'}*/ /></td>
                             </tr>
                             <tr>
