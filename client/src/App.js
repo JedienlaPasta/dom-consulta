@@ -39,6 +39,9 @@ export default function App() {
 // En el FormDir se comparte el state, asi que hay que actualizarlo manualmente cada vez que se cambia de filter
 // revizar el tema de las mayusculas y minusculas (de momento funciona)
 // agregar el campo observaciones a los permisos (hecho)
+// para los usuarios de DOM abrir por defecto la pagina en 'permisos' (hecho)
+// se debe poder ingresar un nuevo registro con roles repetidos de un registro ingresado anteriormente, el unico valor unico seria el id (listo)
+// resaltar campos obligatorios en caso de que esten vacios (mas o menos funciona, pero se puede mejorar)
 
 // revizar el tema de los campos obligatorios y no obligatorios(hecho de momento, pero puede que se deban hacer cambios mas adelante)
 
@@ -47,6 +50,7 @@ export default function App() {
 // refactorizar codigo
 // validar en el servidor el rol del usuario cada vez que haga algun request
 // guardar token en db y compararlo en cada request para verificar el rol del usuario
+// ocultar M2 TOTAL en ingreso y de registros y solo mostrar en la consulta de M2 Totales totales?
 
 // (now)
 // vista de tabla para computador de escritorio, campos seteados a ciertos tamaños y al presionarlos, que estos se desplieguen mostrando toda la informacion (util para campos con valores muy extensos)
@@ -54,8 +58,9 @@ export default function App() {
 // $sort roles, buscar como hacerlo con valores numericos en vez de string
 // ingresar fechas de forma opcional?
 // dropdown
-// se debe poder ingresar un nuevo registro con roles repetidos de un registro ingresado anteriormente, el unico valor unico seria el id
-// quitar el scroll behavior
+// quitar el scroll behavior (quitar el efecto de la rueda del mouse en los input numericos)!!!!!
+// ROL VIGENTE - ROL ASIGNADO
+// que la pantalla de carga cuando se busca un registro aparezca altiro, y que diga verificando primero. Luego, si la autenticacion es positiva, que cambie el mensaje a buscando...
 
 // informe
 
@@ -63,7 +68,7 @@ export default function App() {
 // en caso de hacerlo, quizas crear una coleccion aparte con todos los valores que quiero buscar y que cada vez que se actualize o cree un registro, se revize en la db si este valor existe, y si no existe, se agregue a la db
 
 // cada vez que se haga un cambio en un registro o se ingrese uno nuevo, se guarda una spreadsheet en el google drive con GOOGLE DRIVE API
-// https://www.youtube.com/watch?v=AwTxrCgIBWk&ab_channel=ProgrammingWithPrem \\ to abort or cancel API requests //\\ https://www.npmjs.com/package/react-use-cancel-token
+// https://www.youtube.com/watch?v=AwTxrCgIBWk&ab_channel=ProgrammingWithPrem \\ to abort or cancel API requests // \\ https://www.npmjs.com/package/react-use-cancel-token
 
 // campos obligatorios (ojala todos estos)
 // MATRIZ
@@ -80,6 +85,3 @@ export default function App() {
 // DERECHOS
 
 // los * son de que aun falta ponerlos como obligatorios
-
-
-// alcaldia

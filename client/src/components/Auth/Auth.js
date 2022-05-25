@@ -22,7 +22,12 @@ export default function Auth() {
                 setUser(user)
                 setIsAuth(isAuthenticated)
                 setMessage('')
-                history('/')
+                if (user.role === 'dom_admin' || user.role === 'dom_user') {
+                    history('/permisos')
+                }
+                else {
+                    history('/')
+                }
             }
         })
     }

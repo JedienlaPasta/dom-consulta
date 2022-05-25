@@ -146,13 +146,13 @@ export const getM2Total = async (req, res) => {
 
 export const createPermiso = async (req, res) => {
     // se checkea primero que el permiso no exista
-    const permiso = await Permiso.findOne({ MATRIZ: req.body.permiso?.MATRIZ, DIGITO: req.body.permiso?.DIGITO })
-    if (permiso) {
-        console.log('este permiso ya existe')
-        return res.status(403).json({ message: 'Este permiso ya existe'}) // 403?
-    }
+    // const permiso = await Permiso.findOne({ MATRIZ: req.body.permiso?.MATRIZ, DIGITO: req.body.permiso?.DIGITO })
+    // if (permiso) {
+    //     console.log('este permiso ya existe')
+    //     return res.status(403).json({ message: 'Este permiso ya existe'}) // 403?
+    // }
     // si no existe, se intenta ingresar en la DB
-    const toInsert = new Permiso(req.body.permiso)
+    const toInsert = new Permiso(req.body?.permiso)
     try {
         await toInsert.save()
         res.status(201).json({ message: 'Permiso ingresado exitosamente'})

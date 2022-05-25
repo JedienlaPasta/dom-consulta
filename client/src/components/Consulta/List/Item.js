@@ -78,7 +78,13 @@ export default function Item({ rol }) {
     return (
         <>
             {   page === 'permisos' ?
+            <>
                 <table className='list-container'>
+                    <thead>
+                        <tr className='list-header-title'>
+                            <th className='text-center'>IDENTIFICACIÓN DEL PREDIO</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         <tr>
                             <th>ROL MZ:</th>
@@ -88,6 +94,15 @@ export default function Item({ rol }) {
                             <th>ROL PD:</th>
                             <td className='result-list-row'>{rol?.DIGITO}</td>
                         </tr>
+                    </tbody>
+                </table>
+                <table className='list-container'>
+                    <thead>
+                        <tr className='list-header-title'>
+                            <th className='text-center'>INFORMACIÓN PROPIETARIO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <tr>
                             <th>NOMBRE:</th>
                             <td className='result-list-row'>{rol?.NOMBRE}</td>
@@ -100,8 +115,17 @@ export default function Item({ rol }) {
                             <th>APELLIDO M:</th>
                             <td className='result-list-row'>{rol?.APELLIDO_M}</td>
                         </tr>
+                    </tbody>
+                </table>
+                <table className='list-container'>
+                    <thead>
+                        <tr className='list-header-title'>
+                            <th className='text-center'>DOMICILIO PARTICULAR</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <tr>
-                            <th>DOMICILIO:</th>
+                            <th>CALLE / N°:</th>
                             <td className='result-list-row'>{rol?.DOMICILIO}</td>
                         </tr>
                         <tr>
@@ -112,22 +136,40 @@ export default function Item({ rol }) {
                             <th>TELÉFONO:</th>
                             <td className='result-list-row'>{rol?.TELEFONO}</td>
                         </tr>
+                    </tbody>
+                </table>
+                <table className='list-container'>
+                    <thead>
+                        <tr className='list-header-title'>
+                            <th className='text-center'>DIRECCIÓN PREDIAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <tr>
-                            <th>MZ:</th>
-                            <td className='result-list-row'>{rol?.MZ}</td>
+                            <th>CALLE:</th>
+                            <td className='result-list-row'>{rol?.CALLE}</td>
                         </tr>
                         <tr>
                             <th>Nº/ST/PC:</th>
                             <td className='result-list-row'>{rol?.NSTPC}</td>
                         </tr>
                         <tr>
-                            <th>CALLE:</th>
-                            <td className='result-list-row'>{rol?.CALLE}</td>
+                            <th>MZ:</th>
+                            <td className='result-list-row'>{rol?.MZ}</td>
                         </tr>
                         <tr>
                             <th>SECTOR:</th>
                             <td className='result-list-row'>{rol?.SECTOR}</td>
                         </tr>
+                    </tbody>
+                </table>
+                <table className='list-container'>
+                    <thead>
+                        <tr className='list-header-title'>
+                            <th className='text-center'>DETALLE DE EXPEDIENTE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <tr>
                             <th>DESTINO:</th>
                             <td className='result-list-row'>{rol?.DESTINO}</td>
@@ -182,7 +224,7 @@ export default function Item({ rol }) {
                         </tr>
                     </tbody>
                 </table>
-
+            </>
                 :
 
                 <table className='list-container'>
@@ -196,7 +238,7 @@ export default function Item({ rol }) {
                             <td>{rol?.ANO}</td>
                         </tr>
                         <tr>
-                            <th>SEMSTRE:</th>
+                            <th>SEMESTRE:</th>
                             <td>{rol?.SEMESTRE}</td>
                         </tr>
                         <tr>

@@ -77,7 +77,7 @@
     box-shadow: var(--shd-v2);
 }
 .titulo-consulta {
-    color: #878787;
+    color: #656565;
     background-color: #d3d5d92c;
     border-bottom: 1px solid #d6d9dc92;
     padding: 12px;
@@ -129,13 +129,18 @@ tr {
 tr:nth-of-type(even) {
     background-color: #f5f5f5;
 }
-tr:not(:last-child) {
-    border-bottom: 0.1px solid #d3d3d3;
+tr:not(.list-header-title) {
+    border-top: 0.1px solid #d3d3d3;
+}
+.list-header-title {
+    display: flex;
+    justify-content: center;
+    background-color: #d3d5d978;
 }
 
 .titulo-resultado {
     text-align: center;
-    color: #919191;    
+    color: #636363;    
     /* padding: 11px; */
     padding: 0 10px;
     border-radius: 50px;
@@ -179,7 +184,7 @@ tr:not(:last-child) {
 .insert-list-container {
     width: 100%;
 }
-.insert-table-body > tr {
+.insert-list-body > tr {
     grid-template-columns: 8.5em auto;
 }
 .text-right {
@@ -197,6 +202,9 @@ tr:not(:last-child) {
     border-radius: 8px;
     outline: none;
     border: 1px solid rgb(222, 222, 222);
+}
+.incomplete-field {
+    border: 1px solid #f1825a;
 }
 .faded-text {
     color: #e0dfdf;

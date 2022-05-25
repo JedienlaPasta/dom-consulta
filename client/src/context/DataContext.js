@@ -31,6 +31,7 @@ export const DataProvider = ({ children }) => {
     const [searching, setSearching] = useState(false)
     const [toggleMenu, setToggleMenu] = useState(false)
     const [isValid, setIsValid] = useState(false)
+    const [incompleteFields, setIncompleteFields] = useState(false)
 
     const permisoInitialValue = crudFilter.type !== 'insert' ? { _id: '', MATRIZ: '', DIGITO: '', NOMBRE: '', APELLIDO_P: '', APELLIDO_M: '', DOMICILIO: '', COMUNA: '', TELEFONO: '', MZ: '', NSTPC: '', CALLE: '', SECTOR: '', DESTINO: '', N_VIV: 0, M2_C_RECEP: 0, M2_C_PERM: 0, M2_S_PERM: 0, M2_TOTAL: 0, UI_NUM: 0, UI_ANO: 0, TIPO_EXPEDIENTE: '', ESTADO: '', DESDE: '', DERECHOS: 0, COMENTARIO: '' }
     : { MATRIZ: '', DIGITO: '', NOMBRE: '', APELLIDO_P: '', APELLIDO_M: '', DOMICILIO: '', COMUNA: '', TELEFONO: '', MZ: '', NSTPC: '', CALLE: '', SECTOR: '', DESTINO: '', N_VIV: 0, M2_C_RECEP: 0, M2_C_PERM: 0, M2_S_PERM: 0, M2_TOTAL: 0, UI_NUM: 0, UI_ANO: 0, TIPO_EXPEDIENTE: '', ESTADO: '', DESDE: '', DERECHOS: 0, COMENTARIO: '' }
@@ -68,15 +69,15 @@ export const DataProvider = ({ children }) => {
         setMessage('')
     }, [page])
 
-    // useEffect(() => {
-    //     console.log(isValid)
-    // }, [isValid])
+    useEffect(() => {
+        setIncompleteFields(false)
+    }, [crudFilter])
 
     return (
         <div>
             {
                 !isLoaded ? <h1>Loading...</h1> :
-                <DataContext.Provider value={{ roles, dispatch, user, setUser, isAuth, setIsAuth, page, setPage, message, setMessage, newPermiso, setNewPermiso, permisoInitialValue, showPopup, setShowPopup, rolIndex, setRolIndex, crudFilter, setCrudFilter, searching, setSearching, toggleMenu, setToggleMenu, preventNegative, isValid, setIsValid }}>
+                <DataContext.Provider value={{ roles, dispatch, user, setUser, isAuth, setIsAuth, page, setPage, message, setMessage, newPermiso, setNewPermiso, permisoInitialValue, showPopup, setShowPopup, rolIndex, setRolIndex, crudFilter, setCrudFilter, searching, setSearching, toggleMenu, setToggleMenu, preventNegative, isValid, setIsValid, incompleteFields, setIncompleteFields }}>
                     { children }
                 </DataContext.Provider>
             }

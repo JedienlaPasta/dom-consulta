@@ -8,7 +8,7 @@ import './style.css'
 
 export default function Popup() {
     const [msg, setMsg] = useState('')
-    const { message, setMessage, newPermiso, setNewPermiso, permisoInitialValue, dispatch, crudFilter, setCrudFilter, showPopup, setShowPopup, searching, isValid, setIsValid } = useContext(DataContext)
+    const { message, setMessage, newPermiso, setNewPermiso, permisoInitialValue, dispatch, crudFilter, setCrudFilter, showPopup, setShowPopup, searching, isValid, setIsValid, setIncompleteFields } = useContext(DataContext)
     let timeout
 
     useEffect(() => {
@@ -20,7 +20,14 @@ export default function Popup() {
             if (!searching) {
                 if (crudFilter.crudType !== 'Descargar') {
                     if (crudFilter.type === 'update' && !message) { // quitar !message?
-                        setMsg('Los datos se sobreescribiran, por lo que estos no se podran recuperar')
+                        if (isValid) {
+                            setIncompleteFields(false)
+                            setMsg('Los datos se sobreescribiran, por lo que estos no se podran recuperar')
+                        }
+                        else {
+                            setIncompleteFields(true)
+                            setMessage('Campos incompletos, intente nuevamente')
+                        }
                     }
                     else if (crudFilter.type === 'insert') {
                         setMsg('Guardando...')
@@ -56,15 +63,16 @@ export default function Popup() {
         const notRequired = ['NOMBRE', 'APELLIDO_P', 'APELLIDO_M', 'DOMICILIO', 'COMUNA', 'TELEFONO', 'MZ', 'NSTPC', 'CALLE', 'SECTOR', 'DESTINO', 'TIPO_EXPEDIENTE', 'ESTADO', 'DESDE', 'COMENTARIO', '_id']
         const permisoToCheck = Object.fromEntries(Object.entries(newPermiso).filter(([key]) => !notRequired?.includes(key)))
         const checkPermiso = Object.values(permisoToCheck).every(val => val !== '' && !isNaN(val))
+        setIncompleteFields(!checkPermiso)
         setIsValid(checkPermiso)
 
         if (isValid) {
             if (crudFilter.type === 'insert') {
                 postPermiso(newPermiso, setMessage, setNewPermiso, permisoInitialValue)
+                setIncompleteFields(false)
             }
             else if (crudFilter.type === 'update') {
                 setMsg('Guardando...')
-                console.log(newPermiso)
                 patchPermiso(newPermiso, setMessage, setNewPermiso, permisoInitialValue)
             }
         }
@@ -100,7 +108,7 @@ export default function Popup() {
                 <div className="popup-container">
                     {/* Popup Header */}
                     <div className="popup-header">
-                        { showHeaderAndButtons &&  <h4 className="popup-title">Estas seguro de que quieres continuar?</h4> }
+                        { showHeaderAndButtons &&  isValid && <h4 className="popup-title">Está seguro de que desea continuar?</h4> }
                         { !searching && <button className='popup-close-btn' onClick={reset}><CgClose/></button>}
                     </div>
                     {/* Popup Body */}
@@ -110,11 +118,15 @@ export default function Popup() {
                         <p className={`popup-body ${(crudFilter.crudType === 'Descargar' || msg === 'Buscando...') && 'text-center'}`}>{ msg ? msg : 'Cargando...' }</p>
                     </div>
                     {/* Popup Action Buttons */}
-                    {   showHeaderAndButtons && 
+                    {   showHeaderAndButtons &&
                         <div className="popup-btns">
-                            {   crudFilter.type === 'update' 
-                                ? <button className='popup-continue-btn' onClick={savePermiso}>Continuar</button>
-                                : <button className='popup-continue-btn' onClick={deletePermiso}>Continuar</button>
+                            {   isValid &&
+                                <>
+                                    {   crudFilter.type === 'update'
+                                        ? <button className='popup-continue-btn' onClick={savePermiso}>Continuar</button>
+                                        : <button className='popup-continue-btn' onClick={deletePermiso}>Continuar</button>
+                                    }
+                                </>
                             }
                             <button className='popup-cancel-btn' onClick={reset}>Cancelar</button>
                         </div>
