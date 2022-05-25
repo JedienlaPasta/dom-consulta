@@ -49,7 +49,7 @@ export default function Popup() {
             }
         }
     }, [showPopup, message])
-
+    console.log('isValid: ',isValid)
     const savePermiso = () => {
         // // Se reviza si todos los campos del nuevo objeto son distintos de '' a excepción de MZ
         // const notRequired = ['NOMBRE', 'APELLIDO_P', 'APELLIDO_M', 'DOMICILIO', 'COMUNA', 'TELEFONO', 'MZ', 'NSTPC', 'CALLE', 'SECTOR', 'DESTINO', 'TIPO_EXPEDIENTE', 'ESTADO', 'DESDE', 'COMENTARIO',]
@@ -101,14 +101,14 @@ export default function Popup() {
     }
     
     const showHeaderAndButtons = crudFilter.type !== 'insert' && crudFilter.type !== 'read' && msg !== 'Guardando...' && msg !== 'Eliminando...'
-
+    console.log(crudFilter.type)
     return (
         <div className='popup-background'>
             { !message &&
                 <div className="popup-container">
                     {/* Popup Header */}
                     <div className="popup-header">
-                        { showHeaderAndButtons &&  isValid && <h4 className="popup-title">Está seguro de que desea continuar?</h4> }
+                        { showHeaderAndButtons &&  (isValid && crudFilter.type === 'update' || crudFilter.type === 'delete') && <h4 className="popup-title">Está seguro de que desea continuar?</h4> }
                         { !searching && <button className='popup-close-btn' onClick={reset}><CgClose/></button>}
                     </div>
                     {/* Popup Body */}
@@ -120,14 +120,8 @@ export default function Popup() {
                     {/* Popup Action Buttons */}
                     {   showHeaderAndButtons &&
                         <div className="popup-btns">
-                            {   isValid &&
-                                <>
-                                    {   crudFilter.type === 'update'
-                                        ? <button className='popup-continue-btn' onClick={savePermiso}>Continuar</button>
-                                        : <button className='popup-continue-btn' onClick={deletePermiso}>Continuar</button>
-                                    }
-                                </>
-                            }
+                            { isValid && crudFilter.type === 'update' && <button className='popup-continue-btn' onClick={savePermiso}>Continuar</button> }
+                            { crudFilter.type === 'delete' && <button className='popup-continue-btn' onClick={deletePermiso}>Continuar</button> }
                             <button className='popup-cancel-btn' onClick={reset}>Cancelar</button>
                         </div>
                     }

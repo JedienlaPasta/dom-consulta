@@ -47,7 +47,7 @@ export default function Item({ rol }) {
     // En el caso de que el servidor devuelva los M2 Totales, se muestra esto
     if (roles.length === 1 && roles[0]._id === 'M2_TOTALES') {
         return (
-            <table className='list-container'>
+            <table>
                 <tbody>
                     <tr>
                         <th>N° VIV:</th>
@@ -227,7 +227,7 @@ export default function Item({ rol }) {
             </>
                 :
 
-                <table className='list-container'>
+                <table>
                     <tbody>
                         <tr>
                             <th>COMUNA:</th>

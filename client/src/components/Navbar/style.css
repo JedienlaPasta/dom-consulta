@@ -55,7 +55,7 @@
     width: 70%;
     left: 15%;
     bottom: 25px;
-    transition: all ease-in-out 250ms;
+    transition: width ease-in-out 250ms;
 }
 
 .logo {
@@ -83,4 +83,16 @@
     color: rgb(112, 112, 112);
     transition: background-color ease-in 150ms,
                 color ease-in 150ms;
+}
+
+@media (max-width: 749px) and (min-width: 501px) {
+    .link-item.marked-link-item::after {
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 500px) {
+    .link-item.marked-link-item::after {
+        margin-bottom: 4px;
+    }
 }

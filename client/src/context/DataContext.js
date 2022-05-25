@@ -70,6 +70,7 @@ export const DataProvider = ({ children }) => {
     }, [page])
 
     useEffect(() => {
+        setIsValid(false)
         setIncompleteFields(false)
     }, [crudFilter])
 

@@ -113,6 +113,10 @@ table {
     max-width: 95%;
     margin: 20px 10px 0 10px;
     border: 0.1px solid #d3d3d3;
+    border-top: 0;
+}
+.list-container, .insert-list-container {
+    border-top: 0.1px solid #d3d3d3;
 }
 th {
     white-space: nowrap;

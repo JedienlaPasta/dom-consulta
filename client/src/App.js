@@ -61,6 +61,7 @@ export default function App() {
 // quitar el scroll behavior (quitar el efecto de la rueda del mouse en los input numericos)!!!!!
 // ROL VIGENTE - ROL ASIGNADO
 // que la pantalla de carga cuando se busca un registro aparezca altiro, y que diga verificando primero. Luego, si la autenticacion es positiva, que cambie el mensaje a buscando...
+// arreglar, popup de eliminar no muestra boton de 'continuar'
 
 // informe
 
