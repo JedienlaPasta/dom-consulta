@@ -8,7 +8,7 @@ import './style.css'
 
 export default function Popup() {
     const [msg, setMsg] = useState('')
-    const { message, setMessage, newPermiso, setNewPermiso, permisoInitialValue, dispatch, crudFilter, setCrudFilter, showPopup, setShowPopup, searching, isValid, setIsValid, setIncompleteFields } = useContext(DataContext)
+    const { user, message, setMessage, newPermiso, setNewPermiso, permisoInitialValue, dispatch, crudFilter, setCrudFilter, showPopup, setShowPopup, searching, isValid, setIsValid, setIncompleteFields } = useContext(DataContext)
     let timeout
 
     useEffect(() => {
@@ -68,12 +68,12 @@ export default function Popup() {
 
         if (isValid) {
             if (crudFilter.type === 'insert') {
-                postPermiso(newPermiso, setMessage, setNewPermiso, permisoInitialValue)
+                postPermiso(user, newPermiso, setMessage, setNewPermiso, permisoInitialValue)
                 setIncompleteFields(false)
             }
             else if (crudFilter.type === 'update') {
                 setMsg('Guardando...')
-                patchPermiso(newPermiso, setMessage, setNewPermiso, permisoInitialValue)
+                patchPermiso(newPermiso, setMessage, setNewPermiso, permisoInitialValue, user)
             }
         }
         else {
@@ -83,7 +83,7 @@ export default function Popup() {
 
     const deletePermiso = () => {
         setMsg('Eliminando...')
-        delPermiso({ id: newPermiso._id }, setMessage)
+        delPermiso({ id: newPermiso._id }, user, setMessage)
     }
 
     const reset = () => {

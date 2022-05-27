@@ -237,19 +237,23 @@
 @keyframes loading-2 {
     0% {
         width: 5px;
-        right: 0;
+        /* right: 0; */
+        transform: translateX(0);
     }
     30% {
         width: 30px;
-        right: -32px;
+        /* right: -32px; */
+        transform: translateX(32px);
     }
     60% {
         width: 5px;
-        right: -45px;
+        /* right: -45px; */
+        transform: translateX(45px);
     }
     0% {
         width: 5px;
-        right: 0;
+        /* right: 0; */
+        transform: translateX(0);
     }
 }
 

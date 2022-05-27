@@ -42,6 +42,7 @@ export default function App() {
 // para los usuarios de DOM abrir por defecto la pagina en 'permisos' (hecho)
 // se debe poder ingresar un nuevo registro con roles repetidos de un registro ingresado anteriormente, el unico valor unico seria el id (listo)
 // resaltar campos obligatorios en caso de que esten vacios (mas o menos funciona, pero se puede mejorar)
+// arreglar, popup de eliminar no muestra boton de 'continuar' (funciona)
 
 // revizar el tema de los campos obligatorios y no obligatorios(hecho de momento, pero puede que se deban hacer cambios mas adelante)
 
@@ -51,6 +52,8 @@ export default function App() {
 // validar en el servidor el rol del usuario cada vez que haga algun request
 // guardar token en db y compararlo en cada request para verificar el rol del usuario
 // ocultar M2 TOTAL en ingreso y de registros y solo mostrar en la consulta de M2 Totales totales?
+// https://devcenter.heroku.com/articles/scheduler  => servira para guardar la base de datos 1 vez al dia todos los dias?
+// tambien podria ir eliminando los logs ingresados hace mas de 6 meses o 1 año por ejemplo
 
 // (now)
 // vista de tabla para computador de escritorio, campos seteados a ciertos tamaños y al presionarlos, que estos se desplieguen mostrando toda la informacion (util para campos con valores muy extensos)
@@ -61,7 +64,7 @@ export default function App() {
 // quitar el scroll behavior (quitar el efecto de la rueda del mouse en los input numericos)!!!!!
 // ROL VIGENTE - ROL ASIGNADO
 // que la pantalla de carga cuando se busca un registro aparezca altiro, y que diga verificando primero. Luego, si la autenticacion es positiva, que cambie el mensaje a buscando...
-// arreglar, popup de eliminar no muestra boton de 'continuar'
+// agregar campo de RUT
 
 // informe
 

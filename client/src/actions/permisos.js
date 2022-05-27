@@ -88,9 +88,9 @@ export const getM2Total = async (dispatch, setMessage, setShowPopup, setSearchin
     }
 }
 
-export const postPermiso = async (permiso, setMessage, setNewPermiso, permisoInitialValue) => {
+export const postPermiso = async (user, permiso, setMessage, setNewPermiso, permisoInitialValue) => {
     try {
-        const { data } = await createPermiso(permiso)
+        const { data } = await createPermiso(user, permiso)
         setTimeout(() => {
             setMessage(data.message)
             setNewPermiso(permisoInitialValue) // se reestablecen los valores de newPermiso a su estado original (vacio)
@@ -102,9 +102,9 @@ export const postPermiso = async (permiso, setMessage, setNewPermiso, permisoIni
     }
 }
 
-export const patchPermiso = async (permiso, setMessage, setNewPermiso, permisoInitialValue) => {
+export const patchPermiso = async (permiso, setMessage, setNewPermiso, permisoInitialValue, user) => {
     try {
-        const { data } = await updatePermiso(permiso)
+        const { data } = await updatePermiso(permiso, user)
         setTimeout(() => {
             setMessage(data.message)
             setNewPermiso(permisoInitialValue) // se reestablecen los valores de newPermiso a su estado original (vacio)
@@ -116,9 +116,9 @@ export const patchPermiso = async (permiso, setMessage, setNewPermiso, permisoIn
     }
 }
 
-export const delPermiso = async (id, setMessage) => {
+export const delPermiso = async (id, user, setMessage) => {
     try {
-        const { data } = await deletePermiso(id)
+        const { data } = await deletePermiso(id, user)
         setTimeout(() => setMessage(data.message), 500)
     } catch (error) {
         if (error.response) {

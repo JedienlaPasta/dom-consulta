@@ -26,7 +26,7 @@ export default function InsertItem({ type }) {
         }
         return ('').toString()
     }
-    
+    console.log(incompleteFields)
     return (
         <>
             {   page === 'permisos' &&

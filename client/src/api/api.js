@@ -32,11 +32,11 @@ export const fetchPermisosBySector = (sector) => axios.get('/perm/sector', { par
 
 export const fetchM2Total = () => axios.get('/perm/m2total')
 
-export const createPermiso = (permiso) => axios.post('/perm/create', { permiso }) // aqui agregue un / al principio, antes funcionaba bien sin el /
+export const createPermiso = (permiso, user) => axios.post('/perm/create', { user, permiso }) // aqui agregue un / al principio, antes funcionaba bien sin el /
 
-export const updatePermiso = (permiso) => axios.patch('/perm/update', { permiso })
+export const updatePermiso = (permiso, user) => axios.patch('/perm/update', { permiso, user })
 
-export const deletePermiso = (id) => axios.delete('/perm/delete', { params: id })
+export const deletePermiso = (id, user) => axios.delete('/perm/delete', { params: { id: id, user: user } })
 
 // export permisos
 

@@ -57,7 +57,7 @@ export const DataProvider = ({ children }) => {
             // se asignan los valores en roles a newPermiso, cada vez que estos se cambian, en caso de no estar definidos, se asigna un 0 o ''
             Object.keys(newPermiso).forEach(key => newPermiso[key] = roles[rolIndex]?.[key] || (typeof roles[rolIndex]?.[key] == 'number' ? 0 : ''))
         }
-        // console.log('roles: ',roles)
+        console.log('roles: ',roles)
     }, [roles, rolIndex])
 
     // useEffect(() => {

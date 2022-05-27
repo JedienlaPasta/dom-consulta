@@ -2,6 +2,7 @@ import Permiso from "../models/permisosModel.js"
 import XLSX from 'xlsx'
 
 import { filePath } from "../server.js"
+import { createLog } from "./logs.js"
 
 export const getPermiso = async (req, res) => {
     const roles = req.query
@@ -145,13 +146,39 @@ export const getM2Total = async (req, res) => {
 }
 
 export const createPermiso = async (req, res) => {
-    const toInsert = new Permiso(req.body?.permiso)
+    const newPermiso = new Permiso(req.body?.permiso)
+    req.permiso = newPermiso
+    req.action = 'CREAR'
     try {
-        await toInsert.save()
+        await newPermiso.save()
+        await createLog(req)
         res.status(201).json({ message: 'Permiso ingresado exitosamente'})
     } catch (error) {
-        res.status(400).json({ message: 'No se pudo ingresar el permiso' })
+        console.log(error)
+        res.status(400).json({ message: error })
     }
+    
+    // Object.keys(newPermisoLog).forEach((key) => key !== '_id' && !newPermisoLog[key] ? newPermisoLog[key] = undefined : null)
+    // const logInfo = {
+    //     permisoId: newPermiso._id,
+    //     user: info.user.name,
+    //     action: 'CREAR',
+    //     newVal: await new LogPermiso(newPermisoLog)
+    // }
+    // const logToInsert = new Log(logInfo)
+    // console.log(newPermiso)
+    // console.log(logToInsert)
+
+
+    // =================================================
+    // console.log(newPermiso._id.getTimestamp())
+
+    // const oldPermiso = await Permiso.find({ _id: logInfo?._id })
+    // // Primero se sacan todos los valores que no cambiaron durante esta accion
+    // Object.keys(logInfo.newPermiso).filter((key) => logInfo.newPermiso[key] !== oldPermiso[key])
+    // // Luego, se les asigna undefined a los campos con valores vacios. Esto realmente es necesario? quizas basta con solo sacar los que no se cambiaron.
+    // Object.keys(logInfo.newPermiso).forEach((key) => !logInfo.newPermiso[key] ? logInfo.newPermiso[key] = undefined : null)
+
 }
 
 export const updatePermiso = async (req, res) => {
@@ -161,30 +188,35 @@ export const updatePermiso = async (req, res) => {
         console.log('este permiso no existe')
         return res.status(404).json({ message: 'Este permiso no existe' })
     }
+    req.action = 'EDITAR'
     // se cambian los valores del documento guardado en la DB por los nuevos valores enviados en el body
     // Object.keys(toUpdate.toJSON()).forEach((key) => permiso[key] && (toUpdate[key] = permiso[key]))
     // Object.keys(newPermiso).forEach(key => newPermiso[key] = roles[rolIndex]?.[key] || (typeof roles[rolIndex]?.[key] == 'number' ? 0 : ''))
     // quizas esto no hace falta, pero no estaria de mas dejarlo por si acaso?
     Object.keys(toUpdate.toJSON()).forEach((key) => key !== '__v' && (toUpdate[key] = permiso[key] || (typeof permiso[key] == 'number' ? 0 : '')))
     try {
-        await toUpdate.save()
+        // await toUpdate.save()
+        await createLog(req)
         console.log('permiso actualizado exitosamente')
         res.status(200).json({ message: 'Permiso actualizado exitosamente' })
     } catch (error) {
         console.log('no se pudo actualizar el permiso')
-        res.status(400).json({ message: 'No se pudo actualizar el permiso' }) // 400?
+        res.status(400).json({ message: error.message }) // 400?
     }
 }
 
 export const deletePermiso = async (req, res) => {
-    const id = req.query.id
+    const id = JSON.parse(req.query.id).id
+    console.log(id)
     const toDelete = await Permiso.findOne({ _id: id })
     if (!toDelete) {
         console.log('este permiso no existe')
         return res.status(404).json({ message: 'Este permiso no existe' })
     }
+    req.action = 'ELIMINAR'
     try {
-        await Permiso.deleteOne({ _id: toDelete._id })
+        // await Permiso.deleteOne({ _id: toDelete._id })
+        createLog(req)
         console.log('permiso eliminado exitosamente')
         res.status(200).json({ message: 'Permiso eliminado exitosamente' })
     } catch (error) {
