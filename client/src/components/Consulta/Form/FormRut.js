@@ -37,9 +37,10 @@ export default function FormRut({ search }) {
                     <label className='hint'>RUT</label>
                     <input type='number' name='rut' required autoComplete='off' placeholder='Ingresar RUT sin DV...' value={rut} onChange={(e) => preventNegative(e, setRut)} />
                 </div>
+                <button type='submit'>Buscar</button>
             </span>
-            <br />
-            <button type='submit'>Buscar</button>
+            {/* <br /> */}
+            {/* <button type='submit'>Buscar</button> */}
         </form>
     )
 }

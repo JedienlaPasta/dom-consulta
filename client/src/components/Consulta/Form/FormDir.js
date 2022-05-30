@@ -41,27 +41,28 @@ export default function FormRut({ search }) {
 
     return (
         <form className='form-consulta' onSubmit={handleSubmit}>
-                <span className='inputs grid-inputs'>
-                    {   crudFilter.filter === 'Dirección' &&
-                        <div className="input">
-                            <label className='hint'>Dirección</label>
-                            <input type='text' name='dir' required placeholder='Ingresar Dirección...' value={dir} onChange={(e) => setDir(e.target.value)} />
-                        </div>
-                    }
-                    {
-                        crudFilter.filter === 'Sector' &&
-                        <div className="input">
-                            <label className='hint'>Sector</label>
-                            <input type='text' name='sector' required placeholder='Ingresar Sector...' value={dir} onChange={(e) => setDir(e.target.value)} />
-                        </div>
-                    }
-                    {
-                        crudFilter.filter === 'N° Viv & m2 Total' &&
-                        <p className='text-center'>Consultar el número de viviendas y m2 totales</p>
-                    }
-                </span>
-            <br />
-            <button type='submit'>Buscar</button>
+            <span className='inputs grid-inputs'>
+                {   crudFilter.filter === 'Dirección' &&
+                    <div className="input">
+                        <label className='hint'>Dirección</label>
+                        <input type='text' name='dir' required placeholder='Ingresar Dirección...' value={dir} onChange={(e) => setDir(e.target.value)} />
+                    </div>
+                }
+                {
+                    crudFilter.filter === 'Sector' &&
+                    <div className="input">
+                        <label className='hint'>Sector</label>
+                        <input type='text' name='sector' required placeholder='Ingresar Sector...' value={dir} onChange={(e) => setDir(e.target.value)} />
+                    </div>
+                }
+                {
+                    crudFilter.filter === 'N° Viv & m2 Total' &&
+                    <p className='get-m2-text text-center'>Consultar el número de viviendas y m2 totales</p>
+                }
+                <button type='submit'>Buscar</button>
+            </span>
+            {/* <br /> */}
+            {/* <button type='submit'>Buscar</button> */}
         </form>
     )
 }

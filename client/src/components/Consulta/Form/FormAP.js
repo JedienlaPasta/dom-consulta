@@ -33,9 +33,10 @@ export default function FormAP({ search }) {
                     <label className='hint'>Apellido Paterno</label>
                     <input type='text' name='apellido-paterno' required autoComplete='true' placeholder='Ingresar Apellido Paterno...' value={apellido} onChange={(e) => setApellido(e.target.value)} />
                 </div>
+                <button type='submit'>Buscar</button>
             </span>
-            <br />
-            <button type='submit'>Buscar</button>
+            {/* <br /> */}
+            {/* <button type='submit'>Buscar</button> */}
         </form>
     )
 }

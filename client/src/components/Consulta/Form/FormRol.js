@@ -50,15 +50,16 @@ export default function Form({ search }) {
             <span className='inputs grid-inputs grid-inputs-even'>
                 <div className="input">
                     <label className='hint'>Rol-Matriz</label>
-                    <input type='number' name='mz' required placeholder='Ingresar MZ...' value={rol.mz} onChange={(e) => preventNegative(e, setRol, true)} />
+                    <input type='number' name='mz' required placeholder='Ingresar MZ...' className='input-left' value={rol.mz} onChange={(e) => preventNegative(e, setRol, true)} />
                 </div>
                 <div className="input">
                     <label className='hint'>Rol-Dígito</label>
-                    <input type={inputType} name='pd' placeholder='Ingresar PD...' value={rol.pd} onChange={(e) => preventNegative(e, setRol, true)} />
+                    <input type={inputType} name='pd' placeholder='Ingresar PD...' className='input-right' value={rol.pd} onChange={(e) => preventNegative(e, setRol, true)} />
                 </div>
+                <button type='submit' className='btn-left-right'>Buscar</button>
             </span>
-            <br />
-            <button type='submit'>Buscar</button>
+            {/* <br /> */}
+            {/* <button type='submit'>Buscar</button> */}
         </form>
     )
 }

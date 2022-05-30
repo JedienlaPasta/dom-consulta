@@ -12,7 +12,6 @@
     border-radius: 0.3rem;
     position: relative;
     overflow: hidden;
-    /* border: 1px solid #b8bcc1b8; */
 }
 .form-consulta {
     margin-top: 25px;
@@ -20,9 +19,6 @@
 }
 .inputs {
     margin-top: 50px;
-}
-.inputs > .input > {
-    width: inherit;
 }
 .inputs > .input > input {
     font-size: 0.9em;
@@ -51,12 +47,23 @@
     display: grid;
     grid-template-columns: auto;
     column-gap: 5px;
+    row-gap: 5px;
 }
 .grid-inputs-even {
     grid-template-columns: auto auto;
+    grid-template-areas: 
+        "inp1 inp2"
+        "btn1 btn1"
+    ;
 }
-.grid-inputs-full {
-    grid-template-columns: 1fr;
+.input-left {
+    grid-area: inp1;
+}
+.input-right {
+    grid-area: inp2;
+}
+.btn-left-right {
+    grid-area: btn1;
 }
 .grid-inputs > .input > input:nth-of-type(even) {
     margin-left: 0;
@@ -75,6 +82,21 @@
 .form-consulta > button:active {
     background-color: var(--clr-blue2);
     box-shadow: var(--shd-v2);
+}
+.grid-inputs > button {
+    font-size: 0.9em;
+    padding: 9px 18px;
+    border-radius: 0.2rem;
+    border: 0;
+    background-color: var(--clr-blue);
+    color: white;
+}
+.grid-inputs > button:active {
+    background-color: var(--clr-blue2);
+    box-shadow: var(--shd-v2);
+}
+.get-m2-text {
+    margin-bottom: 10px;
 }
 .titulo-consulta {
     color: #656565;

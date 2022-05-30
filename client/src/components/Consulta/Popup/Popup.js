@@ -9,11 +9,13 @@ import './style.css'
 export default function Popup() {
     const [msg, setMsg] = useState('')
     const { user, message, setMessage, newPermiso, setNewPermiso, permisoInitialValue, dispatch, crudFilter, setCrudFilter, showPopup, setShowPopup, searching, isValid, setIsValid, setIncompleteFields } = useContext(DataContext)
-    let timeout
+    let timeout1
+    let timeout2
 
     useEffect(() => {
         if (message) {
-            clearTimeout(timeout)
+            clearTimeout(timeout1)
+            clearTimeout(timeout2)
             setMsg(message)
         }
         else {
@@ -40,8 +42,8 @@ export default function Popup() {
                 else {
                     setMsg('Generando archivo...')
                     downloadPermisos(setMessage)
-                    setTimeout(() => setMsg('La descarga puede tardar un poco, por favor espere'), 15000)
-                    timeout = setTimeout(() => setMsg('Si la descarga no comienza automáticamente, intente recargar la página'), 40000)
+                    timeout1 = setTimeout(() => setMsg('La descarga puede tardar un poco, por favor espere'), 15000)
+                    timeout2 = setTimeout(() => setMsg('Si la descarga no comienza automáticamente, intente recargar la página'), 40000)
                 }
             }
             else {
@@ -107,7 +109,8 @@ export default function Popup() {
                     </div>
                     {/* Popup Body */}
                     <div className='popup-body-container'>
-                        { crudFilter.crudType === 'Descargar' && <Loading /> }
+                        {/* { crudFilter.crudType === 'Descargar' && <Loading /> } */}
+                        { crudFilter.crudType === 'Descargar' && <SmallLoading /> }
                         { crudFilter.crudType !== 'Descargar' && searching && <SmallLoading/>}
                         <p className={`popup-body ${(crudFilter.crudType === 'Descargar' || msg === 'Buscando...') && 'text-center'}`}>{ msg ? msg : 'Cargando...' }</p>
                     </div>
