@@ -43,7 +43,11 @@ export default function App() {
 // se debe poder ingresar un nuevo registro con roles repetidos de un registro ingresado anteriormente, el unico valor unico seria el id (listo)
 // resaltar campos obligatorios en caso de que esten vacios (mas o menos funciona, pero se puede mejorar)
 // arreglar, popup de eliminar no muestra boton de 'continuar' (funciona)
+// COMENTARIO AGRANDADO
+// crear cuentas personales y cambiar las contraseñas de aseo y transito
 
+// ROL VIGENTE - ROL ASIGNADO
+// agregar campo de RUT
 // revizar el tema de los campos obligatorios y no obligatorios(hecho de momento, pero puede que se deban hacer cambios mas adelante)
 
 // TODO list
@@ -62,9 +66,13 @@ export default function App() {
 // ingresar fechas de forma opcional?
 // dropdown
 // quitar el scroll behavior (quitar el efecto de la rueda del mouse en los input numericos)!!!!!
-// ROL VIGENTE - ROL ASIGNADO
 // que la pantalla de carga cuando se busca un registro aparezca altiro, y que diga verificando primero. Luego, si la autenticacion es positiva, que cambie el mensaje a buscando...
-// agregar campo de RUT
+// despues de ~10 minutos cerrar sesion y mientras se este iniciando la aplicacion que aparezca un popup que diga Iniciando... (hasta recibir una respuesta del servidor)
+// o sino mantener el servidor corriendo desde las 8 de la mañana hasta las 6 de la tarde de lunes a viernes con UptimeRobot https://dev.to/j471n/prevent-heroku-server-from-sleeping-for-free-1ib1
+// El rol vigente o el asignado deben ser campos obligatorios, en el sentido de que almenos 1 de los 2 debe estar rellenado
+// El campo derechos es de dinero, por lo que hay que aplicar el formato
+// Antes de ingresar los datos, intentar limpiarlos lo mejor posible, sacando puntos en los numeros, etc
+// De momento funciona el ingresar datos, pero falta revisarlo mas a fondo, ver tambien el tema de editar datos. Eliminar funciona sin problemas
 
 // informe
 
@@ -73,19 +81,3 @@ export default function App() {
 
 // cada vez que se haga un cambio en un registro o se ingrese uno nuevo, se guarda una spreadsheet en el google drive con GOOGLE DRIVE API
 // https://www.youtube.com/watch?v=AwTxrCgIBWk&ab_channel=ProgrammingWithPrem \\ to abort or cancel API requests // \\ https://www.npmjs.com/package/react-use-cancel-token
-
-// campos obligatorios (ojala todos estos)
-// MATRIZ
-// DIGITO
-// NOMBRE             *
-// N° VIV
-// M2 C/RECEP
-// M2 C/PERM
-// M2 S/PERM
-// M2 TOTAL
-// U. INGRESO NÚM
-// U. INGRESO AÑO
-// DESDE              * (quizas no debiese ser obligatorio, ya que puede que aun no este aprobado el permiso)
-// DERECHOS
-
-// los * son de que aun falta ponerlos como obligatorios

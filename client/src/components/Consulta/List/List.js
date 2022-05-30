@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { ACTIONS, DataContext } from '../../../context/DataContext'
 import { FiChevronsLeft, FiChevronsRight } from 'react-icons/fi'
+import { MdDeleteForever, MdEdit } from 'react-icons/md'
 import InsertItem from './InsertItem'
 import Item from './Item'
 import { FiDownloadCloud } from 'react-icons/fi'

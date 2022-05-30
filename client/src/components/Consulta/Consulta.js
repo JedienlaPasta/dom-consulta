@@ -11,7 +11,7 @@ import './Consulta.css'
 // import './style.css'
 
 export default function Consulta() {
-    const {roles, user, page, isAuth, dispatch, showPopup, setShowPopup, crudFilter, setCrudFilter, setNewPermiso, permisoInitialValue, setSearching, newPermiso, setIsValid } = useContext(DataContext)
+    const {roles, page, isAuth, dispatch, showPopup, setShowPopup, crudFilter, setCrudFilter, setNewPermiso, permisoInitialValue, setSearching, newPermiso, setIsValid } = useContext(DataContext)
     const history = useNavigate()
     
     useEffect(() => {
@@ -29,9 +29,9 @@ export default function Consulta() {
 
     const save = (event) => {
         event.preventDefault()
-        const notRequired = ['NOMBRE', 'APELLIDO_P', 'APELLIDO_M', 'DOMICILIO', 'COMUNA', 'TELEFONO', 'MZ', 'NSTPC', 'CALLE', 'SECTOR', 'DESTINO', 'TIPO_EXPEDIENTE', 'ESTADO', 'DESDE', 'COMENTARIO', '_id']
+        const notRequired = ['MATRIZ_A', 'DIGITO_A', 'APELLIDO_P', 'APELLIDO_M', 'RUT', 'DOMICILIO', 'COMUNA', 'TELEFONO', 'MZ', 'NSTPC', 'CALLE', 'SECTOR', 'DESTINO', 'TIPO_EXPEDIENTE', 'ESTADO', 'DESDE', 'COMENTARIO', '_id']
         const permisoToCheck = Object.fromEntries(Object.entries(newPermiso).filter(([key]) => !notRequired?.includes(key)))
-        const checkPermiso = Object.values(permisoToCheck).every(val => val !== '' && !isNaN(val))
+        const checkPermiso = Object.keys(permisoToCheck).every(key => typeof permisoToCheck[key] == 'string' ? permisoToCheck[key] !== '' : !isNaN(permisoToCheck[key]))
         setIsValid(checkPermiso)
         setShowPopup(true)
     }
@@ -50,7 +50,9 @@ export default function Consulta() {
     // Estos son los elementos que se renderizaran
 
     const permisosFilters = [
-        ['Rol', <FormRol key={'rol'} search={search}/>], 
+        ['Rol Vigente', <FormRol key={'rol'} search={search}/>], 
+        ['Rol Asignado', <FormRol key={'rol'} search={search}/>], 
+        ['Rut', <FormRut key={'rut'} search={search}/>], 
         ['Apellido Paterno', <FormAP key={'ap'} search={search}/>], 
         ['Dirección', <FormDir key={'dir'} search={search}/>], 
         ['Sector', <FormDir key={'dir'} search={search}/>], 

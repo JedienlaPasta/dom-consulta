@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react'
-import { getPermisos } from '../../../actions/permisos'
+import React, { useContext, useEffect, useState } from 'react'
+import { getPermisosRolV, getPermisosRolA } from '../../../actions/permisos'
 import { getRoles } from '../../../actions/roles'
 import { isAuthenticated } from '../../../actions/users'
 import { DataContext } from '../../../context/DataContext'
@@ -11,6 +11,11 @@ export default function Form({ search }) {
     })
 
     const { page, dispatch, setUser, setIsAuth, setMessage, setRolIndex, crudFilter, setCrudFilter, setShowPopup, setSearching, preventNegative } = useContext(DataContext)
+    const inputType = crudFilter.filter === 'Rol Vigente' ? 'text' : 'number'
+
+    useEffect(() => {
+        setRol({ mz: '', pd: '' })
+    }, [crudFilter.filter])
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -23,8 +28,15 @@ export default function Form({ search }) {
             setIsAuth(isAuthenticated)
             if (isAuthenticated) {
                 search()
+                // me parece que voy a tener que separar la busqueda entre rol vigente y rol asignado
                 if (page === 'permisos') {
-                    getPermisos(rol, dispatch, setMessage, setShowPopup, setSearching)
+                    if (crudFilter.filter === 'Rol Vigente') {
+                        getPermisosRolV(rol, dispatch, setMessage, setShowPopup, setSearching)
+                    }
+                    else if (crudFilter.filter === 'Rol Asignado') {
+                        getPermisosRolA(rol, dispatch, setMessage, setShowPopup, setSearching)
+                    }
+                    
                 }
                 else if (page === 'rolcobro') {
                     getRoles(rol, dispatch, setMessage, setShowPopup, setSearching)
@@ -42,7 +54,7 @@ export default function Form({ search }) {
                 </div>
                 <div className="input">
                     <label className='hint'>Rol-Dígito</label>
-                    <input type='number' name='pd' placeholder='Ingresar PD...' value={rol.pd} onChange={(e) => preventNegative(e, setRol, true)} />
+                    <input type={inputType} name='pd' placeholder='Ingresar PD...' value={rol.pd} onChange={(e) => preventNegative(e, setRol, true)} />
                 </div>
             </span>
             <br />

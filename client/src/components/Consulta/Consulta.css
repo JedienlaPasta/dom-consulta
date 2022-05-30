@@ -114,6 +114,7 @@ table {
     margin: 20px 10px 0 10px;
     border: 0.1px solid #d3d3d3;
     border-top: 0;
+    table-layout: fixed;
 }
 .list-container, .insert-list-container {
     border-top: 0.1px solid #d3d3d3;
@@ -124,6 +125,7 @@ th {
 td, th {
     padding: 10px 10px;
     text-align: left;
+    /* overflow-wrap: break-word; */
 }
 
 tr {
@@ -131,7 +133,7 @@ tr {
     grid-template-columns: 10.5em auto;
 }
 tr:nth-of-type(even) {
-    background-color: #f5f5f5;
+    background-color: #f9f9f9;
 }
 tr:not(.list-header-title) {
     border-top: 0.1px solid #d3d3d3;
@@ -139,7 +141,7 @@ tr:not(.list-header-title) {
 .list-header-title {
     display: flex;
     justify-content: center;
-    background-color: #d3d5d978;
+    background-color: #e0e0e278;
 }
 
 .titulo-resultado {
@@ -150,6 +152,11 @@ tr:not(.list-header-title) {
     border-radius: 50px;
     white-space: nowrap;
 }
+.result-list-rol {
+    display: grid;
+    grid-template-columns: min-content 30px auto;
+    column-gap: 1px;
+}
 /* .new-record {
     
 } */
@@ -159,7 +166,7 @@ tr:not(.list-header-title) {
     position: relative;
     width: fit-content;
     margin: auto;
-    background-color: rgba(209, 212, 213, 0.485);
+    background-color: rgba(219, 222, 224, 0.485);
     padding: 3px;
     border-radius: 50px;
     margin-top: 20px;
@@ -207,6 +214,16 @@ tr:not(.list-header-title) {
     outline: none;
     border: 1px solid rgb(222, 222, 222);
 }
+.insert-list-rol {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 5px;
+}
+textarea {
+    max-height: 150px !important;
+    min-height: 43px !important;
+    resize: vertical;
+}
 .incomplete-field {
     border: 1px solid #f1825a;
 }
@@ -240,11 +257,11 @@ tr:not(.list-header-title) {
     margin-left: 10px;
 }
 .delete, .edit {
-    background-color: #ee9016;
+    background-color: #e8962c;
     color: white;
 }
 .delete {
-    background-color: #ee4f16;
+    background-color: #de5e2f;
 }
 /* quitar si no se va a usar .disabled-crud-btn ========================================================================================================= */
 .disabled-crud-btn {

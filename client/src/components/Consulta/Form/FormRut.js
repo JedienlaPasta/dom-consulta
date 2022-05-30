@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import { getPermisosByRUT } from '../../../actions/permisos'
 import { getRolesByRUT } from '../../../actions/roles'
 
 import { isAuthenticated } from '../../../actions/users'
@@ -19,7 +20,10 @@ export default function FormRut({ search }) {
             setIsAuth(isAuthenticated)
             if (isAuthenticated) {
                 search()
-                if (page === 'rolcobro') {
+                if (page === 'permisos') {
+                    getPermisosByRUT(rut, dispatch, setMessage, setShowPopup, setSearching)
+                }
+                else if (page === 'rolcobro') {
                     getRolesByRUT(rut, dispatch, setMessage, setShowPopup, setSearching)
                 }
             }

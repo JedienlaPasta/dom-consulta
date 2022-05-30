@@ -4,20 +4,18 @@ import XLSX from 'xlsx'
 import { filePath } from "../server.js"
 import { createLog } from "./logs.js"
 
-export const getPermiso = async (req, res) => {
+export const getPermisoRolV = async (req, res) => {
     const roles = req.query
     let permiso
     if (roles.mz && roles.pd) {
         // aqui se buscan registros con los roles exactos, por lo que no hace falta hacer un $sort
-        permiso = await Permiso.find({ MATRIZ: roles?.mz, DIGITO: roles?.pd })
+        permiso = await Permiso.find({ MATRIZ_V: roles?.mz, DIGITO_V: roles?.pd })
     }
     else {
         permiso = await Permiso.aggregate([ 
-            { $match: { MATRIZ: roles?.mz }},
-            { $addFields: { 
-                // "DIGITO": { $arrayElemAt: [{"$split": [ "$DIGITO", ("/")]}, 0] },
-                "DIGITO_length": { $strLenCP: "$DIGITO" }}},
-            { $sort: {"DIGITO_length": 1, "DIGITO": 1}},
+            { $match: { MATRIZ_V: roles?.mz }},
+            { $addFields: {"DIGITO_length": { $strLenCP: "$DIGITO_V" }}},
+            { $sort: {"DIGITO_length": 1, "DIGITO_V": 1}},
             { $project: {"DIGITO_length": 0}}
         ])
     }
@@ -31,14 +29,57 @@ export const getPermiso = async (req, res) => {
     }
 }
 
+export const getPermisoRolA = async (req, res) => {
+    const roles = req.query
+    let permiso
+    if (roles.mz && roles.pd) {
+        // aqui se buscan registros con los roles exactos, por lo que no hace falta hacer un $sort
+        permiso = await Permiso.find({ MATRIZ_A: roles?.mz, DIGITO_A: roles?.pd })
+    }
+    else {
+        permiso = await Permiso.aggregate([ 
+            { $match: { MATRIZ_A: roles?.mz }},
+            { $addFields: {"DIGITO_length": { $strLenCP: "$DIGITO_A" }}},
+            { $sort: {"DIGITO_length": 1, "DIGITO_A": 1}},
+            { $project: {"DIGITO_length": 0}}
+        ])
+    }
+    if (!permiso.length) {
+        return res.status(404).json({ message: 'No se encontraron coincidencias' })
+    }
+    try {
+        res.status(200).json(permiso)
+    } catch (error) {
+        res.status(404).json({ message: 'Error inesperado' })
+    }
+}
+
+export const getPermisosByRUT = async (req, res) => {
+    const rut = req.query?.rut
+    const permisos = await Permiso.aggregate([
+        { $match: { RUT: { $regex: rut, $options: 'i'} }},
+        { $addFields: { "MATRIZ_length": { $strLenCP: "$MATRIZ_V"}, "DIGITO_length": { $strLenCP: "$DIGITO_V"} }},
+        { $sort: { "MATRIZ_length": 1, "MATRIZ_V": 1, "DIGITO_length": 1, "DIGITO_V": 1 }},
+        { $project: { "MATRIZ_length": 0, "DIGITO_length": 0 }}
+    ])
+    if (!permisos.length) {
+        return res.status(404).json({ message: 'No se encontraron coincidencias' })
+    }
+    try {
+        res.status(200).json(permisos)
+    } catch (error) {
+        res.status(404).json({ message: error.message })
+    }
+}
+
 export const getPermisoByApellidoP = async (req, res) => {
     const apellido = req.query?.apellido
     // const permiso = await Permiso.find({ APELLIDO_P: apellido })
     // const permiso = await Permiso.find({ APELLIDO_P: { $regex: apellido, $options: 'i'} })
     const perm = await Permiso.aggregate([ 
         { $match: { APELLIDO_P: { $regex: apellido, $options: 'i'} }},
-        { $addFields: { "MATRIZ_length": { $strLenCP: "$MATRIZ"}, "DIGITO_length": { $strLenCP: "$DIGITO"} }},
-        { $sort: { "MATRIZ_length": 1, "MATRIZ": 1, "DIGITO_length": 1, "DIGITO": 1 }},
+        { $addFields: { "MATRIZ_length": { $strLenCP: "$MATRIZ_V"}, "DIGITO_length": { $strLenCP: "$DIGITO_V"} }},
+        { $sort: { "MATRIZ_length": 1, "MATRIZ_V": 1, "DIGITO_length": 1, "DIGITO_V": 1 }},
         { $project: { "MATRIZ_length": 0, "DIGITO_length": 0 }}
     ])
     if (!perm.length) {
@@ -56,8 +97,8 @@ export const getPermisosByDIR = async (req, res) => {
     // const permiso = await Permiso.find({ CALLE: {$regex: dir, $options: 'i'} })
     const permiso = await Permiso.aggregate([ 
         { $match: { CALLE: { $regex: dir, $options: 'i'} }},
-        { $addFields: { "MATRIZ_length": { $strLenCP: "$MATRIZ"}, "DIGITO_length": { $strLenCP: "$DIGITO"} }},
-        { $sort: { "MATRIZ_length": 1, "MATRIZ": 1, "DIGITO_length": 1, "DIGITO": 1 }},
+        { $addFields: { "MATRIZ_length": { $strLenCP: "$MATRIZ_V"}, "DIGITO_length": { $strLenCP: "$DIGITO_V"} }},
+        { $sort: { "MATRIZ_length": 1, "MATRIZ_V": 1, "DIGITO_length": 1, "DIGITO_V": 1 }},
         { $project: { "MATRIZ_length": 0, "DIGITO_length": 0 }}
     ])
     if (!permiso.length) {
@@ -75,8 +116,8 @@ export const gerPermisosBySector = async (req, res) => {
     // const permiso = await Permiso.find({ SECTOR: {$regex: sector, $options: 'i'} })
     const permiso = await Permiso.aggregate([ 
         { $match: { SECTOR: { $regex: sector, $options: 'i'} }},
-        { $addFields: { "MATRIZ_length": { $strLenCP: "$MATRIZ"}, "DIGITO_length": { $strLenCP: "$DIGITO"} }},
-        { $sort: { "MATRIZ_length": 1, "MATRIZ": 1, "DIGITO_length": 1, "DIGITO": 1 }},
+        { $addFields: { "MATRIZ_length": { $strLenCP: "$MATRIZ_V"}, "DIGITO_length": { $strLenCP: "$DIGITO_V"} }},
+        { $sort: { "MATRIZ_length": 1, "MATRIZ_V": 1, "DIGITO_length": 1, "DIGITO_V": 1 }},
         { $project: { "MATRIZ_length": 0, "DIGITO_length": 0 }}
     ])
     if (!permiso.length) {
@@ -102,11 +143,13 @@ export const gerPermisosBySector = async (req, res) => {
 
 //     // Actualiza la base de datos completa en los campos especificados con los valores definidos
 //     await Permiso.updateMany(
-//         { "COMENTARIO": { $regex: /%/ }},
+//         { "NOMBRE": { $regex: /%/ }},
 //         [{
-//             $set: { "COMENTARIO": {
-//                 $replaceAll: { input: "$COMENTARIO", find: "%", replacement: ";" }
-//             }}
+//             $set: {
+//                 "NOMBRE": {
+//                     $replaceAll: { input: "$NOMBRE", find: "%", replacement: ";" }
+//                 },
+//             }
 //         }]
 //     )
 //     try {
@@ -121,7 +164,6 @@ export const gerPermisosBySector = async (req, res) => {
 // console.log(timeStamp)
 
 export const getM2Total = async (req, res) => {
-    // const permisos = await Permiso.find({ MATRIZ: 1, DIGITO: 1 })
     const permisos = await Permiso.aggregate([
         {
             $group: {
@@ -157,28 +199,8 @@ export const createPermiso = async (req, res) => {
         console.log(error)
         res.status(400).json({ message: error })
     }
-    
-    // Object.keys(newPermisoLog).forEach((key) => key !== '_id' && !newPermisoLog[key] ? newPermisoLog[key] = undefined : null)
-    // const logInfo = {
-    //     permisoId: newPermiso._id,
-    //     user: info.user.name,
-    //     action: 'CREAR',
-    //     newVal: await new LogPermiso(newPermisoLog)
-    // }
-    // const logToInsert = new Log(logInfo)
-    // console.log(newPermiso)
-    // console.log(logToInsert)
-
-
     // =================================================
     // console.log(newPermiso._id.getTimestamp())
-
-    // const oldPermiso = await Permiso.find({ _id: logInfo?._id })
-    // // Primero se sacan todos los valores que no cambiaron durante esta accion
-    // Object.keys(logInfo.newPermiso).filter((key) => logInfo.newPermiso[key] !== oldPermiso[key])
-    // // Luego, se les asigna undefined a los campos con valores vacios. Esto realmente es necesario? quizas basta con solo sacar los que no se cambiaron.
-    // Object.keys(logInfo.newPermiso).forEach((key) => !logInfo.newPermiso[key] ? logInfo.newPermiso[key] = undefined : null)
-
 }
 
 export const updatePermiso = async (req, res) => {
@@ -195,8 +217,8 @@ export const updatePermiso = async (req, res) => {
     // quizas esto no hace falta, pero no estaria de mas dejarlo por si acaso?
     Object.keys(toUpdate.toJSON()).forEach((key) => key !== '__v' && (toUpdate[key] = permiso[key] || (typeof permiso[key] == 'number' ? 0 : '')))
     try {
-        // await toUpdate.save()
         await createLog(req)
+        await toUpdate.save()
         console.log('permiso actualizado exitosamente')
         res.status(200).json({ message: 'Permiso actualizado exitosamente' })
     } catch (error) {
@@ -207,7 +229,6 @@ export const updatePermiso = async (req, res) => {
 
 export const deletePermiso = async (req, res) => {
     const id = JSON.parse(req.query.id).id
-    console.log(id)
     const toDelete = await Permiso.findOne({ _id: id })
     if (!toDelete) {
         console.log('este permiso no existe')
@@ -215,8 +236,8 @@ export const deletePermiso = async (req, res) => {
     }
     req.action = 'ELIMINAR'
     try {
-        // await Permiso.deleteOne({ _id: toDelete._id })
-        createLog(req)
+        await createLog(req)
+        await Permiso.deleteOne({ _id: toDelete._id })
         console.log('permiso eliminado exitosamente')
         res.status(200).json({ message: 'Permiso eliminado exitosamente' })
     } catch (error) {

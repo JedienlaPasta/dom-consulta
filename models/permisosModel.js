@@ -1,23 +1,35 @@
 import mongoose from "mongoose";
 
 const permisoSchema = mongoose.Schema({
-    MATRIZ: {
+    MATRIZ_V: {
         type: String,
         required: true
     },
-    DIGITO: {
+    DIGITO_V: {
         type: String,
         required: true
+    },
+    MATRIZ_A: {
+        type: String,
+        required: false
+    },
+    DIGITO_A: {
+        type: String,
+        required: false
     },
     NOMBRE: {
         type: String,
-        required: false
+        required: true
     },
     APELLIDO_P: {
         type: String,
         required: false
     },
     APELLIDO_M: {
+        type: String,
+        required: false
+    },
+    RUT: {
         type: String,
         required: false
     },
@@ -103,6 +115,6 @@ const permisoSchema = mongoose.Schema({
     }
 })
 
-const Permiso = mongoose.model('perms', permisoSchema)
+const Permiso = mongoose.model('permisos', permisoSchema)
 
 export default Permiso

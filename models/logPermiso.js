@@ -1,11 +1,14 @@
 import mongoose from "mongoose"
 
 export const logPermisoSchema = mongoose.Schema({
-    DIGITO: { type: String },
-    MATRIZ: { type: String },
+    MATRIZ_V: { type: String },
+    DIGITO_V: { type: String },
+    MATRIZ_A: { type: String },
+    DIGITO_A: { type: String },
     NOMBRE: { type: String },
     APELLIDO_P: { type: String },
     APELLIDO_M: { type: String },
+    RUT: { type: String },
     DOMICILIO: { type: String },
     COMUNA: { type: String },
     TELEFONO: { type: String },

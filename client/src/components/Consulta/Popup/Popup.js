@@ -49,20 +49,14 @@ export default function Popup() {
             }
         }
     }, [showPopup, message])
-    console.log('isValid: ',isValid)
+    
     const savePermiso = () => {
-        // // Se reviza si todos los campos del nuevo objeto son distintos de '' a excepción de MZ
-        // const notRequired = ['NOMBRE', 'APELLIDO_P', 'APELLIDO_M', 'DOMICILIO', 'COMUNA', 'TELEFONO', 'MZ', 'NSTPC', 'CALLE', 'SECTOR', 'DESTINO', 'TIPO_EXPEDIENTE', 'ESTADO', 'DESDE', 'COMENTARIO',]
-        // // const permisoToCheck = Object.fromEntries(Object.entries(newPermiso).filter(([key]) => key !== 'MZ'))
-        // // const permisoToCheck = Object.fromEntries(Object.entries(newPermiso).filter(([key]) => key !== notRequired.forEach(field => field)))
-        // const permisoToCheck = Object.fromEntries(Object.entries(newPermiso).filter(([key]) => !notRequired?.includes(key)))
-        // // const permisoToCheck = Object.fromEntries(Object.entries(newPermiso).filter(([key]) => !notRequired?.includes(key) && console.log(key,': ',newPermiso[key]) ))
-
-        // const isValid = Object.values(permisoToCheck).every(val => val !== '' && !isNaN(val))
-
-        const notRequired = ['NOMBRE', 'APELLIDO_P', 'APELLIDO_M', 'DOMICILIO', 'COMUNA', 'TELEFONO', 'MZ', 'NSTPC', 'CALLE', 'SECTOR', 'DESTINO', 'TIPO_EXPEDIENTE', 'ESTADO', 'DESDE', 'COMENTARIO', '_id']
+        // Se verifica que los campos obligatorios sean distintos de 0 o ''
+        const notRequired = ['MATRIZ_A', 'DIGITO_A', 'APELLIDO_P', 'APELLIDO_M', 'RUT', 'DOMICILIO', 'COMUNA', 'TELEFONO', 'MZ', 'NSTPC', 'CALLE', 'SECTOR', 'DESTINO', 'TIPO_EXPEDIENTE', 'ESTADO', 'DESDE', 'COMENTARIO', '_id']
         const permisoToCheck = Object.fromEntries(Object.entries(newPermiso).filter(([key]) => !notRequired?.includes(key)))
-        const checkPermiso = Object.values(permisoToCheck).every(val => val !== '' && !isNaN(val))
+        console.log(permisoToCheck)
+        // const checkPermiso = Object.values(permisoToCheck).every(val => val !== '' && !isNaN(val))
+        const checkPermiso = Object.keys(permisoToCheck).every(key => typeof permisoToCheck[key] == 'string' ? permisoToCheck[key] !== '' : !isNaN(permisoToCheck[key]))
         setIncompleteFields(!checkPermiso)
         setIsValid(checkPermiso)
 
@@ -101,14 +95,14 @@ export default function Popup() {
     }
     
     const showHeaderAndButtons = crudFilter.type !== 'insert' && crudFilter.type !== 'read' && msg !== 'Guardando...' && msg !== 'Eliminando...'
-    console.log(crudFilter.type)
+    
     return (
         <div className='popup-background'>
             { !message &&
                 <div className="popup-container">
                     {/* Popup Header */}
                     <div className="popup-header">
-                        { showHeaderAndButtons &&  (isValid && crudFilter.type === 'update' || crudFilter.type === 'delete') && <h4 className="popup-title">Está seguro de que desea continuar?</h4> }
+                        { showHeaderAndButtons &&  ((isValid && crudFilter.type === 'update') || crudFilter.type === 'delete') && <h4 className="popup-title">Está seguro de que desea continuar?</h4> }
                         { !searching && <button className='popup-close-btn' onClick={reset}><CgClose/></button>}
                     </div>
                     {/* Popup Body */}

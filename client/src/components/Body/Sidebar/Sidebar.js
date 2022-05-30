@@ -1,17 +1,15 @@
 import React, { useContext } from 'react'
 import './style.css'
 import { RiLogoutBoxRLine } from 'react-icons/ri'
-import { RiFileExcel2Line } from 'react-icons/ri' //excel icon
+import { MdFindInPage, MdAddCircle, MdSimCardDownload, MdAccountCircle } from 'react-icons/md'
 import Items from './Items'
 import { Link } from 'react-router-dom'
 import { ACTIONS, DataContext } from '../../../context/DataContext'
 import { logout } from '../../../actions/users'
 
-// const [crudFilter, setCrudFilter] = useState({ crudType: 'Consultar', filter: 'ROL', type: 'read', filters: ['Ingresar', 'Consultar', 'Descargar']})
-
 export default function Sidebar() {
-    const { user, setUser, setIsAuth, dispatch, page, setPage, setMessage, toggleMenu, setToggleMenu } = useContext(DataContext)
-    const permisosFilters = [['Rol', 'Consultar'], ['Apellido Paterno', 'Consultar'], ['Dirección', 'Consultar'], ['Sector', 'Consultar'], ['N° Viv & m2 Total', 'Consultar']]
+    const { user, setUser, setIsAuth, dispatch, page, setMessage, toggleMenu } = useContext(DataContext)
+    const permisosFilters = [['Rol Vigente', 'Consultar'], ['Rol Asignado', 'Consultar'], ['Rut', 'Consultar'], ['Apellido Paterno', 'Consultar'], ['Dirección', 'Consultar'], ['Sector', 'Consultar'], ['N° Viv & m2 Total', 'Consultar']]
     const rolCobroFilters = [['Rol', 'Consultar'], ['Rut', 'Consultar'], ['Dirección', 'Consultar']]
     const displayItems = page === 'permisos' 
         ? permisosFilters.map(item => <Items key={item} val={item[0]} crudType={item[1]} />) 
@@ -31,21 +29,21 @@ export default function Sidebar() {
     return (
         <div className={sidebarName}>
             <hr className='sidebar-hr' />
-            <h3 className='sidebar-items'>Consultar Registro</h3>
+            <h4 className='sidebar-items'><MdFindInPage/><span>Buscar Registro</span></h4>
             {displayItems}
             {   page === 'permisos' && user.role === 'dom_admin' &&
                 <>
                     <hr className='sidebar-hr' />
-                    <h3 className='sidebar-items'>Ingresar Registro</h3>
-                    <Items val={'Ingresar Nuevo'} crudType={'Ingresar'} />
+                    <h4 className='sidebar-items'><MdAddCircle/><span>Ingresar Registro</span></h4>
+                    <Items val={'Nuevo'} crudType={'Ingresar'} />
 
                     <hr className='sidebar-hr' />
-                    <h3 className='sidebar-items'>Descargas</h3>
+                    <h4 className='sidebar-items'><MdSimCardDownload/><span>Descargas</span></h4>
                     <Items val={'XLSX'} crudType={'Descargar'} />
                 </>
             }
             <hr className='sidebar-hr' />
-            <h3 className='sidebar-items'>Cuenta</h3>
+            <h4 className='sidebar-items'><MdAccountCircle/><span>Cuenta</span></h4>
             <li className='logout-item' onClick={handleLogout}>
                 <span><Link className='logout' to='/auth'><RiLogoutBoxRLine/></Link>Cerrar Sesión</span>
             </li>

@@ -14,6 +14,10 @@ export default function InsertItem({ type }) {
     }
 
     const handleOnChangeN = (e) => {
+        if (e.target.name === 'RUT' || e.target.name === 'MATRIZ_A' || e.target.name === 'DIGITO_A') {
+            return e.target.value < 0 ? setNewPermiso(prev => ({...prev, [e.target.name]: '' })) : setNewPermiso(prev => ({...prev, [e.target.name]: e.target.value }))
+        }
+        // else =>
         e.target.value < 0 ? setNewPermiso(prev => ({...prev, [e.target.name]: 0 })) : setNewPermiso(prev => ({...prev, [e.target.name]: parseFloat(e.target.value) }))
         if (e.target.name === 'M2_C_RECEP' || e.target.name === 'M2_S_PERM') {
             setNewPermiso(prev => ({...prev, M2_TOTAL: (parseFloat(prev.M2_C_RECEP) || 0) + (parseFloat(prev.M2_S_PERM) || 0)}))
@@ -26,28 +30,33 @@ export default function InsertItem({ type }) {
         }
         return ('').toString()
     }
-    console.log(incompleteFields)
+
     return (
         <>
             {   page === 'permisos' &&
                 <>
                     <h4 className={`titulo-consulta ${type === 'insert' && 'new-record'}`}>{title}</h4>
                     {type === 'insert' && <p className='warning marg-top-warning'>Por favor rellene todos los campos posibles, tenga en cuenta que esto facilitará la búsqueda de registros a futuro.</p>}
-                    {/* <h5 className='table-header-title text-center'>INFORMACIÓN IDENTIFICADORA</h5> */}
                     <table className='insert-list-container'>
                         <thead>
                             <tr className='list-header-title'>
-                                <th className='text-center'>IDENTIFICACIÓN DEL PREDIO</th>
+                                <th className='text-center'>ROL DE AVALÚO</th>
                             </tr>
                         </thead>
                         <tbody className='insert-list-body'>
                             <tr>
-                                <th className='text-right'>ROL MZ:</th>
-                                <td className='insert-list-input-row input'><input type="text" required name='MATRIZ' className={`${name} ${incompleteFields && 'incomplete-field'} `} value={newPermiso?.MATRIZ} onChange={handleOnChangeT} /*readOnly={type === 'update'}*/ /></td>
+                                <th className='text-right'>VIGENTE:</th>
+                                <td className='insert-list-input-row input insert-list-rol'>
+                                    <input type="text" required name='MATRIZ_V' className={`${name} ${incompleteFields && 'incomplete-field'} `} value={newPermiso?.MATRIZ_V} placeholder='MZ...' onChange={handleOnChangeT} /*readOnly={type === 'update'}*/ />
+                                    <input type="text" required name='DIGITO_V' className={`${name} ${incompleteFields && 'incomplete-field'} `} value={newPermiso?.DIGITO_V} placeholder='PD...' onChange={handleOnChangeT} /*readOnly={type === 'update'}*/ />
+                                </td>
                             </tr>
                             <tr>
-                                <th className='text-right'>ROL PD:</th>
-                                <td className='insert-list-input-row input'><input type="text" required name='DIGITO' className={`${name} ${incompleteFields && 'incomplete-field'} `} value={newPermiso?.DIGITO} onChange={handleOnChangeT} /*readOnly={type === 'update'}*/ /></td>
+                                <th className='text-right'>ASIGNADO:</th>
+                                <td className='insert-list-input-row input insert-list-rol'>
+                                    <input type="number" name='MATRIZ_A' className={name} value={newPermiso?.MATRIZ_A} placeholder='MZ...' onChange={handleOnChangeN} /*readOnly={type === 'update'}*/ />
+                                    <input type="number" name='DIGITO_A' className={name} value={newPermiso?.DIGITO_A} placeholder='PD...' onChange={handleOnChangeN} /*readOnly={type === 'update'}*/ />
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -70,9 +79,12 @@ export default function InsertItem({ type }) {
                                 <th className='text-right'>APELLIDO M:</th>
                                 <td className='insert-list-input-row input'><input type="text" /*required*/ name='APELLIDO_M' className='insert-list-input' value={newPermiso?.APELLIDO_M} onChange={handleOnChangeT} /></td>
                             </tr>
+                            <tr>
+                                <th className='text-right'>RUT:</th>
+                                <td className='insert-list-input-row input'><input type="number" /*required*/ name='RUT' className='insert-list-input' placeholder='Sin puntos ni DV...' value={newPermiso?.RUT} onChange={handleOnChangeN} /></td>
+                            </tr>
                         </tbody>
                     </table>
-                    {/* <h5 className='table-header-title text-center'>DOMICILIO PARTICULAR</h5> */}
                     <table className='insert-list-container'>
                         <thead>
                             <tr className='list-header-title'>
@@ -94,7 +106,6 @@ export default function InsertItem({ type }) {
                             </tr>
                         </tbody>
                     </table>
-                    {/* <h5 className='table-header-title text-center'>DIRECCIÓN PREDIAL</h5> */}
                     <table className='insert-list-container'>
                         <thead>
                             <tr className='list-header-title'>
@@ -115,12 +126,11 @@ export default function InsertItem({ type }) {
                                 <td className='insert-list-input-row input'><input type="text" name='MZ' className='insert-list-input' value={newPermiso?.MZ} onChange={handleOnChangeT} /></td>
                             </tr>
                             <tr>
-                                <th className='text-right'>SECTOR:</th>
+                                <th className='text-right'>SECT / LOT:</th>
                                 <td className='insert-list-input-row input'><input type="text" /*required*/ name='SECTOR' className='insert-list-input' value={newPermiso?.SECTOR} onChange={handleOnChangeT} /></td>
                             </tr>
                         </tbody>
                     </table>
-                    {/* <h5 className='table-header-title text-center'>DETALLE DE EXPEDIENTE</h5> */}
                     <table className='insert-list-container'>
                         <thead>
                             <tr className='list-header-title'>
@@ -178,7 +188,7 @@ export default function InsertItem({ type }) {
                             </tr>
                             <tr>
                                 <th className='text-right'>COMENTARIO:</th>
-                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='COMENTARIO' className='insert-list-input' value={newPermiso?.COMENTARIO} onChange={handleOnChangeT} /></td>
+                                <td className='insert-list-input-row input'><textarea type="text" /*required*/ name='COMENTARIO' className='insert-list-input' value={newPermiso?.COMENTARIO} onChange={handleOnChangeT}></textarea></td>
                             </tr>
                         </tbody>
                     </table>

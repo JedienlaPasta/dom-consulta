@@ -1,11 +1,45 @@
 import fileDownload from "js-file-download"
-import { fetchPermisos, fetchPermisosByApellidoP, fetchPermisosByDIR, createPermiso, updatePermiso, deletePermiso, getExcelFile, fetchPermisosBySector, fetchM2Total } from "../api/api"
+import { fetchPermisosRolV, fetchPermisosRolA, fetchPermisosByApellidoP, fetchPermisosByDIR, createPermiso, updatePermiso, deletePermiso, getExcelFile, fetchPermisosBySector, fetchM2Total, fetchPermisosByRUT } from "../api/api"
 import { ACTIONS } from "../context/DataContext"
 
 
-export const getPermisos = async (rol, dispatch, setMessage, setShowPopup, setSearching) => {
+export const getPermisosRolV = async (rol, dispatch, setMessage, setShowPopup, setSearching) => {
     try {
-        const { data } = await fetchPermisos(rol)
+        const { data } = await fetchPermisosRolV(rol)
+        setTimeout(() => {
+            setShowPopup(false)
+            setSearching(false)
+            dispatch({ type: ACTIONS.FETCH_MATCHES, payload: data })
+        }, 100)
+    } catch (error) {
+        if (error.response) {
+            setMessage(error.response.data.message)
+            setSearching(false)
+            dispatch({ type: ACTIONS.FETCH_MATCHES, payload: [] })
+        }
+    }
+}
+
+export const getPermisosRolA = async (rol, dispatch, setMessage, setShowPopup, setSearching) => {
+    try {
+        const { data } = await fetchPermisosRolA(rol)
+        setTimeout(() => {
+            setShowPopup(false)
+            setSearching(false)
+            dispatch({ type: ACTIONS.FETCH_MATCHES, payload: data })
+        }, 100)
+    } catch (error) {
+        if (error.response) {
+            setMessage(error.response.data.message)
+            setSearching(false)
+            dispatch({ type: ACTIONS.FETCH_MATCHES, payload: [] })
+        }
+    }
+}
+
+export const getPermisosByRUT = async (rut, dispatch, setMessage, setShowPopup, setSearching) => {
+    try {
+        const { data } = await fetchPermisosByRUT(rut)
         setTimeout(() => {
             setShowPopup(false)
             setSearching(false)

@@ -15,16 +15,11 @@ export const getLogs = async (req, res) => {
 }
 
 export const createLog = async (req, res) => {
-    // // Primero se sacan todos los valores que no cambiaron durante esta accion
-    // Object.keys(logInfo.newPermiso).filter((key) => logInfo.newPermiso[key] !== oldPermiso[key])
-    // // Luego, se les asigna undefined a los campos con valores vacios. Esto realmente es necesario? quizas basta con solo sacar los que no se cambiaron.
-    // Object.keys(logInfo.newPermiso).forEach((key) => !logInfo.newPermiso[key] ? logInfo.newPermiso[key] = undefined : null)
     let logInfo
     let insertLog = true
-    // const user = JSON.parse(req.body?.user?.name)
     if (req.action === 'CREAR') {
         const newPermisoLog = req.permiso?._doc
-        // console.log(newPermisoLog)
+        // Se les asigna undefined a los campos con valores vacios: '' y 0
         Object.keys(newPermisoLog).forEach((key) => !newPermisoLog[key] ? newPermisoLog[key] = undefined : null)
         const logPermisoToInsert = await new LogPermiso(newPermisoLog)
         logInfo = {
@@ -40,8 +35,8 @@ export const createLog = async (req, res) => {
         let oldPermiso = await Permiso.findOne({ _id: id })
         oldPermiso = oldPermiso._doc
 
+        // Se crea un array con las llaves de los campos que no cambiaron durante esta accion
         const keys = Object.keys(newPermiso).filter((key) => newPermiso[key] !== oldPermiso[key] && key !== '_id')
-        console.log(keys)
         // Se les asigna un valor 'undefined' a los campos que no cambiaron, esto provoca que el objeto creado solo tenga campos con valores relevantes
         Object.keys(newPermiso).forEach((key) => !keys.includes(key) ? newPermiso[key] = undefined : null)
         Object.keys(oldPermiso).forEach((key) => !keys.includes(key) ? oldPermiso[key] = undefined : null)
@@ -55,13 +50,13 @@ export const createLog = async (req, res) => {
             newVal: logPermisoToInsert,
             previousVal: logOldPermisoToInsert
         }
-        console.log(keys.length)
         insertLog = keys.length > 0
     }
     else if (req.action === 'ELIMINAR') {
         const id = JSON.parse(req.query.id).id
         let oldPermiso = await Permiso.findOne({ _id: id })
         oldPermiso = oldPermiso._doc
+        const user = JSON.parse(req.query.user)
         
         Object.keys(oldPermiso).forEach((key) => !oldPermiso[key] ? oldPermiso[key] = undefined : null)
         const logOldPermisoToInsert = await new LogPermiso(oldPermiso)
@@ -73,11 +68,11 @@ export const createLog = async (req, res) => {
         }
     }
     const logToInsert = new Log(logInfo)
-    console.log(logToInsert)
+    // console.log(logToInsert)
 
     try {
         if (insertLog) {
-            // await logToInsert.save()
+            await logToInsert.save()
         }
     } catch (error) {
         console.log(error)

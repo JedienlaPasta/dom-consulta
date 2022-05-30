@@ -47,7 +47,7 @@ export default function Navbar() {
         <header className='nav-header'>
             <div className="logo">
                 <img className='logo-img' src={img} alt="0" />
-                <h2 className='logo-title'>DOM ALGARROBO</h2>
+                <h2 className='logo-title'>DOM Algarrobo</h2>
             </div>
             <nav className='nav'>
                 <ul className='nav-links'>
