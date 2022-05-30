@@ -37,6 +37,7 @@ export default function Item({ rol }) {
     }
 
     const dv = getDV() || ''
+    const rutPermiso = rol?.RUT ? rol?.RUT + '-' + dv : ''
 
     const currencyFormat = (val) => {
         let newVal = val?.toString().replace(/[.]/g, ',')
@@ -121,7 +122,7 @@ export default function Item({ rol }) {
                         </tr>
                         <tr>
                             <th>RUT:</th>
-                            <td className='result-list-row'>{rol?.RUT + rol?.RUT && '-' + rol?.RUT && dv}</td>
+                            <td className='result-list-row'>{rutPermiso}</td>
                         </tr>
                     </tbody>
                 </table>

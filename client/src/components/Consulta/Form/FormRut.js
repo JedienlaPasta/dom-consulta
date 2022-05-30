@@ -35,7 +35,7 @@ export default function FormRut({ search }) {
             <span className='inputs grid-inputs'>
                 <div className="input">
                     <label className='hint'>RUT</label>
-                    <input type='number' name='rut' required autoComplete='off' placeholder='Ingresar RUT sin DV...' value={rut} onChange={(e) => preventNegative(e, setRut)} />
+                    <input type='number' name='rut' required autoComplete='off' placeholder='Ingresar RUT sin puntos ni DV...' value={rut} onChange={(e) => preventNegative(e, setRut)} />
                 </div>
                 <button type='submit'>Buscar</button>
             </span>

@@ -73,7 +73,7 @@ export default function App() {
 // El campo derechos es de dinero, por lo que hay que aplicar el formato
 // Antes de ingresar los datos, intentar limpiarlos lo mejor posible, sacando puntos en los numeros, etc
 // De momento funciona el ingresar datos, pero falta revisarlo mas a fondo, ver tambien el tema de editar datos. Eliminar funciona sin problemas
-// Aparece mensaje de la descarga puede tardar un poco, por favor espere
+// Aparece mensaje de la descarga puede tardar un poco, por favor espere. Efectivamente, no se limpia el timeout
 
 // informe
 

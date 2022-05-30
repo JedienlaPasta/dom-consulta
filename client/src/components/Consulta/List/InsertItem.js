@@ -69,7 +69,7 @@ export default function InsertItem({ type }) {
                         <tbody className='insert-list-body'>
                             <tr>
                                 <th className='text-right'>NOMBRE:</th>
-                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='NOMBRE' className='insert-list-input' value={newPermiso?.NOMBRE} onChange={handleOnChangeT} /></td>
+                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='NOMBRE' className={`insert-list-input ${incompleteFields && 'incomplete-field'} `} value={newPermiso?.NOMBRE} onChange={handleOnChangeT} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>APELLIDO P:</th>
