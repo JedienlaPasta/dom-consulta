@@ -1,8 +1,9 @@
 import React, { useContext } from 'react'
 import { DataContext } from '../../../context/DataContext'
+import LogsItem from './LogsItem/LogsItem'
 
 export default function Item({ rol }) {
-    const { roles, page } = useContext(DataContext)
+    const { roles, page, crudFilter } = useContext(DataContext)
 
     // Para calcular el digito verificador del RUT
     const getDV = () => {
@@ -44,6 +45,10 @@ export default function Item({ rol }) {
         newVal = newVal?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
         return newVal
     }
+    // const permisoToCheck = Object.fromEntries(Object.entries(newPermiso).filter(([key]) => !notRequired?.includes(key)))
+    // const test = Object.fromEntries(Object.entries(rol?.previousVal).filter(key => 
+    //     key === 0
+    // ))
 
     // En el caso de que el servidor devuelva los M2 Totales, se muestra esto
     if (roles.length === 1 && roles[0]._id === 'M2_TOTALES') {
@@ -72,6 +77,31 @@ export default function Item({ rol }) {
                     </tr>
                 </tbody>
             </table>
+        )
+    }
+    
+    if (roles.length > 0 && crudFilter.crudType === 'Ver Logs') {
+        return (
+            <>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>ID:</th>
+                            <td className='result-list-row'>{rol?.permisoId}</td>
+                        </tr>
+                        <tr>
+                            <th>USUARIO:</th>
+                            <td className='result-list-row'>{rol?.user}</td>
+                        </tr>
+                        <tr>
+                            <th>ACCIÓN:</th>
+                            <td className='result-list-row'>{rol?.action}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <LogsItem rol={rol} type={'new'} />
+                <LogsItem rol={rol} type={'prev'} />
+            </>
         )
     }
     
@@ -235,7 +265,7 @@ export default function Item({ rol }) {
                 </table>
             </>
                 :
-
+                // roles
                 <table>
                     <tbody>
                         <tr>

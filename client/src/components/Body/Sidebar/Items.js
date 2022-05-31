@@ -4,7 +4,7 @@ import { ACTIONS, DataContext } from '../../../context/DataContext'
 export default function Items({ val, type, crudType }) {
     const { dispatch, setMessage, crudFilter, setCrudFilter, setToggleMenu } = useContext(DataContext)
     const name = crudFilter.filter === val ? 'item-option marked' : 'item-option'
-
+    
     const handleClick = () => {
         dispatch({ type: ACTIONS.FETCH_MATCHES, payload: [] })
         setMessage('')

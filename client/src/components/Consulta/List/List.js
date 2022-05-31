@@ -5,9 +5,11 @@ import { MdDeleteForever, MdEdit } from 'react-icons/md'
 import InsertItem from './InsertItem'
 import Item from './Item'
 import { FiDownloadCloud } from 'react-icons/fi'
+import { getLogs } from '../../../actions/logs'
+import { isAuthenticated } from '../../../actions/users'
 
 export default function List({ save, deletePermiso, downloadFile }) {
-    const { roles, page, dispatch, user, rolIndex, setRolIndex, crudFilter, setCrudFilter, crudDisabled, setCrudDisabled } = useContext(DataContext)
+    const { roles, page, dispatch, user, rolIndex, setRolIndex, crudFilter, setCrudFilter, crudDisabled, setMessage, setUser, setShowPopup, setSearching, setIsAuth } = useContext(DataContext)
     const totRoles = roles.length
     const type = crudFilter.type
     // quizas cambiar type a 'read' cada vez que se cambia de pagina tambien (no se si esta hecho)
@@ -16,7 +18,7 @@ export default function List({ save, deletePermiso, downloadFile }) {
     let displayItems
     if (type === 'insert') { displayItems = <InsertItem type={type} /> }
     else if (type === 'update') { displayItems = roles.map((rol) => <InsertItem type={type} key={rol._id} />) }
-    else { displayItems = roles.map((rol, index) => ( index === rolIndex ? <Item key={rol._id} rol={rol} /> : null ))}
+    else { displayItems = roles.map((rol, index) => ( index === rolIndex ? <Item key={rol._id} rol={rol} /> : null ))} // aqui esta el problema
 
     // Funciones
 
@@ -50,17 +52,40 @@ export default function List({ save, deletePermiso, downloadFile }) {
         
         if (crudFilter) {
             if (crudFilter.crudType !== 'Consultar') {
-                setCrudFilter({...crudFilter, crudType: 'Consultar', filter: 'Rol', type: 'read'})
+                setCrudFilter({...crudFilter, crudType: 'Consultar', filter: 'Rol Vigente', type: 'read'})
             }
             else {
                 setCrudFilter({...crudFilter, crudType: 'Consultar', type: 'read'})
             }
         }
     }
+
+    const readLogs = (event) => {
+        event.preventDefault()
+        setMessage('')
+        setRolIndex(0)
+        isAuthenticated().then(data => {
+            setCrudFilter({...crudFilter, type: 'read'})
+            const { isAuthenticated, user } = data
+            setUser(user)
+            setIsAuth(isAuthenticated)
+            if (isAuthenticated) {
+                setSearching(true)
+                setShowPopup(true)
+                getLogs(dispatch, setMessage, setShowPopup, setSearching)
+            }
+        })
+    }
     
     return (
         <form className='form'>
-            {   page === 'permisos' && user.role === 'dom_admin' && type !== 'insert' && type !== 'update' && crudFilter.crudType !== 'Descargar' && roles[0]._id !== 'M2_TOTALES' &&
+            {
+                page === 'permisos' && crudFilter.crudType === 'Ver Logs' &&
+                <div className='download-container'>
+                    <button className='crud-btn' onClick={readLogs}>Buscar</button>
+                </div>
+            }
+            {   page === 'permisos' && user.role === 'dom_admin' && type !== 'insert' && type !== 'update' && crudFilter.crudType !== 'Descargar' && roles[0]?._id !== 'M2_TOTALES' && crudFilter.filter !== 'Logs' &&
                 <div>
                     <p className='warning'>Cuidado, usted tiene permisos para editar y eliminar registros</p>
                     <div className="crud-btns-container">

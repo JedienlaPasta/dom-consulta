@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import './style.css'
 import { RiLogoutBoxRLine } from 'react-icons/ri'
-import { MdFindInPage, MdAddCircle, MdSimCardDownload, MdAccountCircle } from 'react-icons/md'
+import { MdFindInPage, MdAddCircle, MdSimCardDownload, MdInsertChart, MdAccountCircle } from 'react-icons/md'
 import Items from './Items'
 import { Link } from 'react-router-dom'
 import { ACTIONS, DataContext } from '../../../context/DataContext'
@@ -40,6 +40,18 @@ export default function Sidebar() {
                     <hr className='sidebar-hr' />
                     <h4 className='sidebar-items'><MdSimCardDownload/><span>Descargas</span></h4>
                     <Items val={'XLSX'} crudType={'Descargar'} />
+
+                    {/* <hr className='sidebar-hr' />
+                    <h4 className='sidebar-items'><MdInsertChart/><span>Consultar Logs</span></h4>
+                    <Items val={'Logs'} crudType={'Ver Logs'} /> */}
+                </>
+            }
+            {
+                page === 'permisos' && user.name === 'Admin' && user.role === 'dom_admin' &&
+                <>
+                    <hr className='sidebar-hr' />
+                    <h4 className='sidebar-items'><MdInsertChart/><span>Consultar Logs</span></h4>
+                    <Items val={'Logs'} crudType={'Ver Logs'} />
                 </>
             }
             <hr className='sidebar-hr' />

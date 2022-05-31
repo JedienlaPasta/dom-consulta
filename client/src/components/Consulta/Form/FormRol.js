@@ -36,7 +36,6 @@ export default function Form({ search }) {
                     else if (crudFilter.filter === 'Rol Asignado') {
                         getPermisosRolA(rol, dispatch, setMessage, setShowPopup, setSearching)
                     }
-                    
                 }
                 else if (page === 'rolcobro') {
                     getRoles(rol, dispatch, setMessage, setShowPopup, setSearching)

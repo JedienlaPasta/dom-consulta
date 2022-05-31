@@ -7,7 +7,7 @@ export default function InsertItem({ type }) {
     const title = type === 'insert' ? 'Nuevo Registro' : 'Actualizar Registro'
     const name = type === 'update' ? 'insert-list-input' /*faded-text*/ : 'insert-list-input'
 
-    const nameIncomplete = incompleteFields ? 'insert-list-input incomplete-field' : 'insert-list-input'
+    // const nameIncomplete = incompleteFields ? 'insert-list-input incomplete-field' : 'insert-list-input'
     
     const handleOnChangeT = (e) => {
         setNewPermiso(prev => ({...prev, [e.target.name]: (e.target.value).toUpperCase()}))
@@ -47,8 +47,8 @@ export default function InsertItem({ type }) {
                             <tr>
                                 <th className='text-right'>VIGENTE:</th>
                                 <td className='insert-list-input-row input insert-list-rol'>
-                                    <input type="text" required name='MATRIZ_V' className={`${name} ${incompleteFields && 'incomplete-field'} `} value={newPermiso?.MATRIZ_V} placeholder='MZ...' onChange={handleOnChangeT} /*readOnly={type === 'update'}*/ />
-                                    <input type="text" required name='DIGITO_V' className={`${name} ${incompleteFields && 'incomplete-field'} `} value={newPermiso?.DIGITO_V} placeholder='PD...' onChange={handleOnChangeT} /*readOnly={type === 'update'}*/ />
+                                    <input type="text" required name='MATRIZ_V' className={`${name} ${newPermiso?.MATRIZ_V === '' && 'incomplete-field'} `} value={newPermiso?.MATRIZ_V} placeholder='MZ...' onChange={handleOnChangeT} /*readOnly={type === 'update'}*/ />
+                                    <input type="text" required name='DIGITO_V' className={`${name} ${newPermiso?.DIGITO_V === '' && 'incomplete-field'} `} value={newPermiso?.DIGITO_V} placeholder='PD...' onChange={handleOnChangeT} /*readOnly={type === 'update'}*/ />
                                 </td>
                             </tr>
                             <tr>
@@ -69,7 +69,7 @@ export default function InsertItem({ type }) {
                         <tbody className='insert-list-body'>
                             <tr>
                                 <th className='text-right'>NOMBRE:</th>
-                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='NOMBRE' className={`insert-list-input ${incompleteFields && 'incomplete-field'} `} value={newPermiso?.NOMBRE} onChange={handleOnChangeT} /></td>
+                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='NOMBRE' className={`insert-list-input ${newPermiso?.NOMBRE === '' && 'incomplete-field'} `} value={newPermiso?.NOMBRE} onChange={handleOnChangeT} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>APELLIDO P:</th>
@@ -144,31 +144,31 @@ export default function InsertItem({ type }) {
                             </tr>
                             <tr>
                                 <th className='text-right'>N° VIV:</th>
-                                <td className='insert-list-input-row input'><input type="number" required name='N_VIV' className={nameIncomplete} value={parseValue(newPermiso?.N_VIV)} onChange={handleOnChangeN} /></td>
+                                <td className='insert-list-input-row input'><input type="number" required name='N_VIV' className={`insert-list-input ${isNaN(newPermiso?.N_VIV) && 'incomplete-field'} `} value={parseValue(newPermiso?.N_VIV)} onChange={handleOnChangeN} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>M2 C/RECEP:</th>
-                                <td className='insert-list-input-row input'><input type="number" required name='M2_C_RECEP' className={nameIncomplete} value={parseValue(newPermiso?.M2_C_RECEP)} onChange={handleOnChangeN} /></td>
+                                <td className='insert-list-input-row input'><input type="number" required name='M2_C_RECEP' className={`insert-list-input ${isNaN(newPermiso?.M2_C_RECEP) && 'incomplete-field'} `} value={parseValue(newPermiso?.M2_C_RECEP)} onChange={handleOnChangeN} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>M2 C/PERM:</th>
-                                <td className='insert-list-input-row input'><input type="number" required name='M2_C_PERM' className={nameIncomplete} value={parseValue(newPermiso?.M2_C_PERM)} onChange={handleOnChangeN} /></td>
+                                <td className='insert-list-input-row input'><input type="number" required name='M2_C_PERM' className={`insert-list-input ${isNaN(newPermiso?.M2_C_PERM) && 'incomplete-field'} `} value={parseValue(newPermiso?.M2_C_PERM)} onChange={handleOnChangeN} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>M2 S/PERM:</th>
-                                <td className='insert-list-input-row input'><input type="number" required name='M2_S_PERM' className={nameIncomplete} value={parseValue(newPermiso?.M2_S_PERM)} onChange={handleOnChangeN} /></td>
+                                <td className='insert-list-input-row input'><input type="number" required name='M2_S_PERM' className={`insert-list-input ${isNaN(newPermiso?.M2_S_PERM) && 'incomplete-field'} `} value={parseValue(newPermiso?.M2_S_PERM)} onChange={handleOnChangeN} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>M2 TOTAL:</th>
-                                <td className='insert-list-input-row input'><input type="number" required name='M2_TOTAL' className={nameIncomplete} value={parseValue(newPermiso?.M2_TOTAL)} readOnly /></td>
+                                <td className='insert-list-input-row input'><input type="number" required name='M2_TOTAL' className={`insert-list-input ${isNaN(newPermiso?.M2_TOTAL) && 'incomplete-field'} `} value={parseValue(newPermiso?.M2_TOTAL)} readOnly /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>ULT ING NUM:</th>
-                                <td className='insert-list-input-row input'><input type="number" required name='UI_NUM' className={nameIncomplete} value={parseValue(newPermiso?.UI_NUM)} onChange={handleOnChangeN} /></td>
+                                <td className='insert-list-input-row input'><input type="number" required name='UI_NUM' className={`insert-list-input ${isNaN(newPermiso?.UI_NUM) && 'incomplete-field'} `} value={parseValue(newPermiso?.UI_NUM)} onChange={handleOnChangeN} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>ULT ING AÑO:</th>
-                                <td className='insert-list-input-row input'><input type="number" required name='UI_ANO' className={nameIncomplete} value={parseValue(newPermiso?.UI_ANO)} onChange={handleOnChangeN} /></td>
+                                <td className='insert-list-input-row input'><input type="number" required name='UI_ANO' className={`insert-list-input ${isNaN(newPermiso?.UI_ANO) && 'incomplete-field'} `} value={parseValue(newPermiso?.UI_ANO)} onChange={handleOnChangeN} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>TIPO EXPED:</th>
@@ -184,7 +184,7 @@ export default function InsertItem({ type }) {
                             </tr>
                             <tr>
                                 <th className='text-right'>DERECHOS:</th>
-                                <td className='insert-list-input-row input'><input type="number" required name='DERECHOS' className={nameIncomplete} value={parseValue(newPermiso?.DERECHOS)} onChange={handleOnChangeN} /></td>
+                                <td className='insert-list-input-row input'><input type="number" required name='DERECHOS' className={`insert-list-input ${isNaN(newPermiso?.DERECHOS) && 'incomplete-field'} `} value={parseValue(newPermiso?.DERECHOS)} onChange={handleOnChangeN} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>COMENTARIO:</th>

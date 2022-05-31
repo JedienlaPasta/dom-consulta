@@ -8,10 +8,11 @@ import FormAP from './Form/FormAP'
 import Popup from './Popup/Popup'
 import List from './List/List'
 import './Consulta.css'
+import { getLogs } from '../../actions/logs'
 // import './style.css'
 
 export default function Consulta() {
-    const {roles, page, isAuth, dispatch, showPopup, setShowPopup, crudFilter, setCrudFilter, setNewPermiso, permisoInitialValue, setSearching, newPermiso, setIsValid } = useContext(DataContext)
+    const {roles, page, isAuth, dispatch, showPopup, setShowPopup, crudFilter, setCrudFilter, setNewPermiso, permisoInitialValue, setSearching, newPermiso, setIsValid, setMessage, setRolIndex, isAuthenticated, setIsAuth, setUser } = useContext(DataContext)
     const history = useNavigate()
     
     useEffect(() => {
@@ -45,6 +46,23 @@ export default function Consulta() {
     const downloadFile = (event) => {
         event.preventDefault()
         setShowPopup(true)
+    }
+
+    const readLogs = (event) => {
+        event.preventDefault()
+        setMessage('')
+        setRolIndex(0)
+        isAuthenticated().then(data => {
+            setCrudFilter({...crudFilter, type: 'read'})
+            const { isAuthenticated, user } = data
+            setUser(user)
+            setIsAuth(isAuthenticated)
+            if (isAuthenticated) {
+                setSearching(true)
+                setShowPopup(true)
+                getLogs(dispatch, setMessage, setShowPopup, setSearching)
+            }
+        })
     }
 
     // Estos son los elementos que se renderizaran
@@ -97,7 +115,7 @@ export default function Consulta() {
                         {displayFor}
                         { roles.length > 0 && ( page === 'permisos' ? <List save={save} deletePermiso={deletePermiso}/> : <List/>) }
                     </>
-                    : <List save={save} downloadFile={downloadFile} />
+                    : <List save={save} downloadFile={downloadFile} readLogs={readLogs} />
                 }
             </div>
         </div>

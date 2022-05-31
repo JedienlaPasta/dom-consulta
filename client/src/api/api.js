@@ -45,3 +45,7 @@ export const deletePermiso = (id, user) => axios.delete('/perm/delete', { params
 // export permisos
 
 export const getExcelFile = () => axios({ url: '/perm/exportpermisos', method: 'GET', responseType: 'blob' })
+
+// Logs
+
+export const fetchLogs = () => axios.get('/logs')

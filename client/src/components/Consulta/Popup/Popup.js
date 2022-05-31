@@ -8,7 +8,7 @@ import './style.css'
 
 export default function Popup() {
     const [msg, setMsg] = useState('')
-    const { user, message, setMessage, newPermiso, setNewPermiso, permisoInitialValue, dispatch, crudFilter, setCrudFilter, showPopup, setShowPopup, searching, isValid, setIsValid, setIncompleteFields } = useContext(DataContext)
+    const { user, message, setMessage, newPermiso, setNewPermiso, permisoInitialValue, dispatch, crudFilter, setCrudFilter, showPopup, setShowPopup, searching, isValid, setIsValid, setIncompleteFields, setEmptyFields } = useContext(DataContext)
     let timeout1
     let timeout2
 
@@ -56,7 +56,10 @@ export default function Popup() {
         // Se verifica que los campos obligatorios sean distintos de 0 o ''
         const notRequired = ['MATRIZ_A', 'DIGITO_A', 'APELLIDO_P', 'APELLIDO_M', 'RUT', 'DOMICILIO', 'COMUNA', 'TELEFONO', 'MZ', 'NSTPC', 'CALLE', 'SECTOR', 'DESTINO', 'TIPO_EXPEDIENTE', 'ESTADO', 'DESDE', 'COMENTARIO', '_id']
         const permisoToCheck = Object.fromEntries(Object.entries(newPermiso).filter(([key]) => !notRequired?.includes(key)))
-        console.log(permisoToCheck)
+        // console.log(permisoToCheck)
+        // const invalidFields = Object.fromEntries(Object.entries(permisoToCheck).filter(([key]) => permisoToCheck[key] === '' || isNaN(permisoToCheck[key])))
+        // console.log(invalidFields)
+        // setEmptyFields(invalidFields)
         // const checkPermiso = Object.values(permisoToCheck).every(val => val !== '' && !isNaN(val))
         const checkPermiso = Object.keys(permisoToCheck).every(key => typeof permisoToCheck[key] == 'string' ? permisoToCheck[key] !== '' : !isNaN(permisoToCheck[key]))
         setIncompleteFields(!checkPermiso)

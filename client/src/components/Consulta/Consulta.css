@@ -247,7 +247,8 @@ textarea {
     resize: vertical;
 }
 .incomplete-field {
-    border: 1px solid #f1825a;
+    border: 1px solid #e8962c;
+    /* border: 1px solid #84c5f4; */
 }
 .faded-text {
     color: #e0dfdf;
@@ -265,6 +266,7 @@ textarea {
 .crud-btns-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    gap: 5px;
     width: 100%;
 }
 .crud-btn {
@@ -275,9 +277,9 @@ textarea {
     background-color: var(--clr-blue);
     margin-top: 10px;
 }
-.crud-btn:not(:first-child) {
+/* .crud-btn:not(:first-child) {
     margin-left: 10px;
-}
+} */
 .delete, .edit {
     background-color: #e8962c;
     color: white;
