@@ -55,7 +55,7 @@ export default function Form({ search }) {
                     <label className='hint'>Rol-Dígito</label>
                     <input type={inputType} name='pd' placeholder='Ingresar PD...' className='input-right' value={rol.pd} onChange={(e) => preventNegative(e, setRol, true)} />
                 </div>
-                <button type='submit' className='btn-left-right'>Buscar</button>
+                <button type='submit' className='search-btn blue-btn btn-left-right'>Buscar</button>
             </span>
             {/* <br /> */}
             {/* <button type='submit'>Buscar</button> */}

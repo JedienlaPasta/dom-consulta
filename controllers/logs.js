@@ -1,12 +1,58 @@
 import LogPermiso from "../models/logPermiso.js"
 import Log from "../models/logs.js"
 import Permiso from "../models/permisosModel.js"
+import ObjectId from 'mongodb'
 
+const objId = ObjectId.ObjectId
+
+// Para consultar logs guardados
 export const getLogs = async (req, res) => {
-    const logs = await Log.find()
+    const action = req.query.action.toUpperCase()
+    const date = req.query.date
+    let logs
+
+    if (action !== '' && date !== '') {
+        // Start date
+        let start = new Date(date)
+        start.setDate(start.getDate() + 1)
+        start.setHours(0,0,0,0)
+        start = objId(Math.floor(start.getTime() / 1000).toString(16) + "0000000000000000")
+        // End date
+        let end = new Date(date)
+        end.setDate(end.getDate() + 1)
+        end.setHours(23,59,59,999)
+        end = objId(Math.floor(end.getTime() / 1000).toString(16) + "0000000000000000")
+        
+        logs = await Log.find({ _id: { $gt: start, $lt: end }, action: action })
+    }
+    else if (action !== '') {
+        logs = await Log.find({ action: action })
+    }
+    else if (date !== '') {
+        // Start date
+        let start = new Date(date)
+        start.setDate(start.getDate() + 1)
+        start.setHours(0,0,0,0)
+        start = objId(Math.floor(start.getTime() / 1000).toString(16) + "0000000000000000")
+        // End date
+        let end = new Date(date)
+        end.setDate(end.getDate() + 1)
+        end.setHours(23,59,59,999)
+        end = objId(Math.floor(end.getTime() / 1000).toString(16) + "0000000000000000")
+        
+        logs = await Log.find({ _id: { $gt: start, $lt: end } })
+    }
+    else {
+        logs = await Log.find()
+    }
+
     if (!logs.length) {
         return res.status(404).json({ message: 'No se encontraron logs' })
     }
+
+    logs = logs.map(log => (
+        {...log._doc, date: log._id.getTimestamp()}
+    ));
     try {
         res.status(200).json(logs)
     } catch (error) {
@@ -14,7 +60,8 @@ export const getLogs = async (req, res) => {
     }
 }
 
-export const createLog = async (req, res) => {
+// Para crear logs nuevos
+export const createLog = async (req, res) => { 
     let logInfo
     let insertLog = true
     if (req.action === 'CREAR') {

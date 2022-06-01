@@ -2,14 +2,14 @@ import React, { useContext } from 'react'
 import { ACTIONS, DataContext } from '../../../context/DataContext'
 import { FiChevronsLeft, FiChevronsRight } from 'react-icons/fi'
 import { MdDeleteForever, MdEdit } from 'react-icons/md'
+import { RiBug2Fill } from 'react-icons/ri'
 import InsertItem from './InsertItem'
 import Item from './Item'
 import { FiDownloadCloud } from 'react-icons/fi'
-import { getLogs } from '../../../actions/logs'
-import { isAuthenticated } from '../../../actions/users'
+import Dropdown from './Dropdown/Dropdown'
 
 export default function List({ save, deletePermiso, downloadFile }) {
-    const { roles, page, dispatch, user, rolIndex, setRolIndex, crudFilter, setCrudFilter, crudDisabled, setMessage, setUser, setShowPopup, setSearching, setIsAuth } = useContext(DataContext)
+    const { roles, page, dispatch, user, rolIndex, setRolIndex, crudFilter, setCrudFilter, crudDisabled } = useContext(DataContext)
     const totRoles = roles.length
     const type = crudFilter.type
     // quizas cambiar type a 'read' cada vez que se cambia de pagina tambien (no se si esta hecho)
@@ -59,30 +59,19 @@ export default function List({ save, deletePermiso, downloadFile }) {
             }
         }
     }
-
-    const readLogs = (event) => {
-        event.preventDefault()
-        setMessage('')
-        setRolIndex(0)
-        isAuthenticated().then(data => {
-            setCrudFilter({...crudFilter, type: 'read'})
-            const { isAuthenticated, user } = data
-            setUser(user)
-            setIsAuth(isAuthenticated)
-            if (isAuthenticated) {
-                setSearching(true)
-                setShowPopup(true)
-                getLogs(dispatch, setMessage, setShowPopup, setSearching)
-            }
-        })
-    }
     
     return (
-        <form className='form'>
+        <form className={`form ${crudFilter.crudType === 'Ver Logs' && 'form-extended-height'}`}>
             {
                 page === 'permisos' && crudFilter.crudType === 'Ver Logs' &&
-                <div className='download-container'>
-                    <button className='crud-btn' onClick={readLogs}>Buscar</button>
+                <div className='logs-container'>
+                    <Dropdown />
+                    {   roles.length === 0 &&
+                        <span className='bug-placeholder'>
+                            <RiBug2Fill className='bug' />
+                            <p>Sin resultados</p>
+                        </span>
+                    }
                 </div>
             }
             {   page === 'permisos' && user.role === 'dom_admin' && type !== 'insert' && type !== 'update' && crudFilter.crudType !== 'Descargar' && roles[0]?._id !== 'M2_TOTALES' && crudFilter.filter !== 'Logs' &&

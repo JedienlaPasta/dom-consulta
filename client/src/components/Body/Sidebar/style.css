@@ -14,8 +14,7 @@
     margin: 10px;
 }
 .sidebar-items {
-    margin-top: 20px;
-    margin-left: 10px;
+    margin: 20px 0 10px 10px;
     font-size: 1.2em;
     font-weight: normal;
     display: flex;
@@ -27,10 +26,9 @@
     font-size: 0.8em;
 }
 .item-option {
-    padding: 10px 40px 10px 15px;
+    padding: 8px 0px 8px 15px;
     transition: all ease-in 150ms;
-    margin: 5px 0px 5px 30px;
-    /* margin: 5px 0; */
+    margin: 5px 0px 0 30px;
     border-radius: 5px 2px 2px 5px;
     color: rgb(92, 92, 92);
     border: 1px solid transparent;
@@ -51,32 +49,24 @@
     background-color: #eff9ff;
     border: 1px solid var(--clr-blue);
 }
-.marked::after {
-    content: "";
-    display: block;
-    height: 6px;
-    width: 6px;
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    right: 18px;
-    transform: translateY(-50%);
-    background-color: #3882c8;
-    opacity: 0.75;
+.account-item > span {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+.account-logo {
+    /* background-color: #30577b; */
+    font-size: 2.5em;
 }
 .logout-item {
     list-style: none;
-    padding: 10px 40px 10px 10px;
     transition: all ease-in 150ms;
-    margin: 5px 20px 5px 30px;
-    border-radius: 5px;
     color: rgb(92, 92, 92);
-    border: 1px solid transparent;
+    margin-top: 3px;
 }
 .logout-item > span {
     display: flex;
     align-items: center;
-    gap: 10px;
     white-space: nowrap;
     justify-content: flex-start;
 }
@@ -88,7 +78,11 @@
 }
 .logout-item:hover {
     cursor: pointer;
-    border: 1px solid #3f92e043;
+    color: #3882c8;
+    /* border: 1px solid #3f92e043; */
+}
+.logout-text {
+    font-size: 0.7em;
 }
 
 .sidebar-hr:not(:first-child) {
@@ -97,7 +91,7 @@
 .sidebar-hr {
     border: 0;
     height: 1px;
-    background-color: #dedede;
+    background-color: #dedede91;
 }
 
 @media (max-width: 749px) {

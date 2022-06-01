@@ -1,0 +1,73 @@
+
+.dropdown-menu {
+    font-size: 0.85em;
+    /* margin-top: 20px; */
+    transition: all 250ms;
+    height: 30px;
+    height: fit-content;
+
+}
+.logs-grid-inputs {
+    margin-top: 70px !important;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+        "opt opt"
+        "dat tip"
+        "btn btn"
+    ;
+    align-items: center;
+    column-gap: 5px;
+    row-gap: 2.5px;
+}
+.fullw_tipo{
+    row-gap: 5px;
+    grid-template-areas: 
+        "opt opt"
+        "tip tip"
+        "btn btn"
+    ;
+}
+.fullw_fecha {
+    row-gap: 5px;
+    grid-template-areas: 
+        "opt opt"
+        "dat dat"
+        "btn btn"
+    ;
+}
+.fullw_fecha_tipo{
+    row-gap: 5px;
+    grid-template-areas: 
+        "opt opt"
+        "dat tip"
+        "btn btn"
+    ;
+}
+.option-dropdown {
+    grid-area: opt;
+}
+.date-input {
+    grid-area: dat;
+}
+.action-dropdown {
+    grid-area: tip;
+}
+.logs-btn {
+    grid-area: btn;
+}
+
+.dropdown-input {
+    font-size: 0.9em;
+    padding: 0 10px;
+    height: 100%;
+    min-height: 38px;
+    border-radius: 0.2rem;
+    outline: none;
+    background: none;
+    border: 1px solid #cfcfcf;
+}
+.dropdown-aditional-input:focus {
+    background-color: #eff9ff;
+    border: 1px solid var(--clr-blue);
+}

@@ -48,4 +48,4 @@ export const getExcelFile = () => axios({ url: '/perm/exportpermisos', method: '
 
 // Logs
 
-export const fetchLogs = () => axios.get('/logs')
+export const fetchLogs = (option, action, date) => axios.get('/logs', { params: { option: option, action: action, date: date } })

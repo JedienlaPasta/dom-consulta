@@ -29,6 +29,16 @@ export default function Sidebar() {
     return (
         <div className={sidebarName}>
             <hr className='sidebar-hr' />
+            <h4 className='sidebar-items account-item'>
+                <MdAccountCircle className='account-logo'/>
+                <span>
+                    {user.name}
+                    <li className='logout-item' onClick={handleLogout}>
+                        <span><Link className='logout' to='/auth'></Link><span className='logout-text'>Cerrar Sesión</span></span>
+                    </li>
+                </span>
+            </h4>
+            <hr className='sidebar-hr' />
             <h4 className='sidebar-items'><MdFindInPage/><span>Buscar Registro</span></h4>
             {displayItems}
             {   page === 'permisos' && user.role === 'dom_admin' &&
@@ -40,10 +50,6 @@ export default function Sidebar() {
                     <hr className='sidebar-hr' />
                     <h4 className='sidebar-items'><MdSimCardDownload/><span>Descargas</span></h4>
                     <Items val={'XLSX'} crudType={'Descargar'} />
-
-                    {/* <hr className='sidebar-hr' />
-                    <h4 className='sidebar-items'><MdInsertChart/><span>Consultar Logs</span></h4>
-                    <Items val={'Logs'} crudType={'Ver Logs'} /> */}
                 </>
             }
             {
@@ -54,11 +60,6 @@ export default function Sidebar() {
                     <Items val={'Logs'} crudType={'Ver Logs'} />
                 </>
             }
-            <hr className='sidebar-hr' />
-            <h4 className='sidebar-items'><MdAccountCircle/><span>Cuenta</span></h4>
-            <li className='logout-item' onClick={handleLogout}>
-                <span><Link className='logout' to='/auth'><RiLogoutBoxRLine/></Link>Cerrar Sesión</span>
-            </li>
         </div>
     )
 }

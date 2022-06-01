@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { DataContext } from '../../../context/DataContext'
 import LogsItem from './LogsItem/LogsItem'
+import { Destino } from '../../../data/Destino'
 
 export default function Item({ rol }) {
     const { roles, page, crudFilter } = useContext(DataContext)
@@ -11,7 +12,6 @@ export default function Item({ rol }) {
             const arr = []
             const mArr = [2, 3, 4, 5, 6, 7]
             if ( rol?.RUT !== 0 && !isNaN(rol?.RUT)) {
-                // console.log(roles[0]?.MATRIZ)
                 const inverted = rol?.RUT.toString().split("").reverse().join("")
                 for (let i = 0; i < inverted.length; i++) {
                     arr[i] = inverted.charAt(i)
@@ -39,6 +39,8 @@ export default function Item({ rol }) {
 
     const dv = getDV() || ''
     const rutPermiso = rol?.RUT ? rol?.RUT + '-' + dv : ''
+    const ubicacion = (rol?.UBICACION === 'U' && 'URBANO') || (rol?.UBICACION === 'E' && 'EXTENSIÓN URBANA') || (rol?.UBICACION === 'R' && 'RURAL')
+    const destino = Destino.map(item => rol?.DESTINO === item.codigo && item.descripcion)
 
     const currencyFormat = (val) => {
         let newVal = val?.toString().replace(/[.]/g, ',')
@@ -49,6 +51,13 @@ export default function Item({ rol }) {
     // const test = Object.fromEntries(Object.entries(rol?.previousVal).filter(key => 
     //     key === 0
     // ))
+    
+    let date = rol?.date
+    if (typeof(date) == 'string') {
+        date = new Date(date)
+    }
+    const dateArray = date?.toString().split(" ")
+    const formatedDate = dateArray && `${dateArray[2]}-${dateArray[1]}-${dateArray[3]} - [${dateArray[4]}]`
 
     // En el caso de que el servidor devuelva los M2 Totales, se muestra esto
     if (roles.length === 1 && roles[0]._id === 'M2_TOTALES') {
@@ -80,18 +89,28 @@ export default function Item({ rol }) {
         )
     }
     
+    // Si devuelve los logs, se muestra esto
     if (roles.length > 0 && crudFilter.crudType === 'Ver Logs') {
         return (
             <>
-                <table>
+                <table className='list-container'>
+                    <thead>
+                        <tr className='list-header-title'>
+                            <th className='text-center'>REGISTRO</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         <tr>
-                            <th>ID:</th>
+                            <th>ID PERMISO:</th>
                             <td className='result-list-row'>{rol?.permisoId}</td>
                         </tr>
                         <tr>
+                            <th>FECHA:</th>
+                            <td className='result-list-row'>{formatedDate}</td>
+                        </tr>
+                        <tr>
                             <th>USUARIO:</th>
-                            <td className='result-list-row'>{rol?.user}</td>
+                            <td className='result-list-row'>{rol?.user.toUpperCase()}</td>
                         </tr>
                         <tr>
                             <th>ACCIÓN:</th>
@@ -101,6 +120,8 @@ export default function Item({ rol }) {
                 </table>
                 <LogsItem rol={rol} type={'new'} />
                 <LogsItem rol={rol} type={'prev'} />
+                {/* { <p> {JSON.stringify(rol?.newVal)} </p> }
+                { <p> {JSON.stringify(rol?.previousVal)} </p> } */}
             </>
         )
     }
@@ -322,11 +343,11 @@ export default function Item({ rol }) {
                         </tr>
                         <tr>
                             <th>UBICACIÓN:</th>
-                            <td>{rol?.UBICACION}</td>
+                            <td>{ubicacion}</td>
                         </tr>
                         <tr>
                             <th>DESTINO:</th>
-                            <td>{rol?.DESTINO}</td>
+                            <td>{destino}</td>
                         </tr>
                     </tbody>
                 </table>

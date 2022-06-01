@@ -83,18 +83,6 @@ export default function Consulta() {
         ['Dirección', <FormDir key={'dir'} search={search}/>]
     ]
 
-    // const displayFilters = filters.map(item => <Filter key={item} val={item[0]} />) // si la pagina de consulta es rol de cobro, no mandar type y si es de permisos, mandar type='crud'
-    // const displayForm = filters.map(item => item[0] === crudFilter.filter ? item[1] : null)
-
-    // Estos son los filters antiguos
-    // const displayCrudFilters = crudFilter.filters.map(item => <Filter key={item} val={item} type='crud' />)
-
-    // const displayF =
-    //     page === 'rolcobro' ?
-    //         rolCobroFilters.map(item => <Filter key={item} val={item[0]} />)
-    //     :
-    //         permisosFilters.map(item => <Filter key={item} val={item[0]} />)
-
     const displayFor =
         page === 'rolcobro' ?
             rolCobroFilters.map(item => item[0] === crudFilter.filter ? item[1] : null)
@@ -115,7 +103,11 @@ export default function Consulta() {
                         {displayFor}
                         { roles.length > 0 && ( page === 'permisos' ? <List save={save} deletePermiso={deletePermiso}/> : <List/>) }
                     </>
-                    : <List save={save} downloadFile={downloadFile} readLogs={readLogs} />
+                    : 
+                    <>
+                        { crudFilter.crudType === 'Ver Logs' && <h4 className='titulo-consulta'>Buscar Logs</h4> }
+                        <List save={save} downloadFile={downloadFile} readLogs={readLogs} />
+                    </>                    
                 }
             </div>
         </div>

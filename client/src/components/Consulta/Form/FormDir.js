@@ -59,7 +59,7 @@ export default function FormRut({ search }) {
                     crudFilter.filter === 'N° Viv & m2 Total' &&
                     <p className='get-m2-text text-center'>Consultar el número de viviendas y m2 totales</p>
                 }
-                <button type='submit'>Buscar</button>
+                <button type='submit' className='search-btn blue-btn'>Buscar</button>
             </span>
             {/* <br /> */}
             {/* <button type='submit'>Buscar</button> */}

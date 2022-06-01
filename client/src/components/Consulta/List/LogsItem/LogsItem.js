@@ -3,189 +3,188 @@ import React from 'react'
 export default function LogsItem({ rol, type }) {
 
     let value
+    let keys
+
     if (type === 'prev') {
         value = rol?.previousVal[0]
-        console.log(value)
     }
     else if (type === 'new') {
         value = rol?.newVal[0]
     }
-
-    // const permisoToCheck = Object.fromEntries(Object.entries(value).filter(([key]) => value[key] !== ''))
-    // const keys = Object.keys(value)
-    // const checkPermiso = Object.keys(permisoToCheck).every(key => typeof permisoToCheck[key] == 'string' ? permisoToCheck[key] !== '' : !isNaN(permisoToCheck[key]))
-    // console.log(keys)
-    console.log(value)
-    // console.log(Object?.keys(value))
-
+    
     if (value) {
-        console.log(Object?.keys(value))
+        // console.log(Object?.keys(value))
+        keys = Object?.keys(value)
     }
-
-    // const data = Object.keys(value).map((key) => {
-    //     console.log(key)
-    //     return value
-    // })
 
     return (
         <>
             {   value &&
-                <table>
+                <table className='list-container'>
+                    <thead>
+                        <tr className='list-header-title'>
+                            <th className='text-center'>{type === 'new' ? 'VALORES NUEVOS' : 'VALORES ELIMINADOS' }</th>
+                        </tr>
+                    </thead>
                     <tbody>
-                        {   value?.MATRIZ_V &&
+                        {   keys.includes('MATRIZ_V') && keys.includes('DIGITO_V') &&
                             <tr>
-                                <th>MATRIZ_V:</th>
-                                <td className='result-list-row'>{value?.MATRIZ_V}</td>
+                                <th>VIGENTE:</th>
+                                <td className='result-list-row result-list-rol'>
+                                    <p>{value?.MATRIZ_V || ''}</p><p className='text-center'>{value?.MATRIZ_V && '-' || ''}</p><p>{value?.DIGITO_V || ''}</p>
+                                </td>
                             </tr>
                         }
-                        {   value?.DIGITO_V &&
+                        {   keys.includes('MATRIZ_A') && keys.includes('DIGITO_A') &&
                             <tr>
-                                <th>DIGITO_V:</th>
-                                <td className='result-list-row'>{value?.DIGITO_V}</td>
+                                <th>ASIGNADO:</th>
+                                <td className='result-list-row result-list-rol'>
+                                    <p>{value?.MATRIZ_A || ''}</p><p className='text-center'>{value?.MATRIZ_A && '-' || ''}</p><p>{value?.DIGITO_A || ''}</p>
+                                </td>
                             </tr>
                         }
-                        {   value?.NOMBRE &&
+                        {   keys.includes('NOMBRE') &&
                             <tr>
                                 <th>NOMBRE:</th>
-                                <td className='result-list-row'>{value?.NOMBRE}</td>
+                                <td className='result-list-row'>{value?.NOMBRE || ''}</td>
                             </tr>
                         }
-                        {   value?.APELLIDO_P &&
+                        {   keys.includes('APELLIDO_P') &&
                             <tr>
                                 <th>APELLIDO P:</th>
-                                <td className='result-list-row'>{value?.APELLIDO_P}</td>
+                                <td className='result-list-row'>{value?.APELLIDO_P || ''}</td>
                             </tr>
                         }
-                        {   value?.APELLIDO_M &&
+                        {   keys.includes('APELLIDO_M') &&
                             <tr>
                                 <th>APELLIDO P:</th>
-                                <td className='result-list-row'>{value?.APELLIDO_M}</td>
+                                <td className='result-list-row'>{value?.APELLIDO_M || ''}</td>
                             </tr>
                         }
-                        {   value?.RUT &&
+                        {   keys.includes('RUT') &&
                             <tr>
                                 <th>RUT:</th>
-                                <td className='result-list-row'>{value?.RUT}</td>
+                                <td className='result-list-row'>{value?.RUT || ''}</td>
                             </tr>
                         }
-                        {   value?.CALLE &&
+                        {   keys.includes('DOMICILIO') &&
                             <tr>
                                 <th>CALLE:</th>
-                                <td className='result-list-row'>{value?.CALLE}</td>
+                                <td className='result-list-row'>{value?.DOMICILIO || ''}</td>
                             </tr>
                         }
-                        {   value?.COMUNA &&
+                        {   keys.includes('COMUNA') &&
                             <tr>
                                 <th>COMUNA:</th>
-                                <td className='result-list-row'>{value?.COMUNA}</td>
+                                <td className='result-list-row'>{value?.COMUNA || ''}</td>
                             </tr>
                         }
-                        {   value?.TELÉFONO &&
+                        {   keys.includes('TELÉFONO') &&
                             <tr>
                                 <th>TELÉFONO:</th>
-                                <td className='result-list-row'>{value?.TELÉFONO}</td>
+                                <td className='result-list-row'>{value?.TELÉFONO || ''}</td>
                             </tr>
                         }
-                        {   value?.CALLE &&
+                        {   keys.includes('CALLE') &&
                             <tr>
                                 <th>CALLE:</th>
-                                <td className='result-list-row'>{value?.CALLE}</td>
+                                <td className='result-list-row'>{value?.CALLE || ''}</td>
                             </tr>
                         }
-                        {   value?.NSTPC &&
+                        {   keys.includes('NSTPC') &&
                             <tr>
                                 <th>NSTPC:</th>
-                                <td className='result-list-row'>{value?.NSTPC}</td>
+                                <td className='result-list-row'>{value?.NSTPC || ''}</td>
                             </tr>
                         }
-                        {   value?.MZ &&
+                        {   keys.includes('MZ') &&
                             <tr>
                                 <th>MZ:</th>
-                                <td className='result-list-row'>{value?.TELÉFONO}</td>
+                                <td className='result-list-row'>{value?.MZ || ''}</td>
                             </tr>
                         }
-                        {   value?.SECTOR &&
+                        {   keys.includes('SECTOR') &&
                             <tr>
                                 <th>SECTOR:</th>
-                                <td className='result-list-row'>{value?.SECTOR}</td>
+                                <td className='result-list-row'>{value?.SECTOR || ''}</td>
                             </tr>
                         }
-                        {   value?.DESTINO &&
+                        {   keys.includes('DESTINO') &&
                             <tr>
                                 <th>DESTINO:</th>
-                                <td className='result-list-row'>{value?.DESTINO}</td>
+                                <td className='result-list-row'>{value?.DESTINO || ''}</td>
                             </tr>
                         }
-                        {   value?.N_VIV &&
+                        {   keys.includes('N_VIV') &&
                             <tr>
                                 <th>N VIV:</th>
-                                <td className='result-list-row'>{value?.N_VIV}</td>
+                                <td className='result-list-row'>{value?.N_VIV || 0}</td>
                             </tr>
                         }
-                        {   value?.M2_C_RECEP &&
+                        {   keys.includes('M2_C_RECEP') &&
                             <tr>
                                 <th>M2_C_RECEP:</th>
-                                <td className='result-list-row'>{value?.M2_C_RECEP}</td>
+                                <td className='result-list-row'>{value?.M2_C_RECEP || 0}</td>
                             </tr>
                         }
-                        {   value?.M2_C_PERM &&
+                        {   keys.includes('M2_C_PERM') &&
                             <tr>
                                 <th>M2_C_PERM:</th>
-                                <td className='result-list-row'>{value?.M2_C_PERM}</td>
+                                <td className='result-list-row'>{value?.M2_C_PERM || 0}</td>
                             </tr>
                         }
-                        {   value?.M2_S_PERM &&
+                        {   keys.includes('M2_S_PERM') &&
                             <tr>
                                 <th>M2_S_PERM:</th>
-                                <td className='result-list-row'>{value?.M2_S_PERM}</td>
+                                <td className='result-list-row'>{value?.M2_S_PERM || 0}</td>
                             </tr>
                         }
-                        {   value?.M2_TOTAL &&
+                        {   keys.includes('M2_TOTAL') &&
                             <tr>
                                 <th>M2_TOTAL:</th>
-                                <td className='result-list-row'>{value?.M2_TOTAL}</td>
+                                <td className='result-list-row'>{value?.M2_TOTAL || 0}</td>
                             </tr>
                         }
-                        {   value?.UI_NUM &&
+                        {   keys.includes('UI_NUM') &&
                             <tr>
                                 <th>UI_NUM:</th>
-                                <td className='result-list-row'>{value?.UI_NUM}</td>
+                                <td className='result-list-row'>{value?.UI_NUM || 0}</td>
                             </tr>
                         }
-                        {   value?.UI_ANO &&
+                        {   keys.includes('UI_ANO') &&
                             <tr>
                                 <th>UI_ANO:</th>
-                                <td className='result-list-row'>{value?.UI_ANO}</td>
+                                <td className='result-list-row'>{value?.UI_ANO || 0}</td>
                             </tr>
                         }
-                        {   value?.TIPO_EXPEDIENTE &&
+                        {   keys.includes('TIPO_EXPEDIENTE') &&
                             <tr>
                                 <th>TIPO_EXPEDIENTE:</th>
-                                <td className='result-list-row'>{value?.TIPO_EXPEDIENTE}</td>
+                                <td className='result-list-row'>{value?.TIPO_EXPEDIENTE || ''}</td>
                             </tr>
                         }
-                        {   value?.ESTADO &&
+                        {   keys.includes('ESTADO') &&
                             <tr>
                                 <th>ESTADO:</th>
-                                <td className='result-list-row'>{value?.ESTADO}</td>
+                                <td className='result-list-row'>{value?.ESTADO || ''}</td>
                             </tr>
                         }
-                        {   value?.DESDE &&
+                        {   keys.includes('DESDE') &&
                             <tr>
                                 <th>DESDE:</th>
-                                <td className='result-list-row'>{value?.DESDE}</td>
+                                <td className='result-list-row'>{value?.DESDE || ''}</td>
                             </tr>
                         }
-                        {   value?.DERECHOS &&
+                        {   keys.includes('DERECHOS') &&
                             <tr>
                                 <th>DERECHOS:</th>
-                                <td className='result-list-row'>{value?.DERECHOS}</td>
+                                <td className='result-list-row'>{value?.DERECHOS || 0}</td>
                             </tr>
                         }
-                        {   value?.COMENTARIO &&
+                        {   keys.includes('COMENTARIO') &&
                             <tr>
                                 <th>COMENTARIO:</th>
-                                <td className='result-list-row'>{value?.COMENTARIO}</td>
+                                <td className='result-list-row'>{value?.COMENTARIO || ''}</td>
                             </tr>
                         }
                         
