@@ -113,9 +113,6 @@
 .form {
     width: 100%;
 }
-.form-extended-height {
-    /* min-height: 280px; */
-}
 .bug-placeholder {
     margin-top: 15px;
     padding: 15px;
