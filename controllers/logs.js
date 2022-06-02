@@ -82,6 +82,8 @@ export const createLog = async (req, res) => {
     }
     else if (req.action === 'EDITAR') {
         let newPermiso = req.body?.permiso
+        const matriz = req.body?.permiso.MATRIZ_V
+        const digito = req.body?.permiso.DIGITO_V
         const id = newPermiso?._id
         let oldPermiso = await Permiso.findOne({ _id: id })
         oldPermiso = oldPermiso._doc
@@ -96,8 +98,8 @@ export const createLog = async (req, res) => {
         const logOldPermisoToInsert = await new LogPermiso(oldPermiso)
         logInfo = {
             permisoId: id,
-            matriz: newPermisoLog.MATRIZ_V,
-            digito: newPermisoLog.DIGITO_V,
+            matriz: matriz,
+            digito: digito,
             user: req.body.user.name,
             action: req.action,
             newVal: logPermisoToInsert,
@@ -115,8 +117,8 @@ export const createLog = async (req, res) => {
         const logOldPermisoToInsert = await new LogPermiso(oldPermiso)
         logInfo = {
             permisoId: id,
-            matriz: newPermisoLog.MATRIZ_V,
-            digito: newPermisoLog.DIGITO_V,
+            matriz: oldPermiso.MATRIZ_V,
+            digito: oldPermiso.DIGITO_V,
             user: user.name,
             action: req.action,
             previousVal: logOldPermisoToInsert
