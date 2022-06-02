@@ -57,7 +57,7 @@ export default function LogsItem({ rol, type }) {
                         }
                         {   keys.includes('APELLIDO_M') &&
                             <tr>
-                                <th>APELLIDO P:</th>
+                                <th>APELLIDO M:</th>
                                 <td className='result-list-row'>{value?.APELLIDO_M || ''}</td>
                             </tr>
                         }
@@ -69,7 +69,7 @@ export default function LogsItem({ rol, type }) {
                         }
                         {   keys.includes('DOMICILIO') &&
                             <tr>
-                                <th>CALLE:</th>
+                                <th>CALLE / N°:</th>
                                 <td className='result-list-row'>{value?.DOMICILIO || ''}</td>
                             </tr>
                         }
@@ -79,10 +79,10 @@ export default function LogsItem({ rol, type }) {
                                 <td className='result-list-row'>{value?.COMUNA || ''}</td>
                             </tr>
                         }
-                        {   keys.includes('TELÉFONO') &&
+                        {   keys.includes('TELEFONO') &&
                             <tr>
                                 <th>TELÉFONO:</th>
-                                <td className='result-list-row'>{value?.TELÉFONO || ''}</td>
+                                <td className='result-list-row'>{value?.TELEFONO || ''}</td>
                             </tr>
                         }
                         {   keys.includes('CALLE') &&
@@ -93,7 +93,7 @@ export default function LogsItem({ rol, type }) {
                         }
                         {   keys.includes('NSTPC') &&
                             <tr>
-                                <th>NSTPC:</th>
+                                <th>N°/St/Pc:</th>
                                 <td className='result-list-row'>{value?.NSTPC || ''}</td>
                             </tr>
                         }
@@ -117,49 +117,49 @@ export default function LogsItem({ rol, type }) {
                         }
                         {   keys.includes('N_VIV') &&
                             <tr>
-                                <th>N VIV:</th>
+                                <th>N° VIV:</th>
                                 <td className='result-list-row'>{value?.N_VIV || 0}</td>
                             </tr>
                         }
                         {   keys.includes('M2_C_RECEP') &&
                             <tr>
-                                <th>M2_C_RECEP:</th>
+                                <th>M2 C/RECEP:</th>
                                 <td className='result-list-row'>{value?.M2_C_RECEP || 0}</td>
                             </tr>
                         }
                         {   keys.includes('M2_C_PERM') &&
                             <tr>
-                                <th>M2_C_PERM:</th>
+                                <th>M2 C/PERM:</th>
                                 <td className='result-list-row'>{value?.M2_C_PERM || 0}</td>
                             </tr>
                         }
                         {   keys.includes('M2_S_PERM') &&
                             <tr>
-                                <th>M2_S_PERM:</th>
+                                <th>M2 S/PERM:</th>
                                 <td className='result-list-row'>{value?.M2_S_PERM || 0}</td>
                             </tr>
                         }
                         {   keys.includes('M2_TOTAL') &&
                             <tr>
-                                <th>M2_TOTAL:</th>
+                                <th>M2 TOTAL:</th>
                                 <td className='result-list-row'>{value?.M2_TOTAL || 0}</td>
                             </tr>
                         }
                         {   keys.includes('UI_NUM') &&
                             <tr>
-                                <th>UI_NUM:</th>
+                                <th>ULT ING NUM:</th>
                                 <td className='result-list-row'>{value?.UI_NUM || 0}</td>
                             </tr>
                         }
                         {   keys.includes('UI_ANO') &&
                             <tr>
-                                <th>UI_ANO:</th>
+                                <th>ULT ING AÑO:</th>
                                 <td className='result-list-row'>{value?.UI_ANO || 0}</td>
                             </tr>
                         }
                         {   keys.includes('TIPO_EXPEDIENTE') &&
                             <tr>
-                                <th>TIPO_EXPEDIENTE:</th>
+                                <th>TIPO EXPED:</th>
                                 <td className='result-list-row'>{value?.TIPO_EXPEDIENTE || ''}</td>
                             </tr>
                         }

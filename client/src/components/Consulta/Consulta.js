@@ -5,6 +5,7 @@ import FormRol from './Form/FormRol'
 import FormRut from './Form/FormRut'
 import FormDir from './Form/FormDir'
 import FormAP from './Form/FormAP'
+import FormId from './Form/FormId'
 import Popup from './Popup/Popup'
 import List from './List/List'
 import './Consulta.css'
@@ -74,6 +75,7 @@ export default function Consulta() {
         ['Apellido Paterno', <FormAP key={'ap'} search={search}/>], 
         ['Dirección', <FormDir key={'dir'} search={search}/>], 
         ['Sector', <FormDir key={'dir'} search={search}/>], 
+        ['Id', <FormId key={'id'} search={search}/>], 
         ['N° Viv & m2 Total', <FormDir key={'dir'} search={search}/>]
     ]
 

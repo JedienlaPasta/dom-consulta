@@ -105,6 +105,12 @@ export default function Item({ rol }) {
                             <td className='result-list-row'>{rol?.permisoId}</td>
                         </tr>
                         <tr>
+                            <th>ROL VIGENTE:</th>
+                            <td className='result-list-row result-list-rol'>
+                                <p>{rol?.matriz}</p><p className='text-center'>{rol?.matriz && '-'}</p><p>{rol?.digito}</p>
+                            </td>
+                        </tr>
+                        <tr>
                             <th>FECHA:</th>
                             <td className='result-list-row'>{formatedDate}</td>
                         </tr>

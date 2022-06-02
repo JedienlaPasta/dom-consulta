@@ -6,6 +6,15 @@ const logsSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    // Aqui se guarda solo el rol vigente, no el asignado
+    matriz: {
+        type: String,
+        required: true
+    },
+    digito: {
+        type: String,
+        required: true
+    },
     user: {             // nombre del usuario que realiza la accion
         type: String,
         required: true

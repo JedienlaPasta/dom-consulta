@@ -30,6 +30,8 @@ export const fetchPermisosByRUT = (rut) => axios.get('/perm/rut', { params: { ru
 
 export const fetchPermisosByApellidoP = (apellido) => axios.get('/perm/apellido', { params: { apellido: apellido } })
 
+export const getPermisosById = (id) => axios.get('/perm/id', { params: { id: id } })
+
 export const fetchPermisosByDIR = (dir) => axios.get('/perm/dir', { params: { dir: dir } })
 
 export const fetchPermisosBySector = (sector) => axios.get('/perm/sector', { params: { sector: sector } })
@@ -48,4 +50,4 @@ export const getExcelFile = () => axios({ url: '/perm/exportpermisos', method: '
 
 // Logs
 
-export const fetchLogs = (option, action, date) => axios.get('/logs', { params: { option: option, action: action, date: date } })
+export const fetchLogs = (option, date, rol, id) => axios.get('/logs', { params: { option: option, date: date, rol: rol, id: id } })

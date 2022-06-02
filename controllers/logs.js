@@ -7,49 +7,51 @@ const objId = ObjectId.ObjectId
 
 // Para consultar logs guardados
 export const getLogs = async (req, res) => {
-    const action = req.query.action.toUpperCase()
-    const date = req.query.date
-    let logs
-
-    if (action !== '' && date !== '') {
-        // Start date
-        let start = new Date(date)
-        start.setDate(start.getDate() + 1)
-        start.setHours(0,0,0,0)
-        start = objId(Math.floor(start.getTime() / 1000).toString(16) + "0000000000000000")
-        // End date
-        let end = new Date(date)
-        end.setDate(end.getDate() + 1)
-        end.setHours(23,59,59,999)
-        end = objId(Math.floor(end.getTime() / 1000).toString(16) + "0000000000000000")
-        
-        logs = await Log.find({ _id: { $gt: start, $lt: end }, action: action })
+    const option = req.query?.option
+    const date = req.query?.date
+    const id = req.query?.id
+    const rol = option === 'rol' ? JSON.parse(req.query?.rol) : { mz: '', pd: '' }
+    let logs = []
+    
+    try {
+        if (option === 'fecha' && date !== '') {
+            // Start date
+            console.log('date')
+            let start = new Date(date)
+            start.setDate(start.getDate() + 1)
+            start.setHours(0,0,0,0)
+            start = objId(Math.floor(start.getTime() / 1000).toString(16) + "0000000000000000")
+            // End date
+            let end = new Date(date)
+            end.setDate(end.getDate() + 1)
+            end.setHours(23,59,59,999)
+            end = objId(Math.floor(end.getTime() / 1000).toString(16) + "0000000000000000")
+            
+            logs = await Log.find({ _id: { $gt: start, $lt: end } })
+        }
+        else if (option === 'id' && id !== '') {
+            logs = await Log.find({ permisoId: objId(id) })
+        }
+        else if (option === 'rol' && rol !== { mz: '', pd: '' }) {
+            if (rol.mz !== '' && rol.pd !== '' ) {
+                logs = await Log.find({ matriz: rol.mz, digito: rol.pd })
+            }
+            else if (rol.mz !== '' ) {
+                logs = await Log.find({ matriz: rol.mz })
+            }
+        }
+        else {
+            console.log('all')
+            logs = await Log.find()
+        }
+    } catch (error) {
+        if (!logs.length) {
+            return res.status(404).json({ message: 'No se encontraron logs' })
+        }
     }
-    else if (action !== '') {
-        logs = await Log.find({ action: action })
-    }
-    else if (date !== '') {
-        // Start date
-        let start = new Date(date)
-        start.setDate(start.getDate() + 1)
-        start.setHours(0,0,0,0)
-        start = objId(Math.floor(start.getTime() / 1000).toString(16) + "0000000000000000")
-        // End date
-        let end = new Date(date)
-        end.setDate(end.getDate() + 1)
-        end.setHours(23,59,59,999)
-        end = objId(Math.floor(end.getTime() / 1000).toString(16) + "0000000000000000")
-        
-        logs = await Log.find({ _id: { $gt: start, $lt: end } })
-    }
-    else {
-        logs = await Log.find()
-    }
-
     if (!logs.length) {
         return res.status(404).json({ message: 'No se encontraron logs' })
     }
-
     logs = logs.map(log => (
         {...log._doc, date: log._id.getTimestamp()}
     ));
@@ -71,6 +73,8 @@ export const createLog = async (req, res) => {
         const logPermisoToInsert = await new LogPermiso(newPermisoLog)
         logInfo = {
             permisoId: newPermisoLog._id,
+            matriz: newPermisoLog.MATRIZ_V,
+            digito: newPermisoLog.DIGITO_V,
             user: req.body.user.name,
             action: req.action,
             newVal: logPermisoToInsert
@@ -92,6 +96,8 @@ export const createLog = async (req, res) => {
         const logOldPermisoToInsert = await new LogPermiso(oldPermiso)
         logInfo = {
             permisoId: id,
+            matriz: newPermisoLog.MATRIZ_V,
+            digito: newPermisoLog.DIGITO_V,
             user: req.body.user.name,
             action: req.action,
             newVal: logPermisoToInsert,
@@ -109,13 +115,15 @@ export const createLog = async (req, res) => {
         const logOldPermisoToInsert = await new LogPermiso(oldPermiso)
         logInfo = {
             permisoId: id,
+            matriz: newPermisoLog.MATRIZ_V,
+            digito: newPermisoLog.DIGITO_V,
             user: user.name,
             action: req.action,
             previousVal: logOldPermisoToInsert
         }
     }
     const logToInsert = new Log(logInfo)
-    // console.log(logToInsert)
+    console.log(logToInsert)
 
     try {
         if (insertLog) {

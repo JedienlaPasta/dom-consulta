@@ -50,6 +50,8 @@ export default function App() {
 // agregar campo de RUT
 // crear un log que guarde todos los ingresos o cambios hechos de los registros: quien lo hizo, que hizo, cuando lo hizo. Esto iria guardado en una coleccion aparte de los permisos y solo la persona con cuenta de admin podria consultarla
 // De momento funciona el ingresar datos, pero falta revisarlo mas a fondo, ver tambien el tema de editar datos. Eliminar funciona sin problemas
+// Filtrar los logs por tipo de accion (eliminar, crear, editar) y por fecha quizas
+// Agregar la busqueda de logs por id y por rol, ademas de guardar los roles en el registro de los logs, para facilitar su busqueda.
 
 // revizar el tema de los campos obligatorios y no obligatorios(hecho de momento, pero puede que se deban hacer cambios mas adelante)
 // El rol vigente o el asignado deben ser campos obligatorios, en el sentido de que almenos 1 de los 2 debe estar rellenado (de momento el rol vigente es obligatorio)
@@ -72,9 +74,9 @@ export default function App() {
 // o sino mantener el servidor corriendo desde las 8 de la mañana hasta las 6 de la tarde de lunes a viernes con UptimeRobot https://dev.to/j471n/prevent-heroku-server-from-sleeping-for-free-1ib1
 // Antes de ingresar los datos, intentar limpiarlos lo mejor posible, sacando puntos en los numeros, etc
 // Aparece mensaje de la descarga puede tardar un poco, por favor espere. Efectivamente, no se limpia el timeout
+// Tambien podria ir eliminando los logs ingresados hace mas de 6 meses o 1 año por ejemplo || o que despues de ~2000 registros, se elimine el mas viejo automaticamente al ingresar uno nuevo
 // Agregar buscar por ID, en caso de buscar usando los logs
-// Filtrar los logs por tipo de accion (eliminar, crear, editar) y por fecha quizas
-// tambien podria ir eliminando los logs ingresados hace mas de 6 meses o 1 año por ejemplo
+// Quizas agregar un campo de busqueda adicional en los logs, para poder comparar los valores que se muestran en los logs con los que estan guardados en la DB
 
 // informe
 

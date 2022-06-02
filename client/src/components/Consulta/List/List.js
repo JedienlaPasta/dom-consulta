@@ -74,7 +74,7 @@ export default function List({ save, deletePermiso, downloadFile }) {
                     }
                 </div>
             }
-            {   page === 'permisos' && user.role === 'dom_admin' && type !== 'insert' && type !== 'update' && crudFilter.crudType !== 'Descargar' && roles[0]?._id !== 'M2_TOTALES' && crudFilter.filter !== 'Logs' &&
+            {   page === 'permisos' && user.role === 'dom_admin' && type !== 'insert' && type !== 'update' && crudFilter.crudType !== 'Descargar' && roles[0]?._id !== 'M2_TOTALES' && crudFilter.filter !== 'Registro de Eventos' &&
                 <div>
                     <p className='warning'>Cuidado, usted tiene permisos para editar y eliminar registros</p>
                     <div className="crud-btns-container">

@@ -14,6 +14,7 @@ export default function Popup() {
 
     useEffect(() => {
         if (message) {
+            // funcionara crear una funcion async con unos await en los timeout para que se limpien una vez que llega la respuesta del servidor?
             clearTimeout(timeout1)
             clearTimeout(timeout2)
             setMsg(message)

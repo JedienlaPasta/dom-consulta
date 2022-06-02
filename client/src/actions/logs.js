@@ -1,9 +1,9 @@
 import { fetchLogs } from "../api/api"
 import { ACTIONS } from "../context/DataContext"
 
-export const getLogs = async (option, action, date, dispatch, setMessage, setShowPopup, setSearching) => {
+export const getLogs = async (option, date, rol, id, dispatch, setMessage, setShowPopup, setSearching) => {
     try {
-        const { data } = await fetchLogs(option, action, date)
+        const { data } = await fetchLogs(option, date, rol, id)
         setTimeout(() => {
             setShowPopup(false)
             setSearching(false)

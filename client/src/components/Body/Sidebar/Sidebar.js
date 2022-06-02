@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import './style.css'
+import './Sidebar.css'
 import { RiLogoutBoxRLine } from 'react-icons/ri'
 import { MdFindInPage, MdAddCircle, MdSimCardDownload, MdInsertChart, MdAccountCircle } from 'react-icons/md'
 import Items from './Items'
@@ -39,12 +39,12 @@ export default function Sidebar() {
                 </span>
             </h4>
             <hr className='sidebar-hr' />
-            <h4 className='sidebar-items'><MdFindInPage/><span>Buscar Registro</span></h4>
+            <h4 className='sidebar-items'><MdFindInPage/><span>Buscar Permisos</span></h4>
             {displayItems}
             {   page === 'permisos' && user.role === 'dom_admin' &&
                 <>
                     <hr className='sidebar-hr' />
-                    <h4 className='sidebar-items'><MdAddCircle/><span>Ingresar Registro</span></h4>
+                    <h4 className='sidebar-items'><MdAddCircle/><span>Ingresar Permiso</span></h4>
                     <Items val={'Nuevo'} crudType={'Ingresar'} />
 
                     <hr className='sidebar-hr' />
@@ -56,8 +56,8 @@ export default function Sidebar() {
                 page === 'permisos' && user.name === 'Admin' && user.role === 'dom_admin' &&
                 <>
                     <hr className='sidebar-hr' />
-                    <h4 className='sidebar-items'><MdInsertChart/><span>Consultar Logs</span></h4>
-                    <Items val={'Logs'} crudType={'Ver Logs'} />
+                    <h4 className='sidebar-items'><MdInsertChart/><span>Buscar Eventos</span></h4>
+                    <Items val={'Registro de Eventos'} crudType={'Ver Logs'} />
                 </>
             }
         </div>

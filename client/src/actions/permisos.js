@@ -71,6 +71,23 @@ export const getPermisosByApellidoP = async (apellido, dispatch, setMessage, set
     }
 }
 
+export const getPermisosById = async (id, dispatch, setMessage, setShowPopup, setSearching) => {
+    try {
+        const { data } = await fetchPermisosByApellidoP(id)
+        setTimeout(() => {
+            setShowPopup(false)
+            setSearching(false)
+            dispatch({ type: ACTIONS.FETCH_MATCHES, payload: data })
+        }, 100)
+    } catch (error) {
+        if (error.message) {
+            setMessage(error.response.data.message)
+            setSearching(false)
+            dispatch({ type: ACTIONS.FETCH_MATCHES, payload: [] })
+        }
+    }
+}
+
 export const getPermisosByDIR = async (dir, dispatch, setMessage, setShowPopup, setSearching) => {
     try {
         const { data } = await fetchPermisosByDIR(dir)

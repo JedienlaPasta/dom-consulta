@@ -1,8 +1,10 @@
 import Permiso from "../models/permisosModel.js"
 import XLSX from 'xlsx'
-
 import { filePath } from "../server.js"
 import { createLog } from "./logs.js"
+import ObjectId from 'mongodb'
+
+const objId = ObjectId.ObjectId
 
 export const getPermisoRolV = async (req, res) => {
     const roles = req.query
@@ -87,6 +89,21 @@ export const getPermisoByApellidoP = async (req, res) => {
     }
     try {
         res.status(200).json(perm)
+    } catch (error) {
+        res.status(404).json({ message: 'Error inesperado' })
+    }
+}
+
+// me parece que no esta usando esta funcion ?
+export const getPermisoById = async (req, res) => {
+    const id = req.query?.id
+    const permiso = await Permiso.find({ _id: objId(id) })
+    console.log(permiso)
+    if (!permiso.length) {
+        return res.status(404).json({ message: 'No se encontraron coincidencias' })
+    }
+    try {
+        res.status(200).json(permiso)
     } catch (error) {
         res.status(404).json({ message: 'Error inesperado' })
     }

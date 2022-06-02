@@ -20,14 +20,6 @@
     column-gap: 5px;
     row-gap: 2.5px;
 }
-.fullw_tipo{
-    row-gap: 5px;
-    grid-template-areas: 
-        "opt opt"
-        "tip tip"
-        "btn btn"
-    ;
-}
 .fullw_fecha {
     row-gap: 5px;
     grid-template-areas: 
@@ -36,11 +28,19 @@
         "btn btn"
     ;
 }
-.fullw_fecha_tipo{
+.fullw_id{
     row-gap: 5px;
     grid-template-areas: 
         "opt opt"
-        "dat tip"
+        "inp inp"
+        "btn btn"
+    ;
+}
+.fullw_rol{
+    row-gap: 5px;
+    grid-template-areas: 
+        "opt opt"
+        "inl inr"
         "btn btn"
     ;
 }
@@ -50,15 +50,21 @@
 .date-input {
     grid-area: dat;
 }
-.action-dropdown {
-    grid-area: tip;
+.dropdown-input-id {
+    grid-area: inp;
+}
+.dropdown-input-left {
+    grid-area: inl;
+}
+.dropdown-input-right {
+    grid-area: inr;
 }
 .logs-btn {
     grid-area: btn;
 }
 
 .dropdown-input {
-    font-size: 0.9em;
+    font-size: 0.85em;
     padding: 0 10px;
     height: 100%;
     min-height: 38px;
