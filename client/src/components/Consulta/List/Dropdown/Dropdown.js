@@ -63,12 +63,19 @@ export default function Dropdown() {
             }
         })
     }
+
+    const customStyle = {
+        option: (provided, state) => ({
+            ...provided,
+            backgroundColor: state.isSelected && '#3f93e0'
+        })
+    }
     
     return (
         <>
             <span className={`logs-grid-inputs ${(selectedOption === 'fecha' && 'fullw_fecha') || (selectedOption === 'id' && 'fullw_id') || (selectedOption === 'rol' && 'fullw_rol')}`}>
-                <Select className='dropdown-menu option-dropdown' options={options} defaultValue={options[0]} onChange={(e) => setSelectedOption(e.value)} />
-                { selectedOption === 'fecha' && <input type="date" className='dropdown-input date-input' value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)} /> }
+                <Select className='dropdown-menu option-dropdown' styles={customStyle} options={options} defaultValue={options[0]} onChange={(e) => setSelectedOption(e.value)} />
+                { selectedOption === 'fecha' && <input type="date" className='dropdown-input dropdown-date-input' value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)} /> }
                 { selectedOption === 'id' && <input type='text' className='dropdown-input dropdown-input-id' placeholder='Id...' value={selectedId} onChange={(e) => setSelectedId(e.target.value)} /> }
                 { selectedOption === 'rol' && 
                     <>
@@ -76,7 +83,6 @@ export default function Dropdown() {
                         <input type='text' className='dropdown-input dropdown-input-right' placeholder='PD...' value={selectedRol.pd} onChange={(e) => setSelectedRol({...selectedRol, pd: e.target.value})} />
                     </> 
                 }
-                {/* { (selectedOption === 'tipo' || selectedOption === 'tipo_fecha') && <Select className='dropdown-menu action-dropdown' options={actionsOptions} onChange={(e) => setSelectedAction(e.value)} /> } */}
                 <button className='blue-btn logs-btn' onClick={readLogs}>Buscar</button>
             </span>
         </>

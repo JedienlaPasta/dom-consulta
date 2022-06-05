@@ -47,7 +47,7 @@
 .option-dropdown {
     grid-area: opt;
 }
-.date-input {
+.dropdown-date-input {
     grid-area: dat;
 }
 .dropdown-input-id {

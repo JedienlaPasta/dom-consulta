@@ -3,18 +3,30 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 80px;
+    height: 60px;
     color: #42454b;
     padding: 0 20px;
     /* max-width: 600px; */
     margin: auto;
-    background-color: white;
+    background-color: rgb(248, 248, 248);
+    background-color: rgb(251, 251, 251);
+    /* background: linear-gradient(#ffffff, #b8bec6); */
+    background-color: #3e4043;
+    background: #5d6b7d;
+    background: #d6dadf;
+    background: #e1e5e9;
+    background: #eaedef;
+    background: #edf1f4;
+    background: #f6f7f8;
+    background: #ffffff;
+    /* background: linear-gradient(#a7cafb, #394a60);
+    background: linear-gradient(#727c89, #3c444e); */
     /* border-bottom: 2px solid #91a1b87e; */
     /* background-color: #195a97; */
-    box-shadow: 2px 2px 10px 1px rgba(167, 185, 213, 0.2);
     box-shadow: var(--shd-v3);
     box-shadow: var(--shd-v4);
-    z-index: 5;
+    position: relative;
+    z-index: 2;
 }
 .nav-links {
     display: flex;
@@ -24,13 +36,14 @@
     display: flex;
     align-items: center;
     margin-left: 25px;
-    font-size: 0.8em;
+    font-size: 0.7em;
     position: relative;
 }
 .link-item {
     text-decoration: none;
     color: #133274;
-    transition: all ease-in-out 250ms;
+    transition: width ease-in-out 250ms,
+                left ease-in-out 250ms;
 }
 .link-item:not(.logout)::after {
     content: "";
@@ -39,13 +52,15 @@
     height: 2px;
     width: 0%;
     left: 50%;
-    bottom: 25px;
-    transition: all ease-in-out 250ms;
+    bottom: 20px;
+    transition: width ease-in-out 250ms,
+                left ease-in-out 250ms;
 }
 .marked-link-item {
     text-decoration: none;
     color: #2362d8;
-    transition: all ease-in-out 250ms;
+    transition: width ease-in-out 250ms,
+                left ease-in-out 250ms;
 }
 .link-item.marked-link-item::after {
     content: "";
@@ -54,8 +69,9 @@
     height: 2px;
     width: 70%;
     left: 15%;
-    bottom: 25px;
-    transition: all ease-in-out 250ms;
+    bottom: 20px;
+    transition: width ease-in-out 250ms,
+                left ease-in-out 250ms;
 }
 
 .logo {
@@ -64,12 +80,17 @@
     align-items: center;
 }
 .logo-img {
-    width: 30px;
+    width: 18px;
     margin-right: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 .logo-title {
-    font-size: 1.3em;
+    font-size: 0.85em;
+    /* font-family: 'Open Sans', sans-serif; */
+    /* font-family: 'PT Sans', sans-serif; */
+    word-spacing: 0.1em;
+    letter-spacing: -0.05em;
+    color: #5a5b5e;
 }
 .nav-links {
     position: relative;
@@ -90,12 +111,12 @@
 
 @media (max-width: 749px) and (min-width: 501px) {
     .link-item::after {
-        margin-bottom: 8px;
+        margin-bottom: 10px;
     }
 }
 
 @media (max-width: 500px) {
     .link-item::after {
-        margin-bottom: 1px;
+        margin-bottom: 6px;
     }
 }

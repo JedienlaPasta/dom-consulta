@@ -12,7 +12,7 @@ export default function List({ save, deletePermiso, downloadFile }) {
     const { roles, page, dispatch, user, rolIndex, setRolIndex, crudFilter, setCrudFilter, crudDisabled } = useContext(DataContext)
     const totRoles = roles.length
     const type = crudFilter.type
-    // quizas cambiar type a 'read' cada vez que se cambia de pagina tambien (no se si esta hecho)
+    
     // Displayed items
 
     let displayItems

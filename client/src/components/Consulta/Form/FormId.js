@@ -38,7 +38,7 @@ export default function FormRut({ search }) {
                     crudFilter.filter === 'Id' &&
                     <div className="input">
                         <label className='hint'>Id</label>
-                        <input type='text' name='Id' required placeholder='Ingresar Id...' value={id} onChange={(e) => setId(e.target.value)} />
+                        <input type='text' name='Id' required autoComplete='false' placeholder='Ingresar Id...' value={id} onChange={(e) => setId(e.target.value)} />
                     </div>
                 }
                 <button type='submit' className='search-btn blue-btn'>Buscar</button>

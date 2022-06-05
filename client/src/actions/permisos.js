@@ -1,5 +1,5 @@
 import fileDownload from "js-file-download"
-import { fetchPermisosRolV, fetchPermisosRolA, fetchPermisosByApellidoP, fetchPermisosByDIR, createPermiso, updatePermiso, deletePermiso, getExcelFile, fetchPermisosBySector, fetchM2Total, fetchPermisosByRUT } from "../api/api"
+import { fetchPermisosRolV, fetchPermisosRolA, fetchPermisosByApellidoP, fetchPermisosByDIR, createPermiso, updatePermiso, deletePermiso, getExcelFile, fetchPermisosBySector, fetchM2Total, fetchPermisosByRUT, fetchPermisosById } from "../api/api"
 import { ACTIONS } from "../context/DataContext"
 
 
@@ -73,7 +73,7 @@ export const getPermisosByApellidoP = async (apellido, dispatch, setMessage, set
 
 export const getPermisosById = async (id, dispatch, setMessage, setShowPopup, setSearching) => {
     try {
-        const { data } = await fetchPermisosByApellidoP(id)
+        const { data } = await fetchPermisosById(id)
         setTimeout(() => {
             setShowPopup(false)
             setSearching(false)

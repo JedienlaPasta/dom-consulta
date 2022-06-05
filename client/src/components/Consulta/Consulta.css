@@ -7,6 +7,9 @@
     margin: 50px auto 30px;
     padding: 0 30px 30px;
     background-color: #ffffff;
+    background-color: rgb(251, 251, 251);
+    background-color: #f6f7f8;
+    background-color: #ffffff;
     box-shadow: var(--shd-v4);
     border-radius: 0.8rem;
     border-radius: 0.3rem;
@@ -75,18 +78,21 @@
     border-radius: 0.2rem;
     border: 0;
     background-color: var(--clr-blue);
+    background: linear-gradient(rgb(141, 194, 255), var(--clr-blue));
     color: white;
 }
 .blue-btn:active {
     background-color: var(--clr-blue2);
     box-shadow: var(--shd-v2);
+    box-shadow: inset 0px 0px 5px 3px rgba(41, 83, 146, 0.4);
 }
 .get-m2-text {
     margin-bottom: 10px;
 }
 .titulo-consulta {
     color: #656565;
-    background-color: #d3d5d92c;
+    /* background-color: #d3d5d92c;
+    background: linear-gradient(#ededed, #d1d1d8); */
     border-bottom: 1px solid #d6d9dc92;
     padding: 12px;
     width: 100%;
@@ -132,12 +138,9 @@ table {
     width: 418px;
     max-width: 95%;
     margin: 20px 10px 0 10px;
-    border: 0.1px solid #d3d3d3;
-    border-top: 0;
+    border: 0.1px solid #ededed;
+    /* border-top: 0; */
     table-layout: fixed;
-}
-.list-container, .insert-list-container {
-    border-top: 0.1px solid #d3d3d3;
 }
 th {
     white-space: nowrap;
@@ -151,17 +154,17 @@ td, th {
 tr {
     display: grid;
     grid-template-columns: 10.5em auto;
+    background-color: #ffffff;
 }
 tr:nth-of-type(even) {
-    background-color: #f9f9f9;
-}
-tr:not(.list-header-title) {
-    border-top: 0.1px solid #d3d3d3;
+    background-color: #f1f3f7;
 }
 .list-header-title {
     display: flex;
     justify-content: center;
-    background-color: #e0e0e278;
+    background-color: #f1f3f7;
+    background: linear-gradient(#eceff2, #cdd2da);
+    border-top: 0.1px solid #ededed;
 }
 
 .titulo-resultado {
@@ -187,6 +190,7 @@ tr:not(.list-header-title) {
     width: fit-content;
     margin: auto;
     background-color: rgba(219, 222, 224, 0.485);
+    background-color: #f1f3f7;
     padding: 3px;
     border-radius: 50px;
     margin-top: 20px;
@@ -204,6 +208,9 @@ tr:not(.list-header-title) {
     background-color: #ffffff;
     color: var(--clr-blue2);
     border-radius: 50%;
+}
+.list-btn:active {
+    box-shadow: inset 0px 0px 5px 3px rgba(93, 93, 93, 0.2);
 }
 /* .btn-left {
 }
@@ -227,17 +234,32 @@ tr:not(.list-header-title) {
     display: block;
 }
 .insert-list-input {
+    font-size: 0.9em;
     width: 100%;
     border: 0;
     padding: 5px 10px;
     border-radius: 8px;
     outline: none;
     border: 1px solid rgb(222, 222, 222);
+    /* border: 1px solid rgb(228, 228, 228); */
+    /* box-shadow: inset 1px 1px 6px -1px rgb(198, 203, 212); */
+    background: linear-gradient(#ffffff, #eaedf4);
 }
 .insert-list-rol {
     display: grid;
     grid-template-columns: auto auto;
     gap: 5px;
+}
+.insert-list-rut {
+    display: grid;
+    grid-template-columns: auto 1em 4em;
+    align-items: center;
+}
+.insert-list-rut > p {
+    text-align: center;
+}
+.date-input::-webkit-calendar-picker-indicator {
+    display: none;
 }
 textarea {
     max-height: 150px !important;
@@ -245,7 +267,7 @@ textarea {
     resize: vertical;
 }
 .incomplete-field {
-    border: 1px solid #e4a1a1;
+    border: 1px solid #e09595b9;
     /* border: 1px solid #84c5f4; */
 }
 .faded-text {
@@ -254,7 +276,7 @@ textarea {
 
 .warning {
     font-size: 0.75em;
-    color: #919191;
+    color: #b4b4b4;
     margin-top: 20px;
     text-align: center;
 }
@@ -275,15 +297,17 @@ textarea {
     background-color: var(--clr-blue);
     margin-top: 10px;
 }
-/* .crud-btn:not(:first-child) {
-    margin-left: 10px;
-} */
 .delete, .edit {
-    background-color: #e8962c;
+    /* background-color: #e8962c; */
+    background: linear-gradient(#ffca84, #e8962c);
     color: white;
 }
 .delete {
-    background-color: #de5e2f;
+    /* background-color: #de5e2f; */
+    background: linear-gradient(#ffa685, #de5e2f);
+}
+.delete:active, .edit:active {
+    box-shadow: var(--shd-btn);
 }
 /* quitar si no se va a usar .disabled-crud-btn ========================================================================================================= */
 .disabled-crud-btn {
@@ -294,10 +318,18 @@ textarea {
 }
 .save {
     background-color: var(--clr-blue);
+    background: linear-gradient(rgb(141, 194, 255), var(--clr-blue));
     color: white;
 }
 .cancel {
     background-color: var(--clr-gray2);
+    background: linear-gradient(rgb(247, 247, 247), var(--clr-gray2));
+}
+.save:active {
+    box-shadow: inset 0px 0px 5px 3px rgba(41, 83, 146, 0.4);
+}
+.cancel:active {
+    box-shadow: var(--shd-btn);
 }
 
 /* donwload ============================================================ */

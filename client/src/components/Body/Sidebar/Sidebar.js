@@ -9,7 +9,7 @@ import { logout } from '../../../actions/users'
 
 export default function Sidebar() {
     const { user, setUser, setIsAuth, dispatch, page, setMessage, toggleMenu } = useContext(DataContext)
-    const permisosFilters = [['Rol Vigente', 'Consultar'], ['Rol Asignado', 'Consultar'], ['Rut', 'Consultar'], ['Apellido Paterno', 'Consultar'], ['Dirección', 'Consultar'], ['Sector', 'Consultar'], ['N° Viv & m2 Total', 'Consultar']]
+    const permisosFilters = [['Rol Vigente', 'Consultar'], ['Rol Asignado', 'Consultar'], ['Rut', 'Consultar'], ['Apellido Paterno', 'Consultar'], ['Dirección', 'Consultar'], ['Sector', 'Consultar'], ['Id', 'Consultar'], ['N° Viv & m2 Total', 'Consultar']]
     const rolCobroFilters = [['Rol', 'Consultar'], ['Rut', 'Consultar'], ['Dirección', 'Consultar']]
     const displayItems = page === 'permisos' 
         ? permisosFilters.map(item => <Items key={item} val={item[0]} crudType={item[1]} />) 
@@ -39,7 +39,7 @@ export default function Sidebar() {
                 </span>
             </h4>
             <hr className='sidebar-hr' />
-            <h4 className='sidebar-items'><MdFindInPage/><span>Buscar Permisos</span></h4>
+            <h4 className='sidebar-items'><MdFindInPage/><span>{page === 'permisos' ? 'Buscar Permisos' : 'Buscar Registros'}</span></h4>
             {displayItems}
             {   page === 'permisos' && user.role === 'dom_admin' &&
                 <>
@@ -53,7 +53,7 @@ export default function Sidebar() {
                 </>
             }
             {
-                page === 'permisos' && user.name === 'Admin' && user.role === 'dom_admin' &&
+                page === 'permisos' && user.role === 'dom_admin' &&
                 <>
                     <hr className='sidebar-hr' />
                     <h4 className='sidebar-items'><MdInsertChart/><span>Buscar Eventos</span></h4>

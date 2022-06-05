@@ -4,7 +4,7 @@ import { delPermiso, downloadPermisos, patchPermiso, postPermiso } from '../../.
 import { ACTIONS, DataContext } from '../../../context/DataContext'
 import Loading from './Loading'
 import SmallLoading from './SmallLoading'
-import './style.css'
+import './Popup.css'
 
 export default function Popup() {
     const [msg, setMsg] = useState('')

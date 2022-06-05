@@ -2,33 +2,37 @@ import React, { useContext } from 'react'
 import { DataContext } from '../../../context/DataContext'
 
 export default function InsertItem({ type }) {
-    const { page, newPermiso, setNewPermiso, incompleteFields } = useContext(DataContext)
+    const { page, newPermiso, setNewPermiso, currencyFormat, getDV } = useContext(DataContext)
 
     const title = type === 'insert' ? 'Nuevo Registro' : 'Actualizar Registro'
-    const name = type === 'update' ? 'insert-list-input' /*faded-text*/ : 'insert-list-input'
+    const name = type === 'update' ? 'insert-list-input text-center' /*faded-text*/ : 'insert-list-input'
+    const dv = getDV(newPermiso) || ''
 
-    // const nameIncomplete = incompleteFields ? 'insert-list-input incomplete-field' : 'insert-list-input'
+    const removeDots = (val) => val.replaceAll('.', '')
     
+    const parseValue = (val) => {
+        if (!isNaN(val)) {
+            return parseFloat(val).toString()
+        }
+        return ('').toString()
+    }
+
     const handleOnChangeT = (e) => {
         setNewPermiso(prev => ({...prev, [e.target.name]: (e.target.value).toUpperCase()}))
     }
 
     const handleOnChangeN = (e) => {
-        if (e.target.name === 'RUT' || e.target.name === 'MATRIZ_A' || e.target.name === 'DIGITO_A') {
+        if (e.target.name === 'MATRIZ_A' || e.target.name === 'DIGITO_A') {
             return e.target.value < 0 ? setNewPermiso(prev => ({...prev, [e.target.name]: '' })) : setNewPermiso(prev => ({...prev, [e.target.name]: e.target.value }))
+        }
+        else if (e.target.name === 'RUT') {
+            return (e.target.value < 0 || e.target.value === '') ? setNewPermiso(prev => ({...prev, [e.target.name]: '' })) : setNewPermiso(prev => ({...prev, [e.target.name]: removeDots(e.target.value) }))
         }
         // else =>
         e.target.value < 0 ? setNewPermiso(prev => ({...prev, [e.target.name]: 0 })) : setNewPermiso(prev => ({...prev, [e.target.name]: parseFloat(e.target.value) }))
         if (e.target.name === 'M2_C_RECEP' || e.target.name === 'M2_S_PERM') {
             setNewPermiso(prev => ({...prev, M2_TOTAL: (parseFloat(prev.M2_C_RECEP) || 0) + (parseFloat(prev.M2_S_PERM) || 0)}))
         }
-    }
-
-    const parseValue = (val) => {
-        if (!isNaN(val)) {
-            return parseFloat(val).toString()
-        }
-        return ('').toString()
     }
 
     return (
@@ -47,15 +51,15 @@ export default function InsertItem({ type }) {
                             <tr>
                                 <th className='text-right'>VIGENTE:</th>
                                 <td className='insert-list-input-row input insert-list-rol'>
-                                    <input type="text" required name='MATRIZ_V' className={`${name} ${newPermiso?.MATRIZ_V === '' && 'incomplete-field'} `} value={newPermiso?.MATRIZ_V} placeholder='MZ...' onChange={handleOnChangeT} /*readOnly={type === 'update'}*/ />
-                                    <input type="text" required name='DIGITO_V' className={`${name} ${newPermiso?.DIGITO_V === '' && 'incomplete-field'} `} value={newPermiso?.DIGITO_V} placeholder='PD...' onChange={handleOnChangeT} /*readOnly={type === 'update'}*/ />
+                                    <input type="text" required name='MATRIZ_V' autoComplete='new-password' className={`${name} ${newPermiso?.MATRIZ_V === '' && 'incomplete-field'} `} value={newPermiso?.MATRIZ_V} placeholder='MZ...' onChange={handleOnChangeT} /*readOnly={type === 'update'}*/ />
+                                    <input type="text" required name='DIGITO_V' autoComplete='new-password' className={`${name} ${newPermiso?.DIGITO_V === '' && 'incomplete-field'} `} value={newPermiso?.DIGITO_V} placeholder='PD...' onChange={handleOnChangeT} /*readOnly={type === 'update'}*/ />
                                 </td>
                             </tr>
                             <tr>
                                 <th className='text-right'>ASIGNADO:</th>
                                 <td className='insert-list-input-row input insert-list-rol'>
-                                    <input type="number" name='MATRIZ_A' className={name} value={newPermiso?.MATRIZ_A} placeholder='MZ...' onChange={handleOnChangeN} /*readOnly={type === 'update'}*/ />
-                                    <input type="number" name='DIGITO_A' className={name} value={newPermiso?.DIGITO_A} placeholder='PD...' onChange={handleOnChangeN} /*readOnly={type === 'update'}*/ />
+                                    <input type="number" name='MATRIZ_A' autoComplete='new-password' className={name} value={newPermiso?.MATRIZ_A} placeholder='MZ...' onChange={handleOnChangeN} /*readOnly={type === 'update'}*/ />
+                                    <input type="number" name='DIGITO_A' autoComplete='new-password' className={name} value={newPermiso?.DIGITO_A} placeholder='PD...' onChange={handleOnChangeN} /*readOnly={type === 'update'}*/ />
                                 </td>
                             </tr>
                         </tbody>
@@ -69,19 +73,23 @@ export default function InsertItem({ type }) {
                         <tbody className='insert-list-body'>
                             <tr>
                                 <th className='text-right'>NOMBRE:</th>
-                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='NOMBRE' className={`insert-list-input ${newPermiso?.NOMBRE === '' && 'incomplete-field'} `} value={newPermiso?.NOMBRE} onChange={handleOnChangeT} /></td>
+                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='NOMBRE' autoComplete='new-password' className={`insert-list-input ${newPermiso?.NOMBRE === '' && 'incomplete-field'} `} value={newPermiso?.NOMBRE} onChange={handleOnChangeT} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>APELLIDO P:</th>
-                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='APELLIDO_P' className='insert-list-input' value={newPermiso?.APELLIDO_P} onChange={handleOnChangeT} /></td>
+                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='APELLIDO_P' autoComplete='new-password' className='insert-list-input' value={newPermiso?.APELLIDO_P} onChange={handleOnChangeT} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>APELLIDO M:</th>
-                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='APELLIDO_M' className='insert-list-input' value={newPermiso?.APELLIDO_M} onChange={handleOnChangeT} /></td>
+                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='APELLIDO_M' autoComplete='new-password' className='insert-list-input' value={newPermiso?.APELLIDO_M} onChange={handleOnChangeT} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>RUT:</th>
-                                <td className='insert-list-input-row input'><input type="number" /*required*/ name='RUT' className='insert-list-input' placeholder='Sin puntos ni DV...' value={newPermiso?.RUT} onChange={handleOnChangeN} /></td>
+                                <td className='insert-list-input-row input insert-list-rut'>
+                                    <input type="text" /*required*/ name='RUT' autoComplete='new-password' className='insert-list-input text-center' value={currencyFormat(newPermiso?.RUT)} onChange={handleOnChangeN} />
+                                    <p>-</p>
+                                    <input type="text" /*required*/ name='DV' className='insert-list-input text-center' value={dv} readOnly />
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -94,15 +102,15 @@ export default function InsertItem({ type }) {
                         <tbody className='insert-list-body'>
                             <tr>
                                 <th className='text-right'>CALLE / N°:</th>
-                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='DOMICILIO' className='insert-list-input' value={newPermiso?.DOMICILIO} onChange={handleOnChangeT} /></td>
+                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='DOMICILIO' autoComplete='new-password' className='insert-list-input' value={newPermiso?.DOMICILIO} onChange={handleOnChangeT} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>COMUNA:</th>
-                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='COMUNA' className='insert-list-input' value={newPermiso?.COMUNA} onChange={handleOnChangeT} /></td>
+                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='COMUNA' autoComplete='new-password' className='insert-list-input' value={newPermiso?.COMUNA} onChange={handleOnChangeT} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>TELÉFONO:</th>
-                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='TELEFONO' className='insert-list-input' value={newPermiso?.TELEFONO} onChange={handleOnChangeT} /></td>
+                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='TELEFONO' autoComplete='new-password' className='insert-list-input' value={newPermiso?.TELEFONO} onChange={handleOnChangeT} /></td>
                             </tr>
                         </tbody>
                     </table>
@@ -115,19 +123,19 @@ export default function InsertItem({ type }) {
                         <tbody className='insert-list-body'>
                             <tr>
                                 <th className='text-right'>CALLE:</th>
-                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='CALLE' className='insert-list-input' value={newPermiso?.CALLE} onChange={handleOnChangeT} /></td>
+                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='CALLE' autoComplete='new-password' className='insert-list-input' value={newPermiso?.CALLE} onChange={handleOnChangeT} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>N°/St/Pc:</th>
-                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='NSTPC' className='insert-list-input' value={newPermiso?.NSTPC} onChange={handleOnChangeT} /></td>
+                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='NSTPC' autoComplete='new-password' className='insert-list-input' value={newPermiso?.NSTPC} onChange={handleOnChangeT} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>MZ:</th>
-                                <td className='insert-list-input-row input'><input type="text" name='MZ' className='insert-list-input' value={newPermiso?.MZ} onChange={handleOnChangeT} /></td>
+                                <td className='insert-list-input-row input'><input type="text" name='MZ' className='insert-list-input' autoComplete='new-password' value={newPermiso?.MZ} onChange={handleOnChangeT} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>SECT / LOT:</th>
-                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='SECTOR' className='insert-list-input' value={newPermiso?.SECTOR} onChange={handleOnChangeT} /></td>
+                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='SECTOR' autoComplete='new-password' className='insert-list-input' value={newPermiso?.SECTOR} onChange={handleOnChangeT} /></td>
                             </tr>
                         </tbody>
                     </table>
@@ -140,7 +148,7 @@ export default function InsertItem({ type }) {
                         <tbody className='insert-list-body'>
                             <tr>
                                 <th className='text-right'>DESTINO:</th>
-                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='DESTINO' className='insert-list-input' value={newPermiso?.DESTINO} onChange={handleOnChangeT} /></td>
+                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='DESTINO' autoComplete='new-password' className='insert-list-input' value={newPermiso?.DESTINO} onChange={handleOnChangeT} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>N° VIV:</th>
@@ -172,7 +180,7 @@ export default function InsertItem({ type }) {
                             </tr>
                             <tr>
                                 <th className='text-right'>TIPO EXPED:</th>
-                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='TIPO_EXPEDIENTE' className='insert-list-input' value={newPermiso?.TIPO_EXPEDIENTE} onChange={handleOnChangeT} /></td>
+                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='TIPO_EXPEDIENTE' autoComplete='new-password' className='insert-list-input' value={newPermiso?.TIPO_EXPEDIENTE} onChange={handleOnChangeT} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>ESTADO:</th>
@@ -180,7 +188,7 @@ export default function InsertItem({ type }) {
                             </tr>
                             <tr>
                                 <th className='text-right'>DESDE:</th>
-                                <td className='insert-list-input-row input'><input type="text" /*required*/ name='DESDE' className='insert-list-input' value={newPermiso?.DESDE} onChange={handleOnChangeT} /></td>
+                                <td className='insert-list-input-row input'><input type="date" /*required*/ name='DESDE' className='insert-list-input date-input' value={newPermiso?.DESDE} onChange={handleOnChangeT} /></td>
                             </tr>
                             <tr>
                                 <th className='text-right'>DERECHOS:</th>

@@ -9,11 +9,10 @@ import FormId from './Form/FormId'
 import Popup from './Popup/Popup'
 import List from './List/List'
 import './Consulta.css'
-import { getLogs } from '../../actions/logs'
 // import './style.css'
 
 export default function Consulta() {
-    const {roles, page, isAuth, dispatch, showPopup, setShowPopup, crudFilter, setCrudFilter, setNewPermiso, permisoInitialValue, setSearching, newPermiso, setIsValid, setMessage, setRolIndex, isAuthenticated, setIsAuth, setUser } = useContext(DataContext)
+    const {roles, page, isAuth, dispatch, showPopup, setShowPopup, crudFilter, setCrudFilter, setNewPermiso, permisoInitialValue, setSearching, newPermiso, setIsValid } = useContext(DataContext)
     const history = useNavigate()
     
     useEffect(() => {
@@ -49,23 +48,6 @@ export default function Consulta() {
         setShowPopup(true)
     }
 
-    const readLogs = (event) => {
-        event.preventDefault()
-        setMessage('')
-        setRolIndex(0)
-        isAuthenticated().then(data => {
-            setCrudFilter({...crudFilter, type: 'read'})
-            const { isAuthenticated, user } = data
-            setUser(user)
-            setIsAuth(isAuthenticated)
-            if (isAuthenticated) {
-                setSearching(true)
-                setShowPopup(true)
-                getLogs(dispatch, setMessage, setShowPopup, setSearching)
-            }
-        })
-    }
-
     // Estos son los elementos que se renderizaran
 
     const permisosFilters = [
@@ -90,7 +72,13 @@ export default function Consulta() {
             rolCobroFilters.map(item => item[0] === crudFilter.filter ? item[1] : null)
         :
             permisosFilters.map(item => item[0] === crudFilter.filter ? item[1] : null)
-    
+
+    // Evita que se pueda usar la rueda del mouse cambiar el valor de los inputs numericos
+    document.addEventListener('wheel', (e) => {
+        if (document.activeElement.type === 'number') {
+            document.activeElement.blur()
+        }
+    })
 
     return (
         <div className='super-body-container'>
@@ -108,7 +96,7 @@ export default function Consulta() {
                     : 
                     <>
                         { crudFilter.crudType === 'Ver Logs' && <h4 className='titulo-consulta'>Buscar Logs</h4> }
-                        <List save={save} downloadFile={downloadFile} readLogs={readLogs} />
+                        <List save={save} downloadFile={downloadFile} />
                     </>                    
                 }
             </div>

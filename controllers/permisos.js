@@ -94,9 +94,9 @@ export const getPermisoByApellidoP = async (req, res) => {
     }
 }
 
-// me parece que no esta usando esta funcion ?
 export const getPermisoById = async (req, res) => {
     const id = req.query?.id
+    console.log(id)
     const permiso = await Permiso.find({ _id: objId(id) })
     console.log(permiso)
     if (!permiso.length) {

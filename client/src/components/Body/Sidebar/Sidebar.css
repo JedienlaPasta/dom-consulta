@@ -5,6 +5,27 @@
     padding-bottom: 20px;
     box-shadow: 2px 4px 6px 1px rgba(174, 174, 174, 0.1);
 }
+.sidebar{
+    min-height: calc(100vh - 70px);
+    width: 250px;
+    /* background: linear-gradient(90deg, #727c89, #3c444e); */
+    background-color: #3f4c5c;
+    background-color: rgb(42, 42, 42);
+    background-color: #35393d;
+    background-color: #b8bec6;
+    background: linear-gradient(-90deg,#5d6b7d43, #b3c4df45);
+    background: #d6dadf;
+    background: #e1e5e9;
+    background: #eaedef;
+    background: #edf1f4;
+    background: #f6f7f8;
+    background: #ffffff;
+    padding-bottom: 20px;
+    box-shadow: 2px 4px 6px 1px rgba(174, 174, 174, 0.1);
+    border-radius: 0 5px 5px 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
 .sidebar.hidden {
     display: none;
 }
@@ -15,11 +36,12 @@
 }
 .sidebar-items {
     margin: 15px 0 10px 10px;
-    font-size: 1.2em;
+    font-size: 1.1em;
     font-weight: normal;
     display: flex;
     align-items: center;
     color: #30577b;
+    /* color: #ffffff; */
 }
 .sidebar-items > span {
     margin-left: 7px;
@@ -31,8 +53,9 @@
     margin: 5px 0px 0 35px;
     border-radius: 5px 2px 2px 5px;
     color: rgb(92, 92, 92);
+    /* color: #eeeeee; */
     border: 1px solid transparent;
-    font-size: 0.9em;
+    font-size: 0.8em;
     position: relative;
 }
 .item-option:hover {
@@ -52,7 +75,6 @@
 .account-item > span {
     display: flex;
     flex-direction: column;
-    align-items: start;
 }
 .account-logo {
     font-size: 2.5em;
@@ -86,7 +108,7 @@
 .sidebar-hr {
     border: 0;
     height: 1px;
-    background-color: #dedede91;
+    /* background-color: #dedede91; */
 }
 
 @media (max-width: 749px) {

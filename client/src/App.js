@@ -52,8 +52,12 @@ export default function App() {
 // De momento funciona el ingresar datos, pero falta revisarlo mas a fondo, ver tambien el tema de editar datos. Eliminar funciona sin problemas
 // Filtrar los logs por tipo de accion (eliminar, crear, editar) y por fecha quizas
 // Agregar la busqueda de logs por id y por rol, ademas de guardar los roles en el registro de los logs, para facilitar su busqueda.
+// Quitar el buscar permisos de rol_cobro
+// Permitir ingresar el rut completo, quizas separarlo en 2 inputs \\ o que solo se ingrese el rut, sin el digito, pero al ingresarlo que se muestre cual seria.
+// Agregar buscar por ID, en caso de buscar usando los logs
+// Quitar el scroll behavior (quitar el efecto de la rueda del mouse en los input numericos)!!!!!
 
-// revizar el tema de los campos obligatorios y no obligatorios(hecho de momento, pero puede que se deban hacer cambios mas adelante)
+// Revizar el tema de los campos obligatorios y no obligatorios(hecho de momento, pero puede que se deban hacer cambios mas adelante)
 // El rol vigente o el asignado deben ser campos obligatorios, en el sentido de que almenos 1 de los 2 debe estar rellenado (de momento el rol vigente es obligatorio)
 
 // TODO list
@@ -68,15 +72,15 @@ export default function App() {
 // vista de tabla para computador de escritorio, campos seteados a ciertos tamaños y al presionarlos, que estos se desplieguen mostrando toda la informacion (util para campos con valores muy extensos)
 // $sort roles, buscar como hacerlo con valores numericos en vez de string
 // dropdown
-// quitar el scroll behavior (quitar el efecto de la rueda del mouse en los input numericos)!!!!!
-// que la pantalla de carga cuando se busca un registro aparezca altiro, y que diga verificando primero. Luego, si la autenticacion es positiva, que cambie el mensaje a buscando...
+// Que la pantalla de carga cuando se busca un registro aparezca altiro, y que diga verificando primero. Luego, si la autenticacion es positiva, que cambie el mensaje a buscando... Y para saber que tipo de mensaje debe mandar de vuelta la verificacion del usuario, se puede mandar una variable en la funcion auth() (o como se llame)
 // despues de ~10 minutos cerrar sesion y mientras se este iniciando la aplicacion que aparezca un popup que diga Iniciando... (hasta recibir una respuesta del servidor)
 // o sino mantener el servidor corriendo desde las 8 de la mañana hasta las 6 de la tarde de lunes a viernes con UptimeRobot https://dev.to/j471n/prevent-heroku-server-from-sleeping-for-free-1ib1
 // Antes de ingresar los datos, intentar limpiarlos lo mejor posible, sacando puntos en los numeros, etc
 // Aparece mensaje de la descarga puede tardar un poco, por favor espere. Efectivamente, no se limpia el timeout
 // Tambien podria ir eliminando los logs ingresados hace mas de 6 meses o 1 año por ejemplo || o que despues de ~2000 registros, se elimine el mas viejo automaticamente al ingresar uno nuevo
-// Agregar buscar por ID, en caso de buscar usando los logs
 // Quizas agregar un campo de busqueda adicional en los logs, para poder comparar los valores que se muestran en los logs con los que estan guardados en la DB
+// Busqueda por mes ademas de por dia quizas
+// Quizas quitar el useEffect en Popup.js que abre el popup cada vez que llega un mensaje, de todas formas ya habia empezado a controlar eso directamente cuando llega el mensaje.
 
 // informe
 

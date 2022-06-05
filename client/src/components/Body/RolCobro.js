@@ -12,9 +12,12 @@ export default function RolCobro() {
     }, [])
 
     return (
-        <div className='body'>
-            <Sidebar/>
-            <Consulta/>
-        </div>
+        <>
+            <div className='body'>
+                <Sidebar/>
+                <Consulta/>
+            </div>
+            <div className="background-blur"></div>
+        </>
     )
 }

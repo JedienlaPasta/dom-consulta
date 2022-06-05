@@ -30,7 +30,7 @@ export const fetchPermisosByRUT = (rut) => axios.get('/perm/rut', { params: { ru
 
 export const fetchPermisosByApellidoP = (apellido) => axios.get('/perm/apellido', { params: { apellido: apellido } })
 
-export const getPermisosById = (id) => axios.get('/perm/id', { params: { id: id } })
+export const fetchPermisosById = (id) => axios.get('/perm/id', { params: { id: id } })
 
 export const fetchPermisosByDIR = (dir) => axios.get('/perm/dir', { params: { dir: dir } })
 

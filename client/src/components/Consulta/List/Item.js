@@ -4,60 +4,30 @@ import LogsItem from './LogsItem/LogsItem'
 import { Destino } from '../../../data/Destino'
 
 export default function Item({ rol }) {
-    const { roles, page, crudFilter } = useContext(DataContext)
+    const { roles, page, crudFilter, currencyFormat, getDV } = useContext(DataContext)
 
-    // Para calcular el digito verificador del RUT
-    const getDV = () => {
-        if (roles?.length) {
-            const arr = []
-            const mArr = [2, 3, 4, 5, 6, 7]
-            if ( rol?.RUT !== 0 && !isNaN(rol?.RUT)) {
-                const inverted = rol?.RUT.toString().split("").reverse().join("")
-                for (let i = 0; i < inverted.length; i++) {
-                    arr[i] = inverted.charAt(i)
-                    if(i < mArr.length) {
-                        arr[i] = arr[i] * mArr[i]
-                    }
-                    else {
-                        let n = i - mArr.length
-                        arr[i] = arr[i] * mArr[n]
-                    }
-                }
-            }
-            const firstTot = arr.reduce((prev, curr) => prev + curr, 0)
-            const secondTot = firstTot - Math.floor(firstTot / 11) * 11
-            let dv = (11 - secondTot).toString()
-            if (dv > 9) {
-                if (dv === '11') {
-                    return dv = '0'
-                }
-                return dv = 'k'
-            }
-            return dv
-        }
-    }
-
-    const dv = getDV() || ''
+    const dv = getDV(rol) || ''
     const rutPermiso = rol?.RUT ? rol?.RUT + '-' + dv : ''
     const ubicacion = (rol?.UBICACION === 'U' && 'URBANO') || (rol?.UBICACION === 'E' && 'EXTENSIÓN URBANA') || (rol?.UBICACION === 'R' && 'RURAL')
     const destino = Destino.map(item => rol?.DESTINO === item.codigo && item.descripcion)
-
-    const currencyFormat = (val) => {
-        let newVal = val?.toString().replace(/[.]/g, ',')
-        newVal = newVal?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-        return newVal
-    }
-    // const permisoToCheck = Object.fromEntries(Object.entries(newPermiso).filter(([key]) => !notRequired?.includes(key)))
-    // const test = Object.fromEntries(Object.entries(rol?.previousVal).filter(key => 
-    //     key === 0
-    // ))
+    const agricola = rol?.NA === 'A' ? 'AGRÍCOLA' : 'NO AGRÍCOLA'
     
-    let date = rol?.date
-    if (typeof(date) == 'string') {
-        date = new Date(date)
+    
+    let formatedDate = ''
+    if (crudFilter.crudType === 'Ver Logs') {
+        let date = rol?.date
+        if (typeof(date) == 'string') {
+            date = new Date(date)
+        }
+        const dateArray = date?.toString().split(" ")
+        formatedDate = dateArray && `${dateArray[2]}-${dateArray[1]}-${dateArray[3]} - [${dateArray[4]}]`
     }
-    const dateArray = date?.toString().split(" ")
-    const formatedDate = dateArray && `${dateArray[2]}-${dateArray[1]}-${dateArray[3]} - [${dateArray[4]}]`
+    else {
+        const date = rol?.DESDE
+        const dateArray = date?.toString().split("-")
+        formatedDate = dateArray && `${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`
+    }
+    
 
     // En el caso de que el servidor devuelva los M2 Totales, se muestra esto
     if (roles.length === 1 && roles[0]._id === 'M2_TOTALES') {
@@ -124,10 +94,8 @@ export default function Item({ rol }) {
                         </tr>
                     </tbody>
                 </table>
-                <LogsItem rol={rol} type={'new'} />
-                <LogsItem rol={rol} type={'prev'} />
-                {/* { <p> {JSON.stringify(rol?.newVal)} </p> }
-                { <p> {JSON.stringify(rol?.previousVal)} </p> } */}
+                <LogsItem rol={rol} type={'new'} currencyFormat={currencyFormat} />
+                <LogsItem rol={rol} type={'prev'} currencyFormat={currencyFormat} />
             </>
         )
     }
@@ -179,7 +147,7 @@ export default function Item({ rol }) {
                         </tr>
                         <tr>
                             <th>RUT:</th>
-                            <td className='result-list-row'>{rutPermiso}</td>
+                            <td className='result-list-row'>{currencyFormat(rutPermiso)}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -261,15 +229,15 @@ export default function Item({ rol }) {
                             <td className='result-list-row'>{currencyFormat(rol?.M2_TOTAL)}</td>
                         </tr>
                         <tr>
-                            <th>U. INGRESO NÚM:</th>
+                            <th>ULT ING NÚM:</th>
                             <td className='result-list-row'>{rol?.UI_NUM}</td>
                         </tr>
                         <tr>
-                            <th>U. INGRESO AÑO:</th>
+                            <th>ULT ING AÑO:</th>
                             <td className='result-list-row'>{rol?.UI_ANO}</td>
                         </tr>
                         <tr>
-                            <th>TIPO EXPEDIENTE:</th>
+                            <th>TIPO EXPED:</th>
                             <td className='result-list-row'>{rol?.TIPO_EXPEDIENTE}</td>
                         </tr>
                         <tr>
@@ -278,7 +246,7 @@ export default function Item({ rol }) {
                         </tr>
                         <tr>
                             <th>DESDE:</th>
-                            <td className='result-list-row'>{rol?.DESDE}</td>
+                            <td className='result-list-row'>{formatedDate}</td>
                         </tr>
                         <tr>
                             <th>DERECHOS:</th>
@@ -313,7 +281,7 @@ export default function Item({ rol }) {
                         </tr>
                         <tr>
                             <th>RUT:</th>
-                            <td>{rol?.RUT + '-' + dv}</td>
+                            <td>{currencyFormat(rol?.RUT) + '-' + dv}</td>
                         </tr>
                         <tr>
                             <th>PROPIETARIO:</th>
@@ -329,7 +297,7 @@ export default function Item({ rol }) {
                         </tr>
                         <tr>
                             <th>N/A:</th>
-                            <td>{rol?.NA}</td>
+                            <td>{agricola}</td>
                         </tr>
                         <tr>
                             <th>CONTRIBUCIÓN:</th>

@@ -1,0 +1,114 @@
+/* auth style ====================================================== */
+.login-container {
+    width: 300px;
+    height: 290px;
+    padding: 30px 10px;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    background-color: #ececec;
+    background-color: #ffffff;
+    box-shadow: var(--shd-v1);
+    border-radius: 0.8rem;
+    display: flex;
+    flex-direction: column;
+}
+.login-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    font-size: 1.5rem;
+    top: 8%;
+    right: 8%;
+    color: var(--clr-gray2);
+    border-radius: 50%;
+}
+.login-title {
+    font-family: 'Open Sans', sans-serif;
+}
+.login-form {
+    width: fit-content;
+    margin: auto;
+    position: relative;
+    top: 0;
+    margin-top: 10px;
+}
+.login-message {
+    position: relative;
+    top: 25px;
+    padding: 0 10px;
+    font-size: 0.6em;
+    color: var(--clr-red2);
+}
+.form-item {
+    top: 15px;
+    width: 224px;
+    height: 40px;
+    position: relative;
+    margin-top: 15px;
+}
+.login-input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid var(--clr-gray2);
+    border-radius: 0.2rem;
+    outline: none;
+    background: none;
+    position: absolute;
+    transition: background-color 200ms ease-in,
+                border 200ms ease-in;
+                
+}
+.login-input.red-border {
+    border: 1px solid var(--clr-red2);
+}
+.login-label.red-border {
+    color: var(--clr-red2);
+}
+.login-input:focus {
+    border: 1px solid var(--clr-blue);
+    /* background-color: #e9f2f8; */
+}
+.login-input:focus ~ .login-label,
+.login-input:not(:placeholder-shown).login-input:not(:focus) ~ .login-label {
+    top: -0.8rem;
+    left: 0.7rem;
+    font-size: 0.7rem;
+}
+.login-input:focus ~ .login-label {
+    color: var(--clr-blue);
+}
+.login-label {
+    position: relative;
+    padding: 0 0.5rem;
+    left: 0.5rem;
+    top: 0.6rem;
+    font-size: 0.8rem;
+    font-family: 'Open Sans', sans-serif;
+    color: #818181;
+    transition: top 200ms ease-in,
+        left 200ms ease-in,
+        color 200ms ease-in,
+        font-size 200ms ease-in;
+    cursor: text;
+    user-select: none;
+    background-color: #ffffff;
+}
+.login-button {
+    font-size: 0.9rem;
+    padding: 9px 18px;
+    border-radius: 0.5rem;
+    border-radius: 0.2rem;
+    border: 0;
+    margin-top: 35px;
+    position: absolute;
+    right: 0;
+    background-color: var(--clr-blue);
+    background: linear-gradient(rgb(124, 185, 255), var(--clr-blue));
+    color: white;
+}
+.login-button:active {
+    background-color: var(--clr-blue2);
+    box-shadow: inset 0px 0px 5px 3px rgba(41, 83, 146, 0.4);
+}

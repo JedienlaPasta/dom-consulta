@@ -45,6 +45,45 @@ export const DataProvider = ({ children }) => {
         e.target.value < 0 ? fc(0) : fc(e.target.value)
     }
 
+    // Para cambiar puntos por comas y agregar puntos a valores de base mil?
+    const currencyFormat = (val) => {
+        let newVal = val?.toString().replace(/[.]/g, ',')
+        newVal = newVal?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+        return newVal
+    }
+
+    // Para calcular el digito verificador del RUT
+    const getDV = (rol) => {
+        console.log('first')
+        if (rol?.RUT) {
+            const arr = []
+            const mArr = [2, 3, 4, 5, 6, 7]
+            if ( rol?.RUT !== 0 && !isNaN(rol?.RUT)) {
+                const inverted = rol?.RUT.toString().split("").reverse().join("")
+                for (let i = 0; i < inverted.length; i++) {
+                    arr[i] = inverted.charAt(i)
+                    if(i < mArr.length) {
+                        arr[i] = arr[i] * mArr[i]
+                    }
+                    else {
+                        let n = i - mArr.length
+                        arr[i] = arr[i] * mArr[n]
+                    }
+                }
+            }
+            const firstTot = arr.reduce((prev, curr) => prev + curr, 0)
+            const secondTot = firstTot - Math.floor(firstTot / 11) * 11
+            let dv = (11 - secondTot).toString()
+            if (dv > 9) {
+                if (dv === '11') {
+                    return dv = '0'
+                }
+                return dv = 'k'
+            }
+            return dv
+        }
+    }
+
     useEffect(() => {
         isAuthenticated().then(data => {
             setUser(data.user)
@@ -60,6 +99,10 @@ export const DataProvider = ({ children }) => {
         }
         console.log(roles)
     }, [roles, rolIndex])
+
+    useEffect(() => {
+        console.log(newPermiso)
+    }, [newPermiso])
 
     useEffect(() => {
         if (page === 'permisos')
@@ -78,7 +121,7 @@ export const DataProvider = ({ children }) => {
         <div>
             {
                 !isLoaded ? <h1>Loading...</h1> :
-                <DataContext.Provider value={{ roles, dispatch, user, setUser, isAuth, setIsAuth, page, setPage, message, setMessage, newPermiso, setNewPermiso, permisoInitialValue, showPopup, setShowPopup, rolIndex, setRolIndex, crudFilter, setCrudFilter, searching, setSearching, toggleMenu, setToggleMenu, preventNegative, isValid, setIsValid, incompleteFields, setIncompleteFields, emptyFields, setEmptyFields }}>
+                <DataContext.Provider value={{ roles, dispatch, user, setUser, isAuth, setIsAuth, page, setPage, message, setMessage, newPermiso, setNewPermiso, permisoInitialValue, showPopup, setShowPopup, rolIndex, setRolIndex, crudFilter, setCrudFilter, searching, setSearching, toggleMenu, setToggleMenu, preventNegative, isValid, setIsValid, incompleteFields, setIncompleteFields, emptyFields, setEmptyFields, getDV, currencyFormat }}>
                     { children }
                 </DataContext.Provider>
             }

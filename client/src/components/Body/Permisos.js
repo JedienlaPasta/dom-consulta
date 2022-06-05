@@ -12,9 +12,12 @@ export default function Permisos() {
     })
 
     return (
-        <div className={bodyName}>
-            <Sidebar/>
-            <Consulta/>
-        </div>
+        <>
+            <div className={bodyName}>
+                <Sidebar/>
+                <Consulta/>
+            </div>
+            <div className="background-blur"></div>
+        </>
     )
 }

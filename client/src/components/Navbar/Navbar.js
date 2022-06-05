@@ -47,16 +47,16 @@ export default function Navbar() {
         <header className='nav-header'>
             <div className="logo">
                 <img className='logo-img' src={img} alt="0" />
-                <h2 className='logo-title'>DOM Algarrobo</h2>
+                <h2 className='logo-title'>DOM ALGARROBO</h2>
             </div>
             <nav className='nav'>
                 <ul className='nav-links'>
                     <li className='link'>
-                        <Link className={`${page === 'rolcobro' ? 'link-item marked-link-item' : 'link-item'}`} to='/' onClick={() => changePage('rolcobro')}><span>ROL_COBRO</span></Link>
+                        <Link className={`${page === 'rolcobro' ? 'link-item marked-link-item' : 'link-item'}`} to='/' onClick={() => changePage('rolcobro')}><span>Rol_Cobro</span></Link>
                     </li>
                     {   (user.role === 'dom_admin' || user.role === 'dom_user') &&
                         <li className='link'>
-                        <Link className={`${page === 'permisos' ? 'link-item marked-link-item' : 'link-item'}`} to='/permisos' onClick={() => changePage('permisos')}><span>PERMISOS</span></Link>
+                        <Link className={`${page === 'permisos' ? 'link-item marked-link-item' : 'link-item'}`} to='/permisos' onClick={() => changePage('permisos')}><span>Permisos</span></Link>
                         </li>
                     }
                     {/* <li className='link'>

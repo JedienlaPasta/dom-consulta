@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function LogsItem({ rol, type }) {
+export default function LogsItem({ rol, type, currencyFormat }) {
 
     let value
     let keys
@@ -64,7 +64,7 @@ export default function LogsItem({ rol, type }) {
                         {   keys.includes('RUT') &&
                             <tr>
                                 <th>RUT:</th>
-                                <td className='result-list-row'>{value?.RUT || ''}</td>
+                                <td className='result-list-row'>{currencyFormat(value?.RUT) || ''}</td>
                             </tr>
                         }
                         {   keys.includes('DOMICILIO') &&
