@@ -54,7 +54,6 @@ export const DataProvider = ({ children }) => {
 
     // Para calcular el digito verificador del RUT
     const getDV = (rol) => {
-        console.log('first')
         if (rol?.RUT) {
             const arr = []
             const mArr = [2, 3, 4, 5, 6, 7]

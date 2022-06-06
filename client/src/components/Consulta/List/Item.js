@@ -12,22 +12,23 @@ export default function Item({ rol }) {
     const destino = Destino.map(item => rol?.DESTINO === item.codigo && item.descripcion)
     const agricola = rol?.NA === 'A' ? 'AGRÍCOLA' : 'NO AGRÍCOLA'
     
-    
     let formatedDate = ''
-    if (crudFilter.crudType === 'Ver Logs') {
-        let date = rol?.date
-        if (typeof(date) == 'string') {
-            date = new Date(date)
+    if (page === 'permisos') {
+        if (crudFilter.crudType === 'Ver Logs') {
+            let date = rol?.date
+            if (typeof(date) == 'string') {
+                date = new Date(date)
+            }
+            const dateArray = date?.toString().split(" ")
+            console.log(dateArray)
+            formatedDate = (dateArray[0] !== '' && `${dateArray[2]}-${dateArray[1]}-${dateArray[3]} - [${dateArray[4]}]`) || ''
         }
-        const dateArray = date?.toString().split(" ")
-        formatedDate = dateArray && `${dateArray[2]}-${dateArray[1]}-${dateArray[3]} - [${dateArray[4]}]`
+        else {
+            const date = rol?.DESDE
+            const dateArray = date?.toString().split("-")
+            formatedDate = (dateArray[0] !== '' && `${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`) || ''
+        }
     }
-    else {
-        const date = rol?.DESDE
-        const dateArray = date?.toString().split("-")
-        formatedDate = dateArray && `${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`
-    }
-    
 
     // En el caso de que el servidor devuelva los M2 Totales, se muestra esto
     if (roles.length === 1 && roles[0]._id === 'M2_TOTALES') {

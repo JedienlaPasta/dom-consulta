@@ -31,7 +31,7 @@ export default function LogsItem({ rol, type, currencyFormat }) {
                             <tr>
                                 <th>VIGENTE:</th>
                                 <td className='result-list-row result-list-rol'>
-                                    <p>{value?.MATRIZ_V || ''}</p><p className='text-center'>{value?.MATRIZ_V && '-' || ''}</p><p>{value?.DIGITO_V || ''}</p>
+                                    <p>{value?.MATRIZ_V || ''}</p><p className='text-center'>{(value?.MATRIZ_V && '-') || ''}</p><p>{value?.DIGITO_V || ''}</p>
                                 </td>
                             </tr>
                         }
@@ -39,7 +39,7 @@ export default function LogsItem({ rol, type, currencyFormat }) {
                             <tr>
                                 <th>ASIGNADO:</th>
                                 <td className='result-list-row result-list-rol'>
-                                    <p>{value?.MATRIZ_A || ''}</p><p className='text-center'>{value?.MATRIZ_A && '-' || ''}</p><p>{value?.DIGITO_A || ''}</p>
+                                    <p>{value?.MATRIZ_A || ''}</p><p className='text-center'>{(value?.MATRIZ_A && '-') || ''}</p><p>{value?.DIGITO_A || ''}</p>
                                 </td>
                             </tr>
                         }

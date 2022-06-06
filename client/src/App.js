@@ -56,6 +56,7 @@ export default function App() {
 // Permitir ingresar el rut completo, quizas separarlo en 2 inputs \\ o que solo se ingrese el rut, sin el digito, pero al ingresarlo que se muestre cual seria.
 // Agregar buscar por ID, en caso de buscar usando los logs
 // Quitar el scroll behavior (quitar el efecto de la rueda del mouse en los input numericos)!!!!!
+// Antes de ingresar la fecha de 'DESDE', darla vuelta para que se guarde en formato 'dd/mm/yyyy' y no 'yyyy/mm/dd' que es como se esta guardando ahora. Sino habria que actualizar todas las demas fechas que estan guardadas al formato nuevo y creo que quedaria un poco mal (de momento funciona, la fecha se da vueltas varias veces si en el sv y client)
 
 // Revizar el tema de los campos obligatorios y no obligatorios(hecho de momento, pero puede que se deban hacer cambios mas adelante)
 // El rol vigente o el asignado deben ser campos obligatorios, en el sentido de que almenos 1 de los 2 debe estar rellenado (de momento el rol vigente es obligatorio)
@@ -67,6 +68,8 @@ export default function App() {
 // guardar token en db y compararlo en cada request para verificar el rol del usuario
 // ocultar M2 TOTAL en ingreso y de registros y solo mostrar en la consulta de M2 Totales totales?
 // https://devcenter.heroku.com/articles/scheduler  => servira para guardar la base de datos 1 vez al dia todos los dias?
+// Quizas quitar el useEffect en Popup.js que abre el popup cada vez que llega un mensaje, de todas formas ya habia empezado a controlar eso directamente cuando llega el mensaje.
+// Tambien podria ir eliminando los logs ingresados hace mas de 6 meses o 1 año por ejemplo || o que despues de ~2000 registros, se elimine el mas viejo automaticamente al ingresar uno nuevo
 
 // (now)
 // vista de tabla para computador de escritorio, campos seteados a ciertos tamaños y al presionarlos, que estos se desplieguen mostrando toda la informacion (util para campos con valores muy extensos)
@@ -77,12 +80,20 @@ export default function App() {
 // o sino mantener el servidor corriendo desde las 8 de la mañana hasta las 6 de la tarde de lunes a viernes con UptimeRobot https://dev.to/j471n/prevent-heroku-server-from-sleeping-for-free-1ib1
 // Antes de ingresar los datos, intentar limpiarlos lo mejor posible, sacando puntos en los numeros, etc
 // Aparece mensaje de la descarga puede tardar un poco, por favor espere. Efectivamente, no se limpia el timeout
-// Tambien podria ir eliminando los logs ingresados hace mas de 6 meses o 1 año por ejemplo || o que despues de ~2000 registros, se elimine el mas viejo automaticamente al ingresar uno nuevo
 // Quizas agregar un campo de busqueda adicional en los logs, para poder comparar los valores que se muestran en los logs con los que estan guardados en la DB
-// Busqueda por mes ademas de por dia quizas
-// Quizas quitar el useEffect en Popup.js que abre el popup cada vez que llega un mensaje, de todas formas ya habia empezado a controlar eso directamente cuando llega el mensaje.
+// Busqueda por mes ademas de por dia quizas, o por usuario
+// Ver si hay alguna forma de verificar si la fecha es valida, ya que si no lo es de momento no se ingresa
+// Permitir buscar rut con puntos y sin digito, eso si, mostrando al lado cual seria el DV igual que al ingresar un permiso nuevo
 
 // informe
+// Servicios y herramientas utilizadas (lenguajes, frameworks, stack, host, base de datos, respaldo)
+// Caracteristicas y funcionalidades
+// Problematica
+// Objetivos
+// Soluciones => (portabilidad, etc)
+// Posibles mejoras, contratacion de servicios, precios
+// Manual de usuario
+// Diagramas ?
 
 // que son los dynos de heroku? mongodb tiene una cantidad de requests limitada? => para dar sugerencias de busqueda
 // en caso de hacerlo, quizas crear una coleccion aparte con todos los valores que quiero buscar y que cada vez que se actualize o cree un registro, se revize en la db si este valor existe, y si no existe, se agregue a la db

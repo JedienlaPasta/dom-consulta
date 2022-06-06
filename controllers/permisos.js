@@ -8,24 +8,30 @@ const objId = ObjectId.ObjectId
 
 export const getPermisoRolV = async (req, res) => {
     const roles = req.query
-    let permiso
+    let permisos
     if (roles.mz && roles.pd) {
         // aqui se buscan registros con los roles exactos, por lo que no hace falta hacer un $sort
-        permiso = await Permiso.find({ MATRIZ_V: roles?.mz, DIGITO_V: roles?.pd })
+        permisos = await Permiso.find({ MATRIZ_V: roles?.mz, DIGITO_V: roles?.pd })
     }
     else {
-        permiso = await Permiso.aggregate([ 
+        permisos = await Permiso.aggregate([ 
             { $match: { MATRIZ_V: roles?.mz }},
             { $addFields: {"DIGITO_length": { $strLenCP: "$DIGITO_V" }}},
             { $sort: {"DIGITO_length": 1, "DIGITO_V": 1}},
             { $project: {"DIGITO_length": 0}}
         ])
     }
-    if (!permiso.length) {
+    if (!permisos.length) {
         return res.status(404).json({ message: 'No se encontraron coincidencias' })
     }
+    permisos.forEach(permiso => {
+        const date = permiso?.DESDE
+        const dateArray = date?.toString().split("-")
+        const formatedDate = (dateArray[0] !== '' && `${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`) || ''
+        permiso.DESDE = formatedDate
+    })
     try {
-        res.status(200).json(permiso)
+        res.status(200).json(permisos)
     } catch (error) {
         res.status(404).json({ message: 'Error inesperado' })
     }
@@ -67,6 +73,12 @@ export const getPermisosByRUT = async (req, res) => {
     if (!permisos.length) {
         return res.status(404).json({ message: 'No se encontraron coincidencias' })
     }
+    permisos.forEach(permiso => {
+        const date = permiso?.DESDE
+        const dateArray = date?.toString().split("-")
+        const formatedDate = (dateArray[0] !== '' && `${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`) || ''
+        permiso.DESDE = formatedDate
+    })
     try {
         res.status(200).json(permisos)
     } catch (error) {
@@ -78,17 +90,23 @@ export const getPermisoByApellidoP = async (req, res) => {
     const apellido = req.query?.apellido
     // const permiso = await Permiso.find({ APELLIDO_P: apellido })
     // const permiso = await Permiso.find({ APELLIDO_P: { $regex: apellido, $options: 'i'} })
-    const perm = await Permiso.aggregate([ 
+    const permisos = await Permiso.aggregate([ 
         { $match: { APELLIDO_P: { $regex: apellido, $options: 'i'} }},
         { $addFields: { "MATRIZ_length": { $strLenCP: "$MATRIZ_V"}, "DIGITO_length": { $strLenCP: "$DIGITO_V"} }},
         { $sort: { "MATRIZ_length": 1, "MATRIZ_V": 1, "DIGITO_length": 1, "DIGITO_V": 1 }},
         { $project: { "MATRIZ_length": 0, "DIGITO_length": 0 }}
     ])
-    if (!perm.length) {
+    if (!permisos.length) {
         return res.status(404).json({ message: 'No se encontraron coincidencias' })
     }
+    permisos.forEach(permiso => {
+        const date = permiso?.DESDE
+        const dateArray = date?.toString().split("-")
+        const formatedDate = (dateArray[0] !== '' && `${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`) || ''
+        permiso.DESDE = formatedDate
+    })
     try {
-        res.status(200).json(perm)
+        res.status(200).json(permisos)
     } catch (error) {
         res.status(404).json({ message: 'Error inesperado' })
     }
@@ -96,14 +114,18 @@ export const getPermisoByApellidoP = async (req, res) => {
 
 export const getPermisoById = async (req, res) => {
     const id = req.query?.id
-    console.log(id)
-    const permiso = await Permiso.find({ _id: objId(id) })
-    console.log(permiso)
-    if (!permiso.length) {
+    const permisos = await Permiso.find({ _id: objId(id) })
+    if (!permisos.length) {
         return res.status(404).json({ message: 'No se encontraron coincidencias' })
     }
+    permisos.forEach(permiso => {
+        const date = permiso?.DESDE
+        const dateArray = date?.toString().split("-")
+        const formatedDate = (dateArray[0] !== '' && `${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`) || ''
+        permiso.DESDE = formatedDate
+    })
     try {
-        res.status(200).json(permiso)
+        res.status(200).json(permisos)
     } catch (error) {
         res.status(404).json({ message: 'Error inesperado' })
     }
@@ -112,17 +134,23 @@ export const getPermisoById = async (req, res) => {
 export const getPermisosByDIR = async (req, res) => {
     const dir = req.query?.dir
     // const permiso = await Permiso.find({ CALLE: {$regex: dir, $options: 'i'} })
-    const permiso = await Permiso.aggregate([ 
+    const permisos = await Permiso.aggregate([ 
         { $match: { CALLE: { $regex: dir, $options: 'i'} }},
         { $addFields: { "MATRIZ_length": { $strLenCP: "$MATRIZ_V"}, "DIGITO_length": { $strLenCP: "$DIGITO_V"} }},
         { $sort: { "MATRIZ_length": 1, "MATRIZ_V": 1, "DIGITO_length": 1, "DIGITO_V": 1 }},
         { $project: { "MATRIZ_length": 0, "DIGITO_length": 0 }}
     ])
-    if (!permiso.length) {
+    if (!permisos.length) {
         return res.status(404).json({ message: 'No se encontraron coincidencias' })
     }
+    permisos.forEach(permiso => {
+        const date = permiso?.DESDE
+        const dateArray = date?.toString().split("-")
+        const formatedDate = (dateArray[0] !== '' && `${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`) || ''
+        permiso.DESDE = formatedDate
+    })
     try {
-        res.status(200).json(permiso)
+        res.status(200).json(permisos)
     } catch (error) {
         res.status(404).json({ message: 'Error inesperado' })
     }
@@ -131,17 +159,23 @@ export const getPermisosByDIR = async (req, res) => {
 export const gerPermisosBySector = async (req, res) => {
     const sector = req.query.sector || 'empty'
     // const permiso = await Permiso.find({ SECTOR: {$regex: sector, $options: 'i'} })
-    const permiso = await Permiso.aggregate([ 
+    const permisos = await Permiso.aggregate([ 
         { $match: { SECTOR: { $regex: sector, $options: 'i'} }},
         { $addFields: { "MATRIZ_length": { $strLenCP: "$MATRIZ_V"}, "DIGITO_length": { $strLenCP: "$DIGITO_V"} }},
         { $sort: { "MATRIZ_length": 1, "MATRIZ_V": 1, "DIGITO_length": 1, "DIGITO_V": 1 }},
         { $project: { "MATRIZ_length": 0, "DIGITO_length": 0 }}
     ])
-    if (!permiso.length) {
+    if (!permisos.length) {
         return res.status(404).json({ message: 'No se encontraron coincidencias' })
     }
+    permisos.forEach(permiso => {
+        const date = permiso?.DESDE
+        const dateArray = date?.toString().split("-")
+        const formatedDate = (dateArray[0] !== '' && `${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`) || ''
+        permiso.DESDE = formatedDate
+    })
     try {
-        res.status(200).json(permiso)
+        res.status(200).json(permisos)
     } catch (error) {
         res.status(404).json({ message: 'Error inesperado' })
     }
@@ -205,7 +239,13 @@ export const getM2Total = async (req, res) => {
 }
 
 export const createPermiso = async (req, res) => {
-    const newPermiso = new Permiso(req.body?.permiso)
+    const permiso = req.body?.permiso
+    const date = permiso?.DESDE
+    const dateArray = date?.toString().split("-")
+    const formatedDate = (dateArray[0] !== '' && `${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`) || ''
+    permiso.DESDE = formatedDate
+
+    const newPermiso = new Permiso(permiso)
     req.permiso = newPermiso
     req.action = 'CREAR'
     try {
@@ -221,7 +261,13 @@ export const createPermiso = async (req, res) => {
 }
 
 export const updatePermiso = async (req, res) => {
-    const permiso = req.body.permiso
+    const permiso = req.body?.permiso
+    const date = permiso?.DESDE
+    const dateArray = date?.toString().split("-")
+    const formatedDate = (dateArray[0] !== '' && `${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`) || ''
+    permiso.DESDE = formatedDate
+    // console.log(permiso)
+
     const toUpdate = await Permiso.findOne({ _id: permiso?._id })
     if (!toUpdate) {
         console.log('este permiso no existe')
