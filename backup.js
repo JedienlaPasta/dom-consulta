@@ -11,7 +11,7 @@ const SCOPES = ['https://www.googleapis.com/auth/drive']
 let time = new Date()
 console.log(time)
 time = time.toString().split(" ")
-console.log(time)
+// console.log(time)
 time =`${time[2]} ${time[1]} ${time[3]} ${time[4]}`
 const name = `DOM Permisos - ${time}.xlsx`
 const auth = new google.auth.GoogleAuth({
@@ -26,7 +26,8 @@ const createAndUploadFile = async (auth) => {
 
     let fileMetaData = {
         'name': name,
-        'parents': ['1XRpLOt333RErwZXauUlLt-cqnKC9yV7L']        // seba
+        'parents': [process.env.FOLDER_KEY]
+        // 'parents': ['1XRpLOt333RErwZXauUlLt-cqnKC9yV7L']     // seba
         // 'parents': ['1z_dSx7xzahY585xwDw1F7ANUGI-N-3Xt']     // claudio
         // 'parents': ['1lyvvzMkT_dTZUfRqv1HBCoagGik7dWFw']     // dom
     }
