@@ -6,6 +6,7 @@ import PrivateRoute from './components/PrivateRoute/PrivateRoute'
 import { DataContext } from './context/DataContext'
 import RolCobro from './components/Body/RolCobro'
 import Permisos from './components/Body/Permisos'
+import ColorsLine from './components/ColorsLine/ColorsLine'
 
 export default function App() {
   const { user } = useContext(DataContext)
@@ -14,11 +15,11 @@ export default function App() {
       <div className='app-container'>
         <Routes>
           <Route path="/*" element={ <PrivateRoute /> }>
-            <Route path="/*" element={ [<Navbar key='navApp'/>, <RolCobro key='rolcobro' />] }/>
+            <Route path="/*" element={ [<ColorsLine key='colorsLine'/>, <Navbar key='navApp'/>, <RolCobro key='rolcobro' />] }/>
           </Route>
           { (user.role === 'dom_admin' || user.role === 'dom_user') &&
             <Route path="/permisos/*" element={ <PrivateRoute /> }>
-              <Route path="/permisos/*" element={ [<Navbar key='navApp'/>, <Permisos key='permisos' />] }/>
+              <Route path="/permisos/*" element={ [ <Navbar key='navApp'/>,<ColorsLine key='colorsLine'/>, <Permisos key='permisos' />] }/>
             </Route>
           }
           <Route exact path='/auth/*' element={ <Auth key='auth' /> }/>

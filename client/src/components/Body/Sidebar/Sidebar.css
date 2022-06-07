@@ -6,7 +6,7 @@
     box-shadow: 2px 4px 6px 1px rgba(174, 174, 174, 0.1);
 }
 .sidebar{
-    min-height: calc(100vh - 70px);
+    min-height: calc(100vh - 75px);
     width: 250px;
     /* background: linear-gradient(90deg, #727c89, #3c444e); */
     background-color: #3f4c5c;
@@ -20,6 +20,8 @@
     background: #edf1f4;
     background: #f6f7f8;
     background: #ffffff;
+    background: #f9f9fa;
+    border: 1px solid #dbdbdb;
     padding-bottom: 20px;
     box-shadow: 2px 4px 6px 1px rgba(174, 174, 174, 0.1);
     border-radius: 0 5px 5px 0;
@@ -48,29 +50,33 @@
     font-size: 0.8em;
 }
 .item-option {
-    padding: 8px 0px 8px 15px;
+    padding: 8px 0px 8px 35px;
     transition: all ease-in 150ms;
-    margin: 5px 0px 0 35px;
+    margin: 5px 35px 0 35px;
+    margin: 5px 15px 0 15px;
     border-radius: 5px 2px 2px 5px;
+    border-radius: 5px;
     color: rgb(92, 92, 92);
     /* color: #eeeeee; */
-    border: 1px solid transparent;
+    /* border: 1px solid transparent; */
     font-size: 0.8em;
     position: relative;
 }
 .item-option:hover {
     cursor: pointer;
-    border: 1px solid #3f92e043;
+    /* border: 1px solid #3f92e043; */
+    background-color: #e5e9eb;
 }
 .marked {
     background-color: #eff9ff;
-    border: 1px solid var(--clr-blue);
-    color: var(--clr-blue);
-    color: #3882c8;
+    background-color: #dde0e2 !important;
+    /* border: 1px solid var(--clr-blue); */
+    /* color: var(--clr-blue); */
+    /* color: #3882c8; */
 }
 .marked:hover {
-    background-color: #eff9ff;
-    border: 1px solid var(--clr-blue);
+    /* background-color: #eff9ff; */
+    /* border: 1px solid var(--clr-blue); */
 }
 .account-item > span {
     display: flex;
@@ -108,7 +114,9 @@
 .sidebar-hr {
     border: 0;
     height: 1px;
-    /* background-color: #dedede91; */
+    background-color: #dedede91;
+    margin: auto;
+    width: 85%;
 }
 
 @media (max-width: 749px) {

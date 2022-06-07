@@ -1,9 +1,11 @@
-const fs = require('fs')
-const readLine = require('readline')
-const {google} = require('googleapis')
-require('dotenv').config()
+import fs from 'fs'
+import {google} from 'googleapis'
+import dotenv from 'dotenv'
+import { filePath } from './server.js'
+import XLSX from 'xlsx'
+import Permiso from './models/permisosModel.js'
 
-// const KEYFILEPATH = './credentials.json'
+dotenv.config()
 
 const SCOPES = ['https://www.googleapis.com/auth/drive']
 let time = new Date()
@@ -12,25 +14,26 @@ time = time.toString().split(" ")
 console.log(time)
 time =`${time[2]} ${time[1]} ${time[3]} ${time[4]}`
 const name = `DOM Permisos - ${time}.xlsx`
-// console.log(name)
 const auth = new google.auth.GoogleAuth({
     // keyFile: KEYFILEPATH,
     credentials: JSON.parse(process.env.MY_GOOGLE_JSON_KEY),
     scopes: SCOPES
 })
 
-async function createAndUploadFile(auth) {
+// Esta funcion crea el archivo en el drive con la informacion del archivo creado en la API
+const createAndUploadFile = async (auth) => {
     const driveService = google.drive({ version: 'v3', auth })
 
     let fileMetaData = {
         'name': name,
-        'parents': ['1XRpLOt333RErwZXauUlLt-cqnKC9yV7L']
-        // 'parents': ['1z_dSx7xzahY585xwDw1F7ANUGI-N-3Xt']
+        'parents': ['1XRpLOt333RErwZXauUlLt-cqnKC9yV7L']        // seba
+        // 'parents': ['1z_dSx7xzahY585xwDw1F7ANUGI-N-3Xt']     // claudio
+        // 'parents': ['1lyvvzMkT_dTZUfRqv1HBCoagGik7dWFw']     // dom
     }
 
     let media = {
         mimType: 'application/vnd.google-apps.spreadsheet',
-        body: fs.createReadStream('test2.xlsx')
+        body: fs.createReadStream(filePath)
     }
 
     let response = await driveService.files.create({
@@ -48,4 +51,25 @@ async function createAndUploadFile(auth) {
             break
     }
 }
-createAndUploadFile(auth).catch(console.error)
+
+// Esta funcion crea un archivo excel que contiene toda la informacion, relacionada a los permisos, almacenada en la base de datos 
+const createFile = async () => {
+    const wb = XLSX.utils.book_new()
+    Permiso.find((err, data) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+                // console.log(filePath)
+                let temp = JSON.stringify(data)
+                temp = JSON.parse(temp)
+                const ws = XLSX.utils.json_to_sheet(temp)
+                const down = filePath
+                XLSX.utils.book_append_sheet(wb, ws, 'sheet1')
+                XLSX.writeFile(wb, down)
+                createAndUploadFile(auth).catch(console.error)
+        }    
+    })
+}
+
+createFile()

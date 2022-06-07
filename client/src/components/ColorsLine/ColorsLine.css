@@ -1,0 +1,34 @@
+.colors-line-container {
+    display: flex;
+    /* background: linear-gradient(90deg, #0887b2 0%,#d78440 20%, #8ec63f 40%, #32aaa0 60%, #e6bc32 80%,  #293b6d 100% ); */
+}
+
+.color-line-section {
+    height: 0.3em;
+    width: 100%;
+    
+}
+
+.line-section-1 {
+    background-color: #0887b2;
+}
+
+.line-section-2 {
+    background-color: #d78440;
+}
+
+.line-section-3 {
+    background-color: #8ec63f;
+}
+
+.line-section-4 {
+    background-color: #32aaa0;
+}
+
+.line-section-5 {
+    background-color: #e6bc32;
+}
+
+.line-section-6 {
+    background-color: #293b6d;
+}

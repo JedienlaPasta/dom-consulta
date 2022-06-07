@@ -28,7 +28,7 @@ export default function Sidebar() {
 
     return (
         <div className={sidebarName}>
-            <hr className='sidebar-hr' />
+            {/* <hr className='sidebar-hr' /> */}
             <h4 className='sidebar-items account-item'>
                 <MdAccountCircle className='account-logo'/>
                 <span>
