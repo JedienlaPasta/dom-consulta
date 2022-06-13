@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useReducer, useState } from "react";
 import { isAuthenticated } from "../actions/users";
+import './Loading.css'
 
 export const ACTIONS = {
     FETCH_MATCHES: 'fetch_matches'
@@ -119,7 +120,7 @@ export const DataProvider = ({ children }) => {
     return (
         <div>
             {
-                !isLoaded ? <h1>Loading...</h1> :
+                !isLoaded ? <h1 className="page-loading">Loading...</h1> :
                 <DataContext.Provider value={{ roles, dispatch, user, setUser, isAuth, setIsAuth, page, setPage, message, setMessage, newPermiso, setNewPermiso, permisoInitialValue, showPopup, setShowPopup, rolIndex, setRolIndex, crudFilter, setCrudFilter, searching, setSearching, toggleMenu, setToggleMenu, preventNegative, isValid, setIsValid, incompleteFields, setIncompleteFields, emptyFields, setEmptyFields, getDV, currencyFormat }}>
                     { children }
                 </DataContext.Provider>

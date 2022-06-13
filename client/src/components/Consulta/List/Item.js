@@ -23,7 +23,7 @@ export default function Item({ rol }) {
             console.log(dateArray)
             formatedDate = (dateArray[0] !== '' && `${dateArray[2]}-${dateArray[1]}-${dateArray[3]} - [${dateArray[4]}]`) || ''
         }
-        else {
+        else if (rol.DESDE) {
             const date = rol?.DESDE
             const dateArray = date?.toString().split("-")
             formatedDate = (dateArray[0] !== '' && `${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`) || ''
