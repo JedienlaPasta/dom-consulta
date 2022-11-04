@@ -6,7 +6,7 @@
 .color-line-section {
     height: 0.3em;
     width: 100%;
-    
+    box-shadow: 2px 2px 6px 1px rgba(174, 174, 174, 0.4);
 }
 
 .line-section-1 {

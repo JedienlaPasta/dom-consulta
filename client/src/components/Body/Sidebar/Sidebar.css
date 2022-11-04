@@ -69,15 +69,15 @@
 }
 .marked {
     background-color: #eff9ff;
-    background-color: #dde0e2 !important;
+    background-color: #d8dee2 !important;
     /* border: 1px solid var(--clr-blue); */
     /* color: var(--clr-blue); */
     /* color: #3882c8; */
 }
-.marked:hover {
+/* .marked:hover { */
     /* background-color: #eff9ff; */
     /* border: 1px solid var(--clr-blue); */
-}
+/* } */
 .account-item > span {
     display: flex;
     flex-direction: column;

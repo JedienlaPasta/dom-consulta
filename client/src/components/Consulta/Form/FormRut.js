@@ -8,7 +8,7 @@ import { DataContext } from '../../../context/DataContext'
 export default function FormRut({ search }) {
     const [rut, setRut] = useState('')
 
-    const { page, dispatch, setUser, setIsAuth, setMessage, setRolIndex, preventNegative, setShowPopup, setSearching } = useContext(DataContext)
+    const { page, dispatch, setUser, setIsAuth, setMessage, setRolIndex, preventNegative, setShowPopup, setSearching, isMobile } = useContext(DataContext)
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -31,16 +31,28 @@ export default function FormRut({ search }) {
     }
 
     return (
-        <form className='form-consulta' onSubmit={handleSubmit}>
-            <span className='inputs grid-inputs'>
-                <div className="input">
-                    <label className='hint'>RUT</label>
-                    <input type='number' name='rut' required autoComplete='off' placeholder='Ingresar RUT sin puntos ni DV...' value={rut} onChange={(e) => preventNegative(e, setRut)} />
-                </div>
-                <button type='submit' className='search-btn blue-btn'>Buscar</button>
-            </span>
-            {/* <br /> */}
-            {/* <button type='submit'>Buscar</button> */}
-        </form>
+        <>
+            {
+                isMobile ?
+                <form className='form-consulta' onSubmit={handleSubmit}>
+                    <span className='inputs grid-inputs'>
+                        <div className="input">
+                            <label className='hint'>RUT</label>
+                            <input type='number' name='rut' required autoComplete='off' placeholder='Ingresar RUT sin puntos ni DV...' className='form-input' value={rut} onChange={(e) => preventNegative(e, setRut)} />
+                        </div>
+                        <button type='submit' className='search-btn blue-btn'>Buscar</button>
+                    </span>
+                </form>
+                :
+                <form className='form-consulta' onSubmit={handleSubmit}>
+                    <span className='inputs grid-inputs'>
+                        <div className="input">
+                            <input type='number' name='rut' required autoComplete='off' placeholder='Ingresar RUT sin puntos ni DV...' className='form-input' value={rut} onChange={(e) => preventNegative(e, setRut)} />
+                        </div>
+                        <button type='submit' className='search-btn blue-btn desktop-blue-btn'>Buscar</button>
+                    </span>
+                </form>
+            }
+        </>
     )
 }

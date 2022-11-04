@@ -12,6 +12,7 @@
     border-radius: 0.8rem;
     display: flex;
     flex-direction: column;
+    z-index: 2;
 }
 .login-icon {
     display: flex;
@@ -112,3 +113,24 @@
     background-color: var(--clr-blue2);
     box-shadow: inset 0px 0px 5px 3px rgba(41, 83, 146, 0.4);
 }
+
+/* .background-img{
+    min-height: 100vh;
+    display: block;
+    width: 100%;
+    background-image: url(../../images/normal-grayscaled.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    background-attachment: fixed;
+}
+.background-blur {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(241, 243, 246, 0.831);
+    position: absolute;
+    top: 0;
+    z-index: 1;
+} */

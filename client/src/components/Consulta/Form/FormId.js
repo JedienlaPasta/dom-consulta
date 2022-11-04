@@ -6,7 +6,7 @@ import { DataContext } from '../../../context/DataContext'
 export default function FormRut({ search }) {
     const [id, setId] = useState('')
 
-    const { page, dispatch, setUser, setIsAuth, setMessage, setRolIndex, crudFilter, setCrudFilter, setShowPopup, setSearching } = useContext(DataContext)
+    const { page, dispatch, setUser, setIsAuth, setMessage, setRolIndex, crudFilter, setCrudFilter, setShowPopup, setSearching, isMobile } = useContext(DataContext)
 
     useEffect(() => {
         setId('')
@@ -32,17 +32,34 @@ export default function FormRut({ search }) {
     }
 
     return (
-        <form className='form-consulta' onSubmit={handleSubmit}>
-            <span className='inputs grid-inputs'>
-                {
-                    crudFilter.filter === 'Id' &&
-                    <div className="input">
-                        <label className='hint'>Id</label>
-                        <input type='text' name='Id' required autoComplete='false' placeholder='Ingresar Id...' value={id} onChange={(e) => setId(e.target.value)} />
-                    </div>
-                }
-                <button type='submit' className='search-btn blue-btn'>Buscar</button>
-            </span>
-        </form>
+        <>
+            {
+                isMobile ? 
+                <form className='form-consulta' onSubmit={handleSubmit}>
+                    <span className='inputs grid-inputs'>
+                        {
+                            crudFilter.filter === 'Id' &&
+                            <div className="input">
+                                <label className='hint'>Id</label>
+                                <input type='text' name='Id' required autoComplete='false' placeholder='Ingresar Id...' className='form-input' value={id} onChange={(e) => setId(e.target.value)} />
+                            </div>
+                        }
+                        <button type='submit' className='search-btn blue-btn'>Buscar</button>
+                    </span>
+                </form>
+                :
+                <form className='form-consulta' onSubmit={handleSubmit}>
+                    <span className='inputs grid-inputs'>
+                        {
+                            crudFilter.filter === 'Id' &&
+                            <div className="input">
+                                <input type='text' name='Id' required autoComplete='false' placeholder='Ingresar Id...' className='form-input' value={id} onChange={(e) => setId(e.target.value)} />
+                            </div>
+                        }
+                        <button type='submit' className='search-btn blue-btn desktop-blue-btn'>Buscar</button>
+                    </span>
+                </form>
+            }
+        </>
     )
 }

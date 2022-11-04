@@ -67,7 +67,7 @@ export default function Dropdown() {
     const customStyle = {
         option: (provided, state) => ({
             ...provided,
-            backgroundColor: state.isSelected && '#3f93e0'
+            backgroundColor: state.isSelected ? '#3f93e0' : provided.backgroundColor
         })
     }
     

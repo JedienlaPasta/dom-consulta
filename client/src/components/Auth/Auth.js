@@ -33,6 +33,7 @@ export default function Auth() {
     }
 
     return (
+        <>
         <div className='login-container'>
             <div className="login-icon">
                 <FaUserAstronaut />
@@ -51,5 +52,8 @@ export default function Auth() {
                 <button className='login-button'>Iniciar Sesión</button>
             </form>
         </div>
+        {/* <div className="background-img"></div>
+        <div className="background-blur"></div> */}
+    </>
     )
 }

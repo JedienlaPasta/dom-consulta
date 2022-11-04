@@ -1,0 +1,369 @@
+/* Este es el estilo para dispositivos de escritorio ========================================================================================= */
+.list-container {
+    border-collapse: collapse;
+    font-size: 0.8em;
+    text-align: left;
+    width: 418px;
+    max-width: 95%;
+    margin: 20px auto 0 auto;
+    border: 0.1px solid #ededed;
+    table-layout: fixed;
+}
+.list-container > tr > th {
+    white-space: nowrap;
+    padding: 10px;
+}
+.list-container > tbody > tr > td, .list-container > thead > tr > th {
+    padding: 10px 10px;
+    text-align: left;
+    /* overflow-wrap: break-word; */
+}
+.list-container > tbody > tr > th {
+    padding: 10px 10px;
+}
+
+.list-container > tbody > tr {
+    display: grid;
+    grid-template-columns: 10.5em auto;
+    background-color: #ffffff;
+}
+.list-container > tbody > tr:nth-of-type(even) {
+    background-color: #f1f3f7;
+}
+.list-header-title {
+    display: flex;
+    justify-content: center;
+    background-color: #f1f3f7;
+    background: linear-gradient(#eceff2, #cdd2da);
+    border-top: 0.1px solid #ededed;
+}
+
+/* Todo esto de los < 'list-container-fullw' > corresponde a la vista de tabla, por lo que no hay que cambiarlo >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+/* full width list container =========================================== */
+.justify-list-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.list-container-fullw {
+    border-collapse: collapse;
+    font-size: 0.8em;
+    text-align: center;
+    position: relative;
+    table-layout: fixed;
+    border-radius: 5px;
+    width: inherit;
+}
+.list-container-fullw > tbody {
+    display: inline-block;
+    overflow-y: hidden;
+    overflow-x: auto;
+    width: inherit;
+}
+.list-container-fullw > tbody > .thead {
+    display: grid;
+    /* grid-template-columns: 1fr 1fr 1.5fr 1fr 1fr 1fr 1.5fr 1fr 0.5fr 1.5fr 1fr; */
+    grid-template-columns: 7em 7em minmax(15em, 1.5fr) 10em 10em 8em minmax(15em, 1.5fr) minmax(10em, 1fr) minmax(5em, 0.5fr) minmax(15em, 1.5fr) minmax(10em, 1fr);
+}
+.list-container-fullw > tbody > .thead > th {
+    background: linear-gradient(#92a5cb, #3d4f74);
+    /* background: linear-gradient(#c3c8d2, #767980); */
+    color: #ffffff;
+    font-size: 0.8em;
+    padding: 15px 20px;
+    text-align: center;
+    font-weight: 100;
+}
+/* .list-container-fullw > tbody > .thead > th:not(:first-child) {
+    border-left: 0.1px solid rgba(185, 185, 185, 0.359);
+} */
+.list-container-fullw > tbody > .thead > th:first-child {
+    border-radius: 5px 0 0 2px;
+}
+.list-container-fullw > tbody > .thead > th:last-child {
+    border-radius: 0 5px 2px 0;
+}
+.list-container-fullw > tbody > .tbody {
+    display: grid;
+    grid-template-columns: 7em 7em minmax(15em, 1.5fr) 10em 10em 8em minmax(15em, 1.5fr) minmax(10em, 1fr) minmax(5em, 0.5fr) minmax(15em, 1.5fr) minmax(10em, 1fr);
+    min-width: fit-content;
+    width: 100%;
+}
+.list-container-fullw > tbody > .tbody:nth-of-type(odd) {
+    background-color: rgba(229, 231, 235, 0.593);
+}
+.list-container-fullw > tbody > .tbody:hover {
+    background-color: rgb(207, 210, 214);
+    cursor: pointer;
+}
+.list-container-fullw > tbody > .tbody > td {
+    font-size: 0.8em;
+    padding: 12px 12px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 6em;
+
+}
+.list-container-fullw > tbody > .tbody > td:not(:first-child) {
+    /* border-left: 0.1px solid rgba(218, 218, 218, 0.359); */
+}
+
+/* logs ================================================================= */
+.list-container-fullw-logs {
+    border-collapse: collapse;
+    font-size: 0.8em;
+    text-align: center;
+    position: relative;
+    margin: 20px 0 0 0;
+    table-layout: fixed;
+    border-radius: 5px;
+    width: inherit;
+}
+.list-container-fullw-logs > tbody {
+    display: inline-block;
+    overflow-y: hidden;
+    overflow-x: auto;
+    width: inherit;
+}
+.list-container-fullw-logs > tbody > .thead {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+.list-container-fullw-logs > tbody > .thead > th {
+    background: linear-gradient(#92a5cb, #3d4f74);
+    color: #ffffff;
+    font-size: 0.8em;
+    padding: 15px 20px;
+    text-align: center;
+    font-weight: 100;
+}
+.list-container-fullw-logs > tbody > .thead > th:first-child {
+    border-radius: 5px 0 0 2px;
+}
+.list-container-fullw-logs > tbody > .thead > th:last-child {
+    border-radius: 0 5px 2px 0;
+}
+
+.list-container-fullw-logs > tbody > .tbody {
+    display: grid;
+    grid-template-columns: minmax(15em, 1fr) 1fr 1fr 1fr 1fr;
+    min-width: fit-content;
+    width: 100%;
+}
+.list-container-fullw-logs > tbody > .tbody:nth-of-type(odd) {
+    background-color: rgba(229, 231, 235, 0.593);
+}
+.list-container-fullw-logs > tbody > .tbody:hover {
+    background-color: rgb(222, 226, 231);
+    cursor: pointer;
+}
+.list-container-fullw-logs > tbody > .tbody > td {
+    font-size: 0.8em;
+    padding: 12px 12px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 6em;
+
+}
+.list-container-fullw-logs > tbody > .tbody > td:not(:first-child) {
+    border-left: 0.1px solid rgba(218, 218, 218, 0.359);
+}
+
+/* M2 Total ============================================================ */
+
+.list-container-fullw-M2_TOT {
+    border-collapse: collapse;
+    font-size: 0.8em;
+    text-align: center;
+    position: relative;
+    margin: 20px 0 0 0;
+    table-layout: fixed;
+    border-radius: 5px;
+    width: inherit;
+}
+.list-container-fullw-M2_TOT > tbody {
+    display: inline-block;
+    overflow-y: hidden;
+    overflow-x: auto;
+    width: inherit;
+}
+.list-container-fullw-M2_TOT > tbody > .thead {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+.list-container-fullw-M2_TOT > tbody > .thead > th {
+    background: linear-gradient(#92a5cb, #3d4f74);
+    color: #ffffff;
+    font-size: 0.8em;
+    padding: 15px 20px;
+    text-align: center;
+    font-weight: 100;
+}
+.list-container-fullw-M2_TOT > tbody > .thead > th:first-child {
+    border-radius: 5px 0 0 2px;
+}
+.list-container-fullw-M2_TOT > tbody > .thead > th:last-child {
+    border-radius: 0 5px 2px 0;
+}
+
+.list-container-fullw-M2_TOT > tbody > .tbody {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    min-width: fit-content;
+    width: 100%;
+}
+/* .list-container-fullw-M2_TOT > tbody > .tbody:nth-of-type(even) {
+    background-color: rgba(236, 236, 236, 0.593);
+} */
+.list-container-fullw-M2_TOT > tbody > .tbody:hover {
+    background-color: rgb(222, 226, 231);
+    cursor: pointer;
+}
+.list-container-fullw-M2_TOT > tbody > .tbody > td {
+    font-size: 0.8em;
+    padding: 12px 12px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 6em;
+
+}
+.list-container-fullw-M2_TOT > tbody > .tbody > td:not(:first-child) {
+    border-left: 0.1px solid rgba(218, 218, 218, 0.359);
+}
+
+/* pagination ========================================================== */
+.rows-count {
+    font-size: 0.8em;
+    padding: 0 20px;
+}
+.separation-line {
+    background-color: #b0b0b0;
+    height: 20px;
+    width: 1px;
+}
+.pagination {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 5px;
+    margin-left: 10px;
+}
+.pagination-page {
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: transparent;
+    border: 0;
+    font-size: 0.8em;
+}
+.pagination-page:hover {
+    cursor: pointer;
+    background-color: #d8dde7;
+}
+.marked-page {
+    background-color: #c0c7d3;
+}
+
+/* container para todos los elementos de la paginacion, ahora no se encuentra debajo de la lista, sino que encima */
+.body-footer-btns {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    height: fit-content;
+    padding: 10px 0 10px 0;
+    /* background-color: red; */
+}
+/* este boton ya no existe, ver si se elimina esto luego */
+.return-btn {
+    /* margin-right: 15px;
+    padding: 12px 18px;
+    border-radius: 7px;
+    border: 1px solid #909090; */
+}
+
+/* insert list ========================================================= */
+
+/* para que se vea en 2 columnas */
+.insert-body {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    /* background-color: red; */
+    gap: 20px;
+}
+
+/* este el el container de los input */
+.insert-list-container {
+    width: 418px;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    /* Creo que lo mejor seria cambiar los classname de todos los elementos de la lista, para diferenciar los estilos */
+}
+/* esto tiene que cambiar, ya que ahora los label estaran arriba del input */
+.insert-list-body > tr {
+    grid-template-columns: 8.5em auto !important;
+}
+.insert-list-body > tr > th {
+    /* padding: 10px; */
+    text-align: left;
+    font-weight: 100;
+    font-size: 0.85em;
+    position: relative;
+}
+.insert-list-body > tr > th::after {
+    content: ":";
+    position: absolute;
+    left: 95%;
+}
+.text-right {
+    /* text-align: right; */
+}
+.insert-list-input-row {
+    padding: 5px 5px !important;
+    max-width: 100%;
+    display: block;
+}
+/* estos son los input */
+.insert-list-input {
+    font-size: 0.9em;
+    width: 100%;
+    border: 0;
+    padding: 5px 10px;
+    border-radius: 8px;
+    outline: none;
+    border: 1px solid rgb(222, 222, 222);
+    background: linear-gradient(#ffffff, #eaedf4);
+}
+.insert-list-rol {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 5px;
+}
+.insert-list-rut {
+    display: grid;
+    grid-template-columns: auto 1em 4em;
+    align-items: center;
+}
+.insert-list-rut > p {
+    text-align: center;
+}
+.date-input::-webkit-calendar-picker-indicator {
+    /* display: none; */
+}
+textarea {
+    /* max-height: 150px !important;
+    min-height: 43px !important;
+    resize: vertical; */
+}
+.incomplete-field {
+    /* border: 1px solid #e09595b9; */
+}

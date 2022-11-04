@@ -28,12 +28,16 @@ export const DataProvider = ({ children }) => {
     const [page, setPage] = useState('rolcobro')
     const [rolIndex, setRolIndex] = useState(0)
     const [showPopup, setShowPopup] = useState(false)
+    const [showRecordPopup, setShowRecordPopup] = useState(false)
     const [crudFilter, setCrudFilter] = useState({ crudType: 'Consultar', filter: 'Rol', type: 'read', filters: ['Ingresar', 'Consultar', 'Descargar']})
     const [searching, setSearching] = useState(false)
     const [toggleMenu, setToggleMenu] = useState(false)
     const [isValid, setIsValid] = useState(false)
     const [incompleteFields, setIncompleteFields] = useState(false)
     const [emptyFields, setEmptyFields] = useState({})
+    const [isMobile, setIsMobile] = useState(false)
+    const [width, setWidth] = useState(0)
+    const [listPage, setListPage] = useState(0)
 
     const permisoInitialValue = crudFilter.type !== 'insert' ? { _id: '', MATRIZ_V: '', DIGITO_V: '', MATRIZ_A: '', DIGITO_A: '', NOMBRE: '', APELLIDO_P: '', APELLIDO_M: '', RUT: '', DOMICILIO: '', COMUNA: '', TELEFONO: '', MZ: '', NSTPC: '', CALLE: '', SECTOR: '', DESTINO: '', N_VIV: 0, M2_C_RECEP: 0, M2_C_PERM: 0, M2_S_PERM: 0, M2_TOTAL: 0, UI_NUM: 0, UI_ANO: 0, TIPO_EXPEDIENTE: '', ESTADO: '', DESDE: '', DERECHOS: 0, COMENTARIO: '' }
     : { MATRIZ_V: '', DIGITO_V: '', MATRIZ_A: '', DIGITO_A: '', NOMBRE: '', APELLIDO_P: '', APELLIDO_M: '', RUT: '', DOMICILIO: '', COMUNA: '', TELEFONO: '', MZ: '', NSTPC: '', CALLE: '', SECTOR: '', DESTINO: '', N_VIV: 0, M2_C_RECEP: 0, M2_C_PERM: 0, M2_S_PERM: 0, M2_TOTAL: 0, UI_NUM: 0, UI_ANO: 0, TIPO_EXPEDIENTE: '', ESTADO: '', DESDE: '', DERECHOS: 0, COMENTARIO: '' }
@@ -117,11 +121,55 @@ export const DataProvider = ({ children }) => {
         setIncompleteFields(false)
     }, [crudFilter])
 
+    // Un useEffect detecta el tamaño de la pagina cuando esta se carga, el otro cuando se cambia el tamaño
+
+    useEffect(() => {
+        function handleSize() {
+            if (window.innerWidth < 750) {
+                setIsMobile(true)
+            } else {
+                setIsMobile(false)
+            }
+        }
+        window.addEventListener('load', handleSize())
+        return () => window.removeEventListener('load', handleSize())
+    }, [])
+
+    useEffect(() => {
+        function handleResize() {
+            setWidth(window.innerWidth)
+            if (window.innerWidth < 750) {
+                setIsMobile(true)
+            } else {
+                setIsMobile(false)
+            }
+        }
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
+    }, [width])
+
+    // Este useEffect hay que borrarlo cuando deje de ser util
+    useEffect(() => {
+        console.log('isMobile: ',isMobile)
+        console.log('width: ',width)
+    }, [isMobile, width])
+
+
+    // const str = ['Manuel', 'Arbol', 'Carol', 'Viviana']
+
+    // const ascending = () => {
+
+    // }
+
+    // useEffect(() => {
+    //     console.log(crudFilter.type)
+    // }, [crudFilter.filter])
+
     return (
         <div>
             {
-                !isLoaded ? <h1 className="page-loading">Loading...</h1> :
-                <DataContext.Provider value={{ roles, dispatch, user, setUser, isAuth, setIsAuth, page, setPage, message, setMessage, newPermiso, setNewPermiso, permisoInitialValue, showPopup, setShowPopup, rolIndex, setRolIndex, crudFilter, setCrudFilter, searching, setSearching, toggleMenu, setToggleMenu, preventNegative, isValid, setIsValid, incompleteFields, setIncompleteFields, emptyFields, setEmptyFields, getDV, currencyFormat }}>
+                !isLoaded ? <span className="page-loading"><h1>Loading...</h1></span> :
+                <DataContext.Provider value={{ roles, dispatch, user, setUser, isAuth, setIsAuth, page, setPage, message, setMessage, newPermiso, setNewPermiso, permisoInitialValue, showPopup, setShowPopup, rolIndex, setRolIndex, crudFilter, setCrudFilter, searching, setSearching, toggleMenu, setToggleMenu, preventNegative, isValid, setIsValid, incompleteFields, setIncompleteFields, emptyFields, setEmptyFields, getDV, currencyFormat, isMobile, listPage, setListPage, showRecordPopup, setShowRecordPopup }}>
                     { children }
                 </DataContext.Provider>
             }

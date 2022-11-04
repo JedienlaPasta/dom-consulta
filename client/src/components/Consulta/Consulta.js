@@ -9,10 +9,11 @@ import FormId from './Form/FormId'
 import Popup from './Popup/Popup'
 import List from './List/List'
 import './Consulta.css'
+import RecordPopup from './Popup/RecordPopup'
 // import './style.css'
 
 export default function Consulta() {
-    const {roles, page, isAuth, dispatch, showPopup, setShowPopup, crudFilter, setCrudFilter, setNewPermiso, permisoInitialValue, setSearching, newPermiso, setIsValid } = useContext(DataContext)
+    const {roles, page, isAuth, dispatch, showPopup, setShowPopup, crudFilter, setCrudFilter, setNewPermiso, permisoInitialValue, setSearching, newPermiso, setIsValid, isMobile, showRecordPopup } = useContext(DataContext)
     const history = useNavigate()
     
     useEffect(() => {
@@ -67,7 +68,7 @@ export default function Consulta() {
         ['Dirección', <FormDir key={'dir'} search={search}/>]
     ]
 
-    const displayFor =
+    const displayForm =
         page === 'rolcobro' ?
             rolCobroFilters.map(item => item[0] === crudFilter.filter ? item[1] : null)
         :
@@ -80,17 +81,27 @@ export default function Consulta() {
         }
     })
 
+    console.log('crudType:',crudFilter.type)
+
+    // Arreglar todo esto, esta algo confuso.
     return (
         <div className='super-body-container'>
+            { showRecordPopup && <RecordPopup save={save} deletePermiso={deletePermiso} /> }
             { showPopup && <Popup /> }
+            { !isMobile && 
+                <>
+                    <div className='search-form'>
+                    {/* <h3>Buscar por {crudFilter.filter}</h3> */}
+                        { crudFilter.type === 'read' && displayForm }
+                    </div>
+                </>
+            }
             <div className='body-container'>
                 {   crudFilter.crudType === 'Consultar' 
                     ? <>
-                        <ul className='filter-links'>
-                            {/* {displayF} */}
-                        </ul>
-                        { crudFilter.type === 'read' && <h4 className='titulo-consulta'>Buscar Registros</h4> }
-                        {displayFor}
+                        {/* me parece que el isMobile aqui no es necesario ?, o con algunos cambios se podria sacar */}
+                        { crudFilter.type === 'read' && isMobile && <h4 className='titulo-consulta'>Buscar Registros</h4> }
+                        { crudFilter.type === 'read' && isMobile && displayForm }
                         { roles.length > 0 && ( page === 'permisos' ? <List save={save} deletePermiso={deletePermiso}/> : <List/>) }
                     </>
                     : 
