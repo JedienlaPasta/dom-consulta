@@ -3,6 +3,7 @@ import XLSX from 'xlsx'
 import { filePath } from "../server.js"
 import { createLog } from "./logs.js"
 import ObjectId from 'mongodb'
+import RolData from "../models/rolesData.js"
 
 const objId = ObjectId.ObjectId
 
@@ -90,12 +91,13 @@ export const getPermisoByApellidoP = async (req, res) => {
     const apellido = req.query?.apellido
     // const permiso = await Permiso.find({ APELLIDO_P: apellido })
     // const permiso = await Permiso.find({ APELLIDO_P: { $regex: apellido, $options: 'i'} })
-    const permisos = await Permiso.aggregate([ 
-        { $match: { APELLIDO_P: { $regex: apellido, $options: 'i'} }},
-        { $addFields: { "MATRIZ_length": { $strLenCP: "$MATRIZ_V"}, "DIGITO_length": { $strLenCP: "$DIGITO_V"} }},
-        { $sort: { "MATRIZ_length": 1, "MATRIZ_V": 1, "DIGITO_length": 1, "DIGITO_V": 1 }},
-        { $project: { "MATRIZ_length": 0, "DIGITO_length": 0 }}
-    ])
+    // const permisos = await Permiso.aggregate([ 
+    //     { $match: { APELLIDO_P: { $regex: apellido, $options: 'i'} }},
+    //     { $addFields: { "MATRIZ_length": { $strLenCP: "$MATRIZ_V"}, "DIGITO_length": { $strLenCP: "$DIGITO_V"} }},
+    //     { $sort: { "MATRIZ_length": 1, "MATRIZ_V": 1, "DIGITO_length": 1, "DIGITO_V": 1 }},
+    //     { $project: { "MATRIZ_length": 0, "DIGITO_length": 0 }}
+    // ])
+    const permisos = await Permiso.find({ APELLIDO_P: apellido }).sort({ APELLIDO_M: 1 })
     if (!permisos.length) {
         return res.status(404).json({ message: 'No se encontraron coincidencias' })
     }
@@ -193,12 +195,12 @@ export const gerPermisosBySector = async (req, res) => {
 //     // ])
 
 //     // Actualiza la base de datos completa en los campos especificados con los valores definidos
-//     await Permiso.updateMany(
-//         { "NOMBRE": { $regex: /%/ }},
+//     await RolData.updateMany(
+//         { "NOMBRE": { $regex: /¡/ }},
 //         [{
 //             $set: {
 //                 "NOMBRE": {
-//                     $replaceAll: { input: "$NOMBRE", find: "%", replacement: ";" }
+//                     $replaceAll: { input: "$NOMBRE", find: "¡", replacement: "," }
 //                 },
 //             }
 //         }]

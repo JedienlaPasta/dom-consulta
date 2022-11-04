@@ -27,22 +27,22 @@ export const getLogs = async (req, res) => {
             end.setHours(23,59,59,999)
             end = objId(Math.floor(end.getTime() / 1000).toString(16) + "0000000000000000")
             
-            logs = await Log.find({ _id: { $gt: start, $lt: end } })
+            logs = await Log.find({ _id: { $gt: start, $lt: end } }).sort([['_id', -1]])
         }
         else if (option === 'id' && id !== '') {
-            logs = await Log.find({ permisoId: objId(id) })
+            logs = await Log.find({ permisoId: objId(id) }).sort([['_id', -1]])
         }
         else if (option === 'rol' && rol !== { mz: '', pd: '' }) {
             if (rol.mz !== '' && rol.pd !== '' ) {
-                logs = await Log.find({ matriz: rol.mz, digito: rol.pd })
+                logs = await Log.find({ matriz: rol.mz, digito: rol.pd }).sort([['_id', -1]])
             }
             else if (rol.mz !== '' ) {
-                logs = await Log.find({ matriz: rol.mz })
+                logs = await Log.find({ matriz: rol.mz }).sort([['_id', -1]])
             }
         }
         else {
             console.log('all')
-            logs = await Log.find()
+            logs = await Log.find().sort([['_id', -1]])
         }
     } catch (error) {
         if (!logs.length) {
