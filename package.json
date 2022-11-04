@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "cd client && npm run build",
-    "install-client": "cd client && npm install",
+    "install": "cd client && npm install",
     "postbuild": "npm run install-client && npm run build",
     "start": "node server.js",
     "save": "node backup.js",
